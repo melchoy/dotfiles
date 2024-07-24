@@ -1,0 +1,18 @@
+[user]
+	name = Melissa Choy
+	email = mel@melchoy.com
+	signingkey = /Users/mel/.ssh/id_rsa.pub
+[core]
+	excludesfile = /Users/mel/.gitignore
+	sshCommand = ssh -i ~/.ssh/id_rsa
+[init]
+	defaultBranch = main
+[commit]
+	template = /Users/mel/.stCommitMsg
+[tag]
+	forceSignAnnotated = false
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true

@@ -1,0 +1,18 @@
+{
+  "Profiles": [
+    {
+      "Name": "MelzzTest",
+      "Guid": "E2B0A0D0-15E3-4F0A-B6AD-1D07F0D78F98",
+      "Custom Command": "Yes",
+      "Command": "echo -e '\\033[41m\\033[30mWelcome to the MelzzTest profile\\033[0m'; sleep 3; clear",
+      "Working Directory": "/Users/mel",
+      "Use Tab Title": true,
+      "Tab Title": "MelzzTest",
+      "Background Color": {
+        "Red Component": 1.0,
+        "Green Component": 0.0,
+        "Blue Component": 0.0
+      }
+    }
+  ]
+}

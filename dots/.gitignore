@@ -1,0 +1,31 @@
+# Temporary files
+*~
+*.bak
+*.old
+.debug.log*
+
+# Local Only Files, Notes and temporary directories
+@notes
+@local
+_notes_
+_local_
+_deleteme_
+
+# System-specific files
+.DS_Store
+Icon\r
+
+# Build directories
+.cache
+node_modules
+.netlify
+
+# Configuration and environment files
+.env
+.prettierignore
+.local
+
+# Ruby-specific files
+.yardoc
+.yardopts
+.ruby-gemset

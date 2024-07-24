@@ -1,0 +1,8 @@
+@local
+@bootstrap
+.env
+.actenv
+.DS_Store
+logs
+tmp
+Brewfile.lock.json
