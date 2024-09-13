@@ -1,5 +1,7 @@
 @local
 @bootstrap
+.local
+.bkup
 .env
 .actenv
 .DS_Store
