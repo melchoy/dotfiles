@@ -1,16 +1,16 @@
 
 #!/bin/bash
 
-source ~/.dotfiles/macos/common.sh
+source ~/.dotfiles/common.sh
 
-echo "Reversing .config-manager setup..."
+echo "Reversing .dotfiles setup..."
 
 ### Uninstalling Homebrew Cask Applications ###
 echo "Uninstalling Homebrew Cask Applications..."
 if command -v brew &> /dev/null && casks=$(brew list --cask) && [ -n "$casks" ]; then
 	for cask in $casks; do
 		echo "Uninstalling $cask..."
-		brew uninstall --cask "$cask"
+		#brew uninstall --cask "$cask"
 	done
 fi
 

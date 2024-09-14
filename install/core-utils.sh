@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ~/.dotfiles/macos/common.sh
+source ~/.dotfiles/common.sh
 
 set -e  # Exit script if any command fails
 
@@ -27,14 +27,14 @@ coreutils=(
 	"rsync"
 	"gnupg"
 	"wget"
-	"coreutils" 
+	"coreutils"
 	"curl"
 
 	# Data Processing
 	"jq"
-	"shellcheck"  
+	"shellcheck"
 )
 
 for util in "${coreutils[@]}"; do
-	brew_install_or_update "$util"
+	install_or_update_package "$util"
 done

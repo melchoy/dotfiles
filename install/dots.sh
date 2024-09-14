@@ -1,7 +1,7 @@
 #!/bin/bash
 
-source ~/.dotfiles/macos/common.sh
-DOT_SOURCE_BASE_DIR="$DOTMANGR_BASE_DIR/dots"
+source ~/.dotfiles/common.sh
+
 
 install_dotfiles() {
 	echo "Symlinking all files and directories in $DOT_SOURCE_BASE_DIR..."

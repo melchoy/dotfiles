@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ~/.dotfiles/macos/common.sh
+source ~/.dotfiles/common.sh
 
 set -e  # Exit script if any command fails
 
@@ -41,7 +41,7 @@ refresh_font_cache() {
 }
 
 # Install Oh My Zsh
-install_oh_my_zsh() {
+install_or_update_ohmyzsh() {
 	if [ ! -d "$HOME/.oh-my-zsh" ]; then
 		echo "Installing OhMyZsh..."
 		export KEEP_ZSHRC=yes
@@ -52,7 +52,9 @@ install_oh_my_zsh() {
 	fi
 }
 
-brew_install_or_update "zsh"
 #install_fira_code_nerd_font
 #refresh_font_cache
-install_oh_my_zsh
+
+install_or_update_package "zsh"
+install_or_update_ohmyzsh
+

@@ -1,5 +1,7 @@
 #!/bin/sh
 
+echo "Setting Default Mac Preferences"
+
 # Close open System Preferences panes, to prevent them from overriding settings.
 osascript -e 'tell application "System Preferences" to quit'
 
