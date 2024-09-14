@@ -7,8 +7,14 @@ cask_apps=(
 	"brave-browser"
 	"1password"
 	"visual-studio-code"
+
+	# TODO: Choose one or the other
 	#"alfred"
 	"raycast"
+
+	# TODO: Make Optional/Section Menu
+	"choosy"
+	"chatgpt"
 	"slack"
 )
 

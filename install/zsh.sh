@@ -35,7 +35,7 @@ refresh_font_cache() {
 
 	# Refresh font cache using fc-cache
 	echo "Using fc-cache to refresh font cache."
-	fc-cache -f -v
+	#fc-cache -f -v
 
 	echo "Font cache refreshed."
 }
@@ -52,8 +52,8 @@ install_or_update_ohmyzsh() {
 	fi
 }
 
-#install_fira_code_nerd_font
-#refresh_font_cache
+install_fira_code_nerd_font
+refresh_font_cache
 
 install_or_update_packages "zsh"
 install_or_update_ohmyzsh
