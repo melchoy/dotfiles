@@ -160,8 +160,14 @@ export PATH="$PATH:$HOME/Bin"
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
 # zsh
-source <(fzf --zsh)
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+if command -v fzf > /dev/null; then
+	source <(fzf --zsh)
+fi
+
+# iTerm2 / TODO: Check if still used
+if [ -f "${HOME}/.iterm2_shell_integration.zsh" ]; then
+	source "${HOME}/.iterm2_shell_integration.zsh"
+fi
 
 export PATH=$PATH:$HOME/go/bin
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ~/.dotfiles/macos/common.sh
+source ~/.dotfiles/common.sh
 
 set -e  # Exit script if any command fails
 
@@ -15,6 +15,22 @@ cask_apps=(
 	"raycast"
 	"slack"
 )
+
+brew_install_or_update_cask() {
+	local app_name="$1"
+
+	if brew list --cask "$app_name" &> /dev/null; then
+		if brew outdated --cask | grep -q "^$app_name"; then
+			echo "$app_name is outdated. Updating..."
+			brew upgrade --cask "$app_name"
+		else
+			echo "$app_name is already up-to-date."
+		fi
+	else
+		echo "Installing $app_name..."
+		brew install --cask --force "$app_name"
+	fi
+}
 
 for app in "${cask_apps[@]}"; do
 	brew_install_or_update_cask "$app"

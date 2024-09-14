@@ -3,7 +3,6 @@
 source ~/.dotfiles/common.sh
 
 set -e  # Exit script if any command fails
-
 echo "Installing Core Utils"
 
 coreutils=(
@@ -36,5 +35,5 @@ coreutils=(
 )
 
 for util in "${coreutils[@]}"; do
-	install_or_update_package "$util"
+	install_or_update_packages "$util"
 done

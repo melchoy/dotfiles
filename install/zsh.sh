@@ -55,6 +55,6 @@ install_or_update_ohmyzsh() {
 #install_fira_code_nerd_font
 #refresh_font_cache
 
-install_or_update_package "zsh"
+install_or_update_packages "zsh"
 install_or_update_ohmyzsh
 

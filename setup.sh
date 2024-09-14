@@ -1,10 +1,14 @@
 #!/bin/bash
+
 source ~/.dotfiles/common.sh
 
+echo $PLATFORM_NAME
+
 do_install() {
+	# LINKING THE DOTS
+	sh $DOTMANGR_INSTALL_DIR/dots.sh
 
 	# COMMAND LINE STUFF
-
 	if [[ "$PLATFORM_NAME" == "mac" ]]; then
 		sh $DOTMANGR_PLATFORM_INSTALL_DIR/defaults.sh
 		sh $DOTMANGR_PLATFORM_INSTALL_DIR/brew.sh
@@ -14,10 +18,7 @@ do_install() {
 	sh $DOTMANGR_INSTALL_DIR/zsh.sh
 	sh $DOTMANGR_INSTALL_DIR/core-utils.sh
 
-	sh $DOTMANGR_INSTALL_DIR/dots.sh
-
 	# DESKTOP STUFF
-
 	if [[ "$PLATFORM_NAME" == "mac" ]]; then
 		sh $DOTMANGR_PLATFORM_INSTALL_DIR/applications.sh
 	fi
