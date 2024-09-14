@@ -122,30 +122,30 @@ export NVM_DIR="$HOME/.nvm"
 
 # place this after nvm initialization!
 # TODO: Look at the standard oh-my-zsh plugin for this
-autoload -U add-zsh-hook
-load-nvmrc() {
-	# Check if nvm is installed
-	if ! command -v nvm > /dev/null 2>&1; then
-		return
-	fi
-
-	local node_version="$(nvm version)"
-	local nvmrc_path="$(nvm_find_nvmrc)"
-
-	if [ -n "$nvmrc_path" ]; then
-		local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
-
-		if [ "$nvmrc_node_version" = "N/A" ]; then
-			nvm install
-		elif [ "$nvmrc_node_version" != "$node_version" ]; then
-			nvm use
-		fi
-	elif [ "$node_version" != "$(nvm version default)" ]; then
-		nvm use default > /dev/null 2>&1
-	fi
-}
-add-zsh-hook chpwd load-nvmrc
-load-nvmrc
+#autoload -U add-zsh-hook
+#load-nvmrc() {
+#	# Check if nvm is installed
+#	if ! command -v nvm > /dev/null 2>&1; then
+#		return
+#	fi
+#
+#	local node_version="$(nvm version)"
+#	local nvmrc_path="$(nvm_find_nvmrc)"
+#
+#	if [ -n "$nvmrc_path" ]; then
+#		local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
+#
+#		if [ "$nvmrc_node_version" = "N/A" ]; then
+#			nvm install
+#		elif [ "$nvmrc_node_version" != "$node_version" ]; then
+#			nvm use
+#		fi
+#	elif [ "$node_version" != "$(nvm version default)" ]; then
+#		nvm use default > /dev/null 2>&1
+#	fi
+#}
+#add-zsh-hook chpwd load-nvmrc
+#load-nvmrc
 
 export PATH="/opt/homebrew/bin:${PATH}"
 export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"

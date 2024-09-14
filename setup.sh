@@ -2,8 +2,6 @@
 
 source ~/.dotfiles/common.sh
 
-echo $PLATFORM_NAME
-
 do_install() {
 	# LINKING THE DOTS
 	sh $DOTMANGR_INSTALL_DIR/dots.sh
@@ -17,6 +15,9 @@ do_install() {
 	sh $DOTMANGR_INSTALL_DIR/vault.sh
 	sh $DOTMANGR_INSTALL_DIR/zsh.sh
 	sh $DOTMANGR_INSTALL_DIR/core-utils.sh
+
+	# PROGRAMMING UTILITIES
+	sh $DOTMANGR_INSTALL_DIR/asdf.sh
 
 	# DESKTOP STUFF
 	if [[ "$PLATFORM_NAME" == "mac" ]]; then

@@ -2,9 +2,6 @@
 
 source ~/.dotfiles/common.sh
 
-set -e  # Exit script if any command fails
-echo "Installing Core Utils"
-
 coreutils=(
 	# Automation & Configuration Management
 	"ansible"
@@ -28,6 +25,7 @@ coreutils=(
 	"wget"
 	"coreutils"
 	"curl"
+	"unzip"
 
 	# Data Processing
 	"jq"

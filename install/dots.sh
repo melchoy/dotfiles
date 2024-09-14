@@ -3,8 +3,6 @@
 source ~/.dotfiles/common.sh
 
 install_dotfiles() {
-	echo "Symlinking all files and directories in $DOT_SOURCE_BASE_DIR..."
-
 	find "$DOT_SOURCE_BASE_DIR" -mindepth 1 | while read source_file; do
 		local filename=$(basename "$source_file")
 		local target_file="$HOME/$filename"
@@ -16,13 +14,10 @@ create_dotfile_symlink() {
 	local source_file="$1"
 	local target_file="${2:-$HOME/$(basename $source_file)}"
 
-	if [ -e "$target_file" ]; then
-		echo "$target_file already exists. Skipping."
-		#TODO: Check existing points to our dot source file
-	else
-		echo "Creating symlink: $target_file -> $source_file"
-		ln -s $source_file $target_file
+	if [ ! -e "$target_file" ]; then
+  	ln -s "$source_file" "$target_file"
 	fi
+
 }
 
 uninstall_dotfiles() {

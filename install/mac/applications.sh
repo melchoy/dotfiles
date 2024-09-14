@@ -2,10 +2,6 @@
 
 source ~/.dotfiles/common.sh
 
-set -e  # Exit script if any command fails
-
-echo "Installing Applications with Homebrew Cask"
-
 # TODO: Make some apps optional
 cask_apps=(
 	"brave-browser"
@@ -21,10 +17,8 @@ brew_install_or_update_cask() {
 
 	if brew list --cask "$app_name" &> /dev/null; then
 		if brew outdated --cask | grep -q "^$app_name"; then
-			echo "$app_name is outdated. Updating..."
-			brew upgrade --cask "$app_name"
-		else
-			echo "$app_name is already up-to-date."
+  		echo "$app_name is outdated. Updating..."
+  		brew upgrade --cask "$app_name"
 		fi
 	else
 		echo "Installing $app_name..."
