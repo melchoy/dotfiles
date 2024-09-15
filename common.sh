@@ -31,14 +31,17 @@ DOTMANGR_BACKUP_DIR=$DOTMANGR_LOCAL_DIR/bkup
 
 DOTMANGR_CONFIGS_DIR=$DOTMANGR_BASE_DIR/configs
 DOTMANGR_PACKAGES_DIR=$DOTMANGR_BASE_DIR/packages
+DOTMANGR_DEV_PACKAGES_DIR=$DOTMANGR_PACKAGES_DIR/devenv
 
 DOTMANGR_PLATFORM_DIR="$DOTMANGR_BASE_DIR/platforms/$PLATFORM_NAME"
+
+# Generic Utilitites
 
 symlink_dotfile() {
 	# Assign source and target variables
 	local source_file=$1
 	local target_file=${2:-"$HOME/$(basename "$source_file")"}
-	local backup_dir=$DOT_SOURCE_BASE_DIR
+	local backup_dir=$DOTMANGR_BACKUP_DIR
 	local timestamp=$(date +"%Y%m%d_%H%M%S")
 
 	if [ ! -f "$source_file" ]; then
@@ -58,28 +61,7 @@ symlink_dotfile() {
 	echo "Symlink created: $source_file -> $target_file"
 }
 
-is_package_installed() {
-  local package_name="$1"
-
-  if [[ "$PLATFORM_NAME" == "mac" ]]; then
-    # Check both brew and brew cask for the package
-    brew list --cask "$package_name" &>/dev/null || brew list "$package_name" &>/dev/null
-  elif [[ "$PLATFORM_NAME" == "ubuntu" ]]; then
-    dpkg -l | grep -q "^ii  $package_name "
-  else
-    return 1
-  fi
-}
-
-is_package_outdated() {
-  local package_name="$1"
-
-  if echo "$OUTDATED_PACKAGE_LIST" | grep -q "^$package_name$"; then
-    return 0 # true
-  else
-    return 1 # false
-  fi
-}
+# Git & Github Utilitits
 
 github_auth_and_clone() {
   local repo_url="$1"
@@ -116,6 +98,31 @@ clone_or_update_repo() {
   else
     echo "Cloning $repo into $local_path..."
     eval "$clone_cmd"
+  fi
+}
+
+# Package Manager Utilities
+
+is_package_installed() {
+  local package_name="$1"
+
+  if [[ "$PLATFORM_NAME" == "mac" ]]; then
+    # Check both brew and brew cask for the package
+    brew list --cask "$package_name" &>/dev/null || brew list "$package_name" &>/dev/null
+  elif [[ "$PLATFORM_NAME" == "ubuntu" ]]; then
+    dpkg -l | grep -q "^ii  $package_name "
+  else
+    return 1
+  fi
+}
+
+is_package_outdated() {
+  local package_name="$1"
+
+  if echo "$OUTDATED_PACKAGE_LIST" | grep -q "^$package_name$"; then
+    return 0 # true
+  else
+    return 1 # false
   fi
 }
 
@@ -161,3 +168,30 @@ install_or_update_packages() {
 		install_or_update_package "$cmd"
 	done
 }
+
+# ASDF Utilities
+
+is_asdf_plugin_installed() {
+	local plugin_name="$1"
+	asdf plugin list | grep -q "^$plugin_name" &> /dev/null
+}
+
+install_asdf_plugin() {
+	local plugin_name="$1"
+	local plugin_repo="$2"
+	if ! is_asdf_plugin_installed "$plugin_name"; then
+		echo "Installing $plugin_name plugin..."
+		asdf plugin add "$plugin_name" "$plugin_repo"
+	fi
+}
+
+install_asdf_package_version() {
+    local lang="$1"
+    local latest_version
+    if [[ -z "$(asdf list "$lang")" ]]; then
+      echo "No versions of $lang installed. Installing latest..."
+      latest_version=$(asdf latest "$lang")
+      asdf install "$lang" "$latest_version"
+      asdf global "$lang" "$latest_version"
+    fi
+  }
