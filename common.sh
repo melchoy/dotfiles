@@ -28,14 +28,43 @@ fi
 
 # TODO: Figure out which of these are still required!
 DOTMANGR_BASE_DIR=~/.dotfiles
-DOTMANGR_PLATFORM_DIR="$DOTMANGR_BASE_DIR/$PLATFORM_NAME"
 
-DOTMANGR_INSTALL_DIR=$DOTMANGR_BASE_DIR/install
-DOTMANGR_PLATFORM_INSTALL_DIR="$DOTMANGR_INSTALL_DIR/$PLATFORM_NAME"
+DOTMANGR_LOCAL_DIR=$DOTMANGR_BASE_DIR/@local
+DOTMANGR_BACKUP_DIR=$DOTMANGR_LOCAL_DIR/bkup
 
+DOTMANGR_CONFIGS_DIR=$DOTMANGR_BASE_DIR/configs
+DOTMANGR_PACKAGES_DIR=$DOTMANGR_BASE_DIR/packages
+
+DOTMANGR_PLATFORM_DIR="$DOTMANGR_BASE_DIR/platforms/$PLATFORM_NAME"
+
+#DOTMANGR_INSTALL_DIR=$DOTMANGR_BASE_DIR/install
+#DOTMANGR_PLATFORM_INSTALL_DIR="$DOTMANGR_INSTALL_DIR/$PLATFORM_NAME"
 #DOTMANGR_PLATFORMSETUP_DIR="$DOTMANGR_PLATFORM_DIR/setup"
+#DOT_SOURCE_BASE_DIR="$DOTMANGR_BASE_DIR/dots"
 
-DOT_SOURCE_BASE_DIR="$DOTMANGR_BASE_DIR/dots"
+symlink_dotfile() {
+	# Assign source and target variables
+	local source_file=$1
+	local target_file=${2:-"$HOME/$(basename "$source_file")"}
+	local backup_dir=$DOT_SOURCE_BASE_DIR
+	local timestamp=$(date +"%Y%m%d_%H%M%S")
+
+	if [ ! -f "$source_file" ]; then
+		echo "Error: Source file '$source_file' does not exist."
+		return 1
+	fi
+
+	# Backup existing dotfile
+	if [ -e "$target_file" ] && [ ! -L "$target_file" ]; then
+		mkdir -p "$backup_dir"
+		local backup_file="$backup_dir/$(basename "$target_file").bak_$timestamp"
+		mv "$target_file" "$backup_file"
+		echo "Existing target file '$target_file' backed up to '$backup_file'."
+	fi
+
+	ln -sf "$source_file" "$target_file"
+	echo "Symlink created: $source_file -> $target_file"
+}
 
 is_package_installed() {
   local package_name="$1"
@@ -46,7 +75,6 @@ is_package_installed() {
     return 1 # false
   fi
 }
-
 
 is_package_outdated() {
   local package_name="$1"

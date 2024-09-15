@@ -3,16 +3,19 @@
 
 DEFAULT_USER="$USER"
 
-# Path to your oh-my-zsh installation.
+export DOTHOME="$HOME/.dotfiles"
+export DOTFILES="$DOTHOME/configs"
+
 export ZSH="$HOME/.oh-my-zsh"
+export ZSHDOTS="$DOTFILES/zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-#ZSH_THEME="robbyrussell"
+ZSH_THEME="robbyrussell"
 #ZSH_THEME="agnoster"
-ZSH_THEME="melzz"
+#ZSH_THEME="melzz"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -68,7 +71,7 @@ zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
-ZSH_CUSTOM="$HOME/.dotfiles/custom/oh-my-zsh"
+ZSH_CUSTOM="$DOTFILES/zsh/custom"
 
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
@@ -110,11 +113,10 @@ fi
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
-if [ -f ~/.zalias ]; then
-	source ~/.zalias
+source $ZSHDOTS/.aliases
+if [ -f ~/.aliases ]; then
+	source ~/.aliases
 fi
-
-alias edot="code ~/.dotfiles"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
@@ -152,10 +154,11 @@ export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"
 export PATH="$HOME/.composer/vendor/bin:$PATH"
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
+# export PATH="$PATH:$HOME/.rvm/bin"
 
 # Add my custom PATH
-export PATH="$PATH:$HOME/Bin"
+export PATH="$PATH:$HOME/.bin"
+export PATH="$PATH:$DOTFILES/bin"
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 

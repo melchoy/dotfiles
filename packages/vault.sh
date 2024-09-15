@@ -2,8 +2,6 @@
 
 source ~/.dotfiles/common.sh
 
-#echo "Running vault installer..."
-
 install_or_update_packages ansible gh
 
 VAULT_REPO_URL="melchoy/vault.git"

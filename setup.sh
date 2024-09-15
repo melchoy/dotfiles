@@ -4,24 +4,24 @@ source ~/.dotfiles/common.sh
 
 do_install() {
 	# LINKING THE DOTS
-	sh $DOTMANGR_INSTALL_DIR/dots.sh
+	sh $DOTMANGR_PACKAGES_DIR/dots.sh
 
 	# COMMAND LINE STUFF
 	if [[ "$PLATFORM_NAME" == "mac" ]]; then
-		sh $DOTMANGR_PLATFORM_INSTALL_DIR/defaults.sh
-		sh $DOTMANGR_PLATFORM_INSTALL_DIR/brew.sh
+		sh $DOTMANGR_PLATFORM_DIR/defaults.sh
+		sh $DOTMANGR_PLATFORM_DIR/brew.sh
 	fi
 
-	sh $DOTMANGR_INSTALL_DIR/vault.sh
-	sh $DOTMANGR_INSTALL_DIR/zsh.sh
-	sh $DOTMANGR_INSTALL_DIR/core-utils.sh
+	sh $DOTMANGR_PACKAGES_DIR/vault.sh
+	sh $DOTMANGR_PACKAGES_DIR/zsh.sh
+	sh $DOTMANGR_PACKAGES_DIR/core.sh
 
 	# PROGRAMMING UTILITIES
-	sh $DOTMANGR_INSTALL_DIR/asdf.sh
+	sh $DOTMANGR_PACKAGES_DIR/asdf.sh
 
 	# DESKTOP STUFF
 	if [[ "$PLATFORM_NAME" == "mac" ]]; then
-		sh $DOTMANGR_PLATFORM_INSTALL_DIR/applications.sh
+		sh $DOTMANGR_PLATFORM_DIR/applications.sh
 	fi
 }
 

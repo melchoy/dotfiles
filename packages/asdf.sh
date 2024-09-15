@@ -49,4 +49,6 @@ if command -v asdf &> /dev/null; then
   install_asdf_package_version ruby
 	install_asdf_package_version erlang
   install_asdf_package_version elixir
+
+	symlink_dotfile "$DOTMANGR_CONFIGS_DIR/.asdfrc"
 fi
