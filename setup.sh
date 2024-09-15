@@ -28,8 +28,7 @@ do_install() {
 }
 
 do_uninstall () {
-	sh $DOTMANGR_PLATFORM_INSTALL_DIR/uninstall.sh
-	sh $DOTMANGR_BASE_DIR/install/dots.sh --uninstall
+	echo "Do uninstall needs implementing"
 }
 
 if [ "$1" == "--uninstall" ]; then
