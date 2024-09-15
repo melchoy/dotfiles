@@ -19,7 +19,7 @@ do_install() {
 	# PROGRAMMING UTILITIES
 	sh $DOTMANGR_PACKAGES_DIR/git.sh
 	sh $DOTMANGR_PACKAGES_DIR/asdf.sh
-	sh $DOTMANGR_PACKAGES_DIR/neovim.sh
+	sh $DOTMANGR_PACKAGES_DIR/nvim.sh
 
 	# DESKTOP STUFF
 	if [[ "$PLATFORM_NAME" == "mac" ]]; then
