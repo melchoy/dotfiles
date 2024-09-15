@@ -8,7 +8,6 @@ if [[ "$OS_TYPE" == "Darwin" ]]; then
 	UPDATE_PACKAGE_CMD="brew upgrade"
 	UPDATE_PACKAGE_MANAGER_CMD="brew update"
 	OUTDATED_PACKAGE_LIST=$(brew outdated --quiet 2>/dev/null)
-	INSTALLED_PACKAGE_CHECK_CMD="brew list --cask | grep -q '^$package_name$' || brew list | grep -q '^$package_name$'"
 
 	BREW_BIN=$([[ "$(uname -m)" == "arm64" ]] && echo "/opt/homebrew/bin" || echo "/usr/local/bin")
 	[[ -x "$BREW_BIN/brew" ]] && eval "$($BREW_BIN/brew shellenv)" &>/dev/null || true
@@ -19,14 +18,12 @@ elif [[ "$OS_TYPE" == "Linux" && "$(lsb_release -si)" == "Ubuntu" ]]; then
 	UPDATE_PACKAGE_CMD="sudo apt-get upgrade -y"
 	UPDATE_PACKAGE_MANAGER_CMD="sudo apt-get update"
 	OUTDATED_PACKAGE_LIST=$(apt list --upgradable 2>/dev/null | grep -oP '^\S+' | tail -n +2)
-	INSTALLED_PACKAGE_CHECK_CMD="dpkg -l | grep -q '^ii  $package_name '"
 
 else
 	echo "Unknown operating system: $OS_TYPE"
 	exit 1
 fi
 
-# TODO: Figure out which of these are still required!
 DOTMANGR_BASE_DIR=~/.dotfiles
 
 DOTMANGR_LOCAL_DIR=$DOTMANGR_BASE_DIR/@local
@@ -36,11 +33,6 @@ DOTMANGR_CONFIGS_DIR=$DOTMANGR_BASE_DIR/configs
 DOTMANGR_PACKAGES_DIR=$DOTMANGR_BASE_DIR/packages
 
 DOTMANGR_PLATFORM_DIR="$DOTMANGR_BASE_DIR/platforms/$PLATFORM_NAME"
-
-#DOTMANGR_INSTALL_DIR=$DOTMANGR_BASE_DIR/install
-#DOTMANGR_PLATFORM_INSTALL_DIR="$DOTMANGR_INSTALL_DIR/$PLATFORM_NAME"
-#DOTMANGR_PLATFORMSETUP_DIR="$DOTMANGR_PLATFORM_DIR/setup"
-#DOT_SOURCE_BASE_DIR="$DOTMANGR_BASE_DIR/dots"
 
 symlink_dotfile() {
 	# Assign source and target variables
@@ -69,10 +61,13 @@ symlink_dotfile() {
 is_package_installed() {
   local package_name="$1"
 
-  if eval "$PACKAGE_INSTALL_CHECK_CMD"; then
-    return 0 # true
+  if [[ "$PLATFORM_NAME" == "mac" ]]; then
+    # Check both brew and brew cask for the package
+    brew list --cask "$package_name" &>/dev/null || brew list "$package_name" &>/dev/null
+  elif [[ "$PLATFORM_NAME" == "ubuntu" ]]; then
+    dpkg -l | grep -q "^ii  $package_name "
   else
-    return 1 # false
+    return 1
   fi
 }
 
@@ -133,7 +128,7 @@ install_or_update_package() {
 	local cmd="$1"
 
 	if is_package_installed "$cmd"; then
-		# echo "$cmd is already installed."
+		echo "$cmd is already installed."
 		if is_package_outdated "$cmd"; then
 			echo "$cmd is outdated. Updating..."
 			$UPDATE_PACKAGE_CMD "$cmd"

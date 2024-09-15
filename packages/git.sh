@@ -20,3 +20,4 @@ elif [[ "$PLATFORM_NAME" == "ubuntu" ]]; then
   pip3 install git-filter-repo
 fi
 
+symlink_dotfile "$DOTMANGR_CONFIGS_DIR/git/.gitconfig"
