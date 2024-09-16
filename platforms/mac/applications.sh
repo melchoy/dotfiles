@@ -6,7 +6,6 @@ source ~/.dotfiles/common.sh
 cask_apps=(
 	"brave-browser"
 	"1password"
-	"visual-studio-code"
 
 	# TODO: Choose one or the other
 	#"alfred"

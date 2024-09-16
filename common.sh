@@ -41,23 +41,23 @@ symlink_dotfile() {
 	# Assign source and target variables
 	local source_file=$1
 	local target_file=${2:-"$HOME/$(basename "$source_file")"}
-	local backup_dir=$DOTMANGR_BACKUP_DIR
+	local backup_dir="$DOTMANGR_BACKUP_DIR"
 	local timestamp=$(date +"%Y%m%d_%H%M%S")
 
-	if [ ! -f "$source_file" ]; then
-		echo "Error: Source file '$source_file' does not exist."
+	if [ ! -e "$source_file" ]; then
+		echo "Error: Source '$source_file' does not exist."
 		return 1
 	fi
 
-	# Backup existing dotfile
+	# Backup and remove existing file or directory
 	if [ -e "$target_file" ] && [ ! -L "$target_file" ]; then
 		mkdir -p "$backup_dir"
 		local backup_file="$backup_dir/$(basename "$target_file").bak_$timestamp"
 		mv "$target_file" "$backup_file"
-		echo "Existing target file '$target_file' backed up to '$backup_file'."
+		echo "Existing target '$target_file' backed up to '$backup_file'."
 	fi
 
-	ln -sf "$source_file" "$target_file"
+	ln -sfn "$source_file" "$target_file"
 	echo "Symlink created: $source_file -> $target_file"
 }
 
