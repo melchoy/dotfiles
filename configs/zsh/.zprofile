@@ -1,24 +1,21 @@
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
-# Added by OrbStack: command-line tools and integration
-source ~/.orbstack/shell/init.zsh 2>/dev/null || :
+export DOTHOME="$HOME/.dotfiles"
+export DOTFILES="$DOTHOME/configs"
 
-# Enable ASDF
+export PATH="/opt/homebrew/bin:$PATH"
+export PATH="$HOME/.composer/vendor/bin:$PATH"
+export PATH="$HOME/go/bin:$PATH"
+export PATH="$HOME/.bin:$DOTFILES/bin:$PATH"
+
+# Load Environment Variables
+[ -f "$HOME/.env_vars" ] && source "$HOME/.env_vars"
+
+# Load OrbStack command-line tools and integration
+[ -f "$HOME/.orbstack/shell/init.zsh" ] && source "$HOME/.orbstack/shell/init.zsh"
+
+# Load ASDF Integration
 [ -f "$HOME/.asdf/asdf.sh" ] && . "$HOME/.asdf/asdf.sh"
 
-# Enable PNPM
-if [[ "$OSTYPE" == "darwin"* ]]; then
-  # macOS installation path
-  PNPM_HOME="/Users/mel/Library/pnpm"
-elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
-  # Ubuntu (or other Linux distros) installation path
-  PNPM_HOME="$HOME/.local/share/pnpm"
-fi
-
-# Add PNPM_HOME to PATH if pnpm is installed
-if [ -d "$PNPM_HOME" ] && [ -f "$PNPM_HOME/pnpm" ]; then
-  case ":$PATH:" in
-    *":$PNPM_HOME:"*) ;;
-    *) export PATH="$PNPM_HOME:$PATH" ;;
-  esac
-fi
+# Load PNPM Integration
+[ -f "$HOME/$DOTFILES/zsh/pnpm.sh" ] && . "$HOME/$DOTFILES/zsh/pnpm.sh"
