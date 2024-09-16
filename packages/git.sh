@@ -12,17 +12,16 @@ for util in "${package_list[@]}"; do
 done
 
 if [[ "$PLATFORM_NAME" == "mac" ]]; then
-  brew install git-filter-repo
+  install_or_update_packages git-filter-repo
 
 elif [[ "$PLATFORM_NAME" == "ubuntu" ]]; then
-  sudo apt update
-  sudo apt install python3-pip -y
+  install_or_update_packages python3-pip -y
   pip3 install git-filter-repo
 fi
 
 
 if [[ "$PLATFORM_NAME" == "mac" ]]; then
-	brew install lazygit
+	install_or_update_packages lazygit
 elif [[ "$PLATFORM_NAME" == "ubuntu" ]]; then
 	LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
 	curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
