@@ -23,7 +23,7 @@ do_install() {
 
 	# CODE EDITORS
 	sh $DOTMANGR_PACKAGES_DIR/nvim.sh
-	sh $DOTMANGR_PACKAGES_DIR/nvim.sh
+	sh $DOTMANGR_PACKAGES_DIR/vscode.sh
 
 	# DESKTOP STUFF
 	if [[ "$PLATFORM_NAME" == "mac" ]]; then

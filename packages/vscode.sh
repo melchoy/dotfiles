@@ -4,6 +4,7 @@ source ~/.dotfiles/common.sh
 
 extension_list=(
   "esbenp.prettier-vscode"
+  "shopify.ruby-lsp"
 )
 
 install_vscode_extensions() {
