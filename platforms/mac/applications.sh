@@ -12,7 +12,7 @@ cask_apps=(
 	"raycast"
 
 	# TODO: Make Optional/Section Menu
-	"choosy"
+	#"choosy"
 	"chatgpt"
 	"slack"
 )

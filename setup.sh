@@ -3,16 +3,13 @@
 source ~/.dotfiles/common.sh
 
 do_install() {
-	# LINKING THE DOTS
-	sh $DOTMANGR_PACKAGES_DIR/dots.sh
-
 	# COMMAND LINE STUFF
 	if [[ "$PLATFORM_NAME" == "mac" ]]; then
 		sh $DOTMANGR_PLATFORM_DIR/defaults.sh
 		sh $DOTMANGR_PLATFORM_DIR/brew.sh
 	fi
 
-	# CORE ENVIRONEMNT PACKAGES
+	# CORE ENVIRONMENT PACKAGES
 	sh $DOTMANGR_PACKAGES_DIR/vault.sh
 	sh $DOTMANGR_PACKAGES_DIR/zsh.sh
 	sh $DOTMANGR_PACKAGES_DIR/core.sh
@@ -25,13 +22,16 @@ do_install() {
 	sh $DOTMANGR_PACKAGES_DIR/nvim.sh
 	sh $DOTMANGR_PACKAGES_DIR/vscode.sh
 
+	# LINKING GENERIC DOTS
+	sh $DOTMANGR_PACKAGES_DIR/dots.sh
+
 	# DESKTOP STUFF
 	if [[ "$PLATFORM_NAME" == "mac" ]]; then
 		sh $DOTMANGR_PLATFORM_DIR/applications.sh
 	fi
 }
 
-do_uninstall () {
+do_uninstall() {
 	echo "Do uninstall needs implementing"
 }
 
