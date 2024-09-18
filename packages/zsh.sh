@@ -52,12 +52,18 @@ install_or_update_ohmyzsh() {
 	fi
 }
 
+# Install Fira Code Nerd Font & Refresh Font Cache
+# TODO: Review the powerline font installer & change the font
 install_fira_code_nerd_font
 refresh_font_cache
 
+# Install ZSH & Oh My Zsh
 install_or_update_packages "zsh"
 install_or_update_ohmyzsh
 
+# Create & Symlink ZSH Config Files
+touch "$HOME/.zshrc-local"
+touch "$HOME/.zprofile-custom"
 symlink_dotfile "$DOTMANGR_CONFIGS_DIR/zsh/.zshrc"
 symlink_dotfile "$DOTMANGR_CONFIGS_DIR/zsh/.zprofile"
 

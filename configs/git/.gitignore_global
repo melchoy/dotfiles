@@ -5,11 +5,13 @@
 .debug.log*
 
 # Local Only Files, Notes and temporary directories
+.local
+..local
 @notes
 @local
-_notes_
-_local_
-_deleteme_
+_local
+_notes
+_deleteme
 
 # System-specific files
 .DS_Store

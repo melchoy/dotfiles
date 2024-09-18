@@ -14,5 +14,3 @@ if command -v asdf &> /dev/null; then
 else
 	echo "ASDF is Required for node version installation"
 fi
-
-

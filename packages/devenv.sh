@@ -2,15 +2,13 @@
 
 source ~/.dotfiles/common.sh
 
-local dev_package_dir = "$DOTMANGR_PACKAGES_DIR/developer"
-
 # Clone ASDF if not already installed
 if [ ! -d "$HOME/.asdf" ]; then
   git clone https://github.com/asdf-vm/asdf.git "$HOME/.asdf" --branch v0.14.1
 fi
 
 source $HOME/.asdf/asdf.sh
-symlink_dotfile "$DOTMANGR_CONFIGS_DIR/.asdfrc"
+symlink_dotfile "$DOTMANGR_CONFIGS_DIR/asdf/.asdfrc"
 
 # TODO: Implement Optional Selections
 

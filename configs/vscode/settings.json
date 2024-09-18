@@ -1,6 +1,11 @@
 {
-    "editor.tabSize": 2,
-    "editor.insertSpaces": false,
-    "editor.fontSize": 16,
-    "workbench.colorTheme": "Monokai"
+		"editor.tabSize": 2,
+		"editor.insertSpaces": false,
+		"editor.fontSize": 16,
+		"workbench.colorTheme": "Monokai",
+
+		"files.associations": {
+			".zshrc-local": "shellscript",
+			".zprofile-local": "shellscript"
+		}
 }

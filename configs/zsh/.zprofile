@@ -14,15 +14,12 @@ export HOMEBREW_NO_ENV_HINTS=1
 # Load Environment Variables
 [ -f "$HOME/.env_vars" ] && source "$HOME/.env_vars"
 
-# Load OrbStack command-line tools and integration
-[ -f "$HOME/.orbstack/shell/init.zsh" ] && source "$HOME/.orbstack/shell/init.zsh"
-
-# Load ASDF Integration
-[ -f "$HOME/.asdf/asdf.sh" ] && . "$HOME/.asdf/asdf.sh"
-
 # Load PNPM Integration
 [ -f "$HOME/$DOTFILES/zsh/pnpm.sh" ] && . "$HOME/$DOTFILES/zsh/pnpm.sh"
 
-# Added by OrbStack: command-line tools and integration
-# Comment this line if you don't want it to be added again.
-source ~/.orbstack/shell/init.zsh 2>/dev/null || :
+# Load OrbStack command-line tools and integration
+[ -f "$HOME/.orbstack/shell/init.zsh" ] && source "$HOME/.orbstack/shell/init.zsh"
+
+# === Custom / Local Configuration ===
+# Load local only zprofile if it exists
+[ -f "$HOME/.zprofile-local" ] && source "$HOME/.zprofile-local"
