@@ -2,8 +2,6 @@
 
 source ~/.dotfiles/common.sh
 
-set -e  # Exit script if any command fails
-
 echo "Installing & Configuring ZSH"
 
 # TODO: Review the powerline font installer
@@ -13,7 +11,8 @@ echo "Installing & Configuring ZSH"
 install_fira_code_nerd_font() {
 	echo "Installing Fira Code Nerd Font..."
 
-	brew install --cask font-fira-code-nerd-font
+	# TODO: MacOs only need Linux Equivalent
+	brew_install_or_update_cask font-fira-code-nerd-font
 
 	echo "Fira Code Nerd Font installed successfully."
 
@@ -62,6 +61,7 @@ install_or_update_packages "zsh"
 install_or_update_ohmyzsh
 
 # Create & Symlink ZSH Config Files
+echo "Creating & Symlinking ZSH Dotfiles"
 touch "$HOME/.zshrc-local"
 touch "$HOME/.zprofile-custom"
 symlink_dotfile "$DOTMANGR_CONFIGS_DIR/zsh/.zshrc"

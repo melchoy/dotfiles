@@ -169,6 +169,21 @@ install_or_update_packages() {
 	done
 }
 
+# TODO: MacOs only need Linux Equivalent
+brew_install_or_update_cask() {
+	local app_name="$1"
+
+	if brew list --cask "$app_name" &> /dev/null; then
+		if brew outdated --cask | grep -q "^$app_name"; then
+  		echo "$app_name is outdated. Updating..."
+  		brew upgrade --cask "$app_name"
+		fi
+	else
+		echo "Installing $app_name..."
+		brew install --cask --force "$app_name"
+	fi
+}
+
 # ASDF Utilities
 
 is_asdf_plugin_installed() {
@@ -186,12 +201,12 @@ install_asdf_plugin() {
 }
 
 install_asdf_package_version() {
-    local lang="$1"
-    local latest_version
-    if [[ -z "$(asdf list "$lang")" ]]; then
-      echo "No versions of $lang installed. Installing latest..."
-      latest_version=$(asdf latest "$lang")
-      asdf install "$lang" "$latest_version"
-      asdf global "$lang" "$latest_version"
-    fi
-  }
+	local lang="$1"
+	local latest_version
+	if [[ -z "$(asdf list "$lang")" ]]; then
+		echo "No versions of $lang installed. Installing latest..."
+		latest_version=$(asdf latest "$lang")
+		asdf install "$lang" "$latest_version"
+		asdf global "$lang" "$latest_version"
+	fi
+}
