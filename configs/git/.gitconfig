@@ -15,6 +15,8 @@
   pf = push --force-with-lease
   st = status
 	branches = for-each-ref --sort=-committerdate --format=\"%(color:blue)%(authordate:relative)\t%(color:red)%(authorname)\t%(color:white)%(color:bold)%(refname:short)\" refs/remotes
+[pull]
+	rebase = true
 #[commit]
 #	template = ~/dotfiles/dots/git/.stCommitMsg
 [tag]
@@ -24,3 +26,4 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+
