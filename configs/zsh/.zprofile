@@ -17,9 +17,6 @@ export HOMEBREW_NO_ENV_HINTS=1
 # Load PNPM Integration
 [ -f "$HOME/$DOTFILES/zsh/pnpm.sh" ] && . "$HOME/$DOTFILES/zsh/pnpm.sh"
 
-# Load OrbStack command-line tools and integration
-[ -f "$HOME/.orbstack/shell/init.zsh" ] && source "$HOME/.orbstack/shell/init.zsh"
-
 # === Custom / Local Configuration ===
 # Load local only zprofile if it exists
 [ -f "$HOME/.zprofile-local" ] && source "$HOME/.zprofile-local"
