@@ -18,7 +18,7 @@
 [pull]
 	rebase = true
 #[commit]
-#	template = ~/dotfiles/dots/git/.stCommitMsg
+#	template = ~/DOTCONFIGS/dots/git/.stCommitMsg
 [tag]
 	forceSignAnnotated = false
 [filter "lfs"]

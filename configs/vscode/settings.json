@@ -3,7 +3,7 @@
 		"editor.insertSpaces": false,
 		"editor.fontSize": 14,
 		"window.zoomLevel": 1,
-		"workbench.colorTheme": "Monokai",
+		"workbench.colorTheme": "Dracula Theme",
 		"files.associations": {
 			".zshrc-local": "shellscript",
 			".zprofile-local": "shellscript"

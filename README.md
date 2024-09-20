@@ -1,4 +1,4 @@
-# Dotfiles & Config Manager
+# DOTCONFIGS & Config Manager
 
 This repository contains scripts and playbooks for setting up my development environment.
 

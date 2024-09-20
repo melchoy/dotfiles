@@ -1,0 +1,70 @@
+#!/bin/bash
+
+# Function to add a new worktree and symlink .local directory if it exists
+add_worktree_with_symlink() {
+  if [ "$#" -ne 2 ]; then
+    echo "Usage: gt wt add <branch> <worktree-path>"
+    exit 1
+  fi
+
+  branch=$1
+  new_worktree_path=$2
+
+  primary_worktree=$(git rev-parse --show-toplevel)
+
+  # Check if the branch exists
+  if git rev-parse --verify "$branch" >/dev/null 2>&1; then
+    # Branch exists, just add the worktree
+    echo "Branch '$branch' exists, adding worktree from the existing branch."
+    git worktree add "$new_worktree_path" "$branch"
+  else
+    # Branch does not exist, create a new one with -b
+    echo "Branch '$branch' does not exist, creating new branch and worktree."
+    git worktree add -b "$branch" "$new_worktree_path"
+  fi
+
+  if [ $? -ne 0 ]; then
+    echo "Error: Failed to create the new worktree."
+    exit 1
+  fi
+
+  # Check if the .local directory exists, and only create the symlink if it does
+  if [ -d "$primary_worktree/.local" ]; then
+    ln -s "$primary_worktree/.local" "$new_worktree_path/.local"
+    if [ $? -eq 0 ]; then
+      echo "Symlinked .local directory from $primary_worktree to $new_worktree_path"
+    else
+      echo "Error: Failed to create symlink."
+      exit 1
+    fi
+  fi
+
+  echo "Worktree $branch created at $new_worktree_path"
+}
+
+# Main script logic to handle subcommands
+case "$1" in
+  wt)
+    shift # Shift off the first argument ("wt")
+    case "$1" in
+      add)
+        shift
+        add_worktree_with_symlink "$@"
+        ;;
+      *)
+        echo "Usage: gt wt <command> [options]"
+        echo "Commands:"
+        echo "  add <branch> <worktree-path>  Add a new worktree and symlink .local"
+        exit 1
+        ;;
+    esac
+    ;;
+
+  # Placeholder for future commands
+  *)
+    echo "Usage: gt <command> [options]"
+    echo "Commands:"
+    echo "  wt    Worktree-related commands"
+    exit 1
+    ;;
+esac

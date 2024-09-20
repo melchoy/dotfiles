@@ -1,6 +1,6 @@
 # === Global Variables ===
 export ZSH="$HOME/.oh-my-zsh"
-export ZSH_CUSTOM="$DOTFILES/zsh/ohmyzsh"
+export ZSH_CUSTOM="$DOTCONFIGS/zsh/ohmyzsh"
 export PNPM_HOME="$HOME/Library/pnpm"
 export NVM_DIR="$HOME/.nvm"
 
@@ -37,7 +37,7 @@ fi
 
 # === Custom Aliases ===
 # Load custom aliases (ensure the file exists)
-[ -f "$DOTFILES/zsh/aliases.sh" ] && source "$DOTFILES/zsh/aliases.sh"
+[ -f "$DOTCONFIGS/zsh/aliases.sh" ] && source "$DOTCONFIGS/zsh/aliases.sh"
 
 
 # === Plugin Initialization ===

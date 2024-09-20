@@ -61,7 +61,7 @@ install_or_update_packages "zsh"
 install_or_update_ohmyzsh
 
 # Create & Symlink ZSH Config Files
-echo "Creating & Symlinking ZSH Dotfiles"
+echo "Creating & Symlinking ZSH DOTCONFIGS"
 touch "$HOME/.zshrc-local"
 touch "$HOME/.zprofile-local"
 symlink_dotfile "$DOTMANGR_CONFIGS_DIR/zsh/.zshrc"
