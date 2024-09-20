@@ -16,7 +16,7 @@ do_install() {
 
 	# PROGRAMMING UTILITIES
 	sh $DOTMANGR_PACKAGES_DIR/git.sh
-	sh $DOTMANGR_PACKAGES_DIR/devenv.sh
+	sh $DOTMANGR_PACKAGES_DIR/langs/setup.sh
 
 	# CODE EDITORS
 	sh $DOTMANGR_PACKAGES_DIR/nvim.sh
