@@ -1,1 +1,4 @@
 alias edot="code ~/.dotfiles"
+
+alias copilot="gh copilot"
+alias suggest="gh copilot suggest"

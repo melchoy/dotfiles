@@ -2,11 +2,29 @@
 
 source ~/.dotfiles/common.sh
 
-# Clone ASDF if not already installed
-if [ ! -d "$HOME/.asdf" ]; then
-  git clone https://github.com/asdf-vm/asdf.git "$HOME/.asdf" --branch v0.14.1
-fi
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+function install_or_update_asdf() {
+  if [ ! -d "$HOME/.asdf" ]; then
+    echo "Cloning asdf..."
+    git clone https://github.com/asdf-vm/asdf.git "$HOME/.asdf"
+    cd "$HOME/.asdf" || exit
+    echo "Fetching the latest stable version..."
+    git fetch --tags
+    latest_tag=$(git describe --tags "$(git rev-list --tags --max-count=1)")
+    git checkout "$latest_tag"
+    echo "asdf installed at version $latest_tag."
+  else
+    echo "asdf is already installed, updating to the latest stable version..."
+    cd "$HOME/.asdf" || exit
+    git fetch --tags
+    latest_tag=$(git describe --tags "$(git rev-list --tags --max-count=1)")
+    git checkout "$latest_tag"
+    echo "asdf updated to $latest_tag."
+  fi
+}
+
+install_or_update_asdf
 source $HOME/.asdf/asdf.sh
 symlink_dotfile "$DOTMANGR_CONFIGS_DIR/asdf/.asdfrc"
 
@@ -21,5 +39,5 @@ install_asdf_package_version erlang
 install_asdf_plugin elixir
 install_asdf_package_version elixir
 
-sh $DOTMANGR_DEV_PACKAGES_DIR/node.sh
-sh $DOTMANGR_DEV_PACKAGES_DIR/golang.sh
+sh "$SCRIPT_DIR/node.sh"
+sh "$SCRIPT_DIR/golang.sh"
