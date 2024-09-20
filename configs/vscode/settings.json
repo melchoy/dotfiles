@@ -4,9 +4,28 @@
 		"editor.fontSize": 14,
 		"window.zoomLevel": 1,
 		"workbench.colorTheme": "Dracula Theme",
+		"files.exclude": {
+			"**/build": true,
+			"**/cache": true,
+			"**/coverage": true,
+			"**/dist": true,
+			"**/log": true,
+			"**/node_modules": true,
+			"**/public/assets": true,
+			"**/public/packs": true,
+			"**/storage": true,
+			"**/temp": true,
+			"**/tmp": true,
+			"**/.bundle": true,
+			"**/.idea": true,
+			"**/.sass-cache": true,
+			".DS_Store": true,
+			"*.log": true
+		},
 		"files.associations": {
 			".aliases": "shellscript",
 			".zshrc-local": "shellscript",
 			".zprofile-local": "shellscript"
-		}
+		},
+		"gitlens.views.worktrees.files.layout": "list"
 }
