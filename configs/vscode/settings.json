@@ -5,6 +5,7 @@
 		"window.zoomLevel": 1,
 		"workbench.colorTheme": "Dracula Theme",
 		"files.associations": {
+			".aliases": "shellscript",
 			".zshrc-local": "shellscript",
 			".zprofile-local": "shellscript"
 		}

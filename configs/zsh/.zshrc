@@ -35,11 +35,6 @@ fi
 # iTerm2 Shell Integration (if applicable)
 [ -f "${HOME}/.iterm2_shell_integration.zsh" ] && source "${HOME}/.iterm2_shell_integration.zsh"
 
-# === Custom Aliases ===
-# Load custom aliases (ensure the file exists)
-[ -f "$DOTCONFIGS/zsh/aliases.sh" ] && source "$DOTCONFIGS/zsh/aliases.sh"
-
-
 # === Plugin Initialization ===
 # fzf (if available)
 if command -v fzf > /dev/null; then
@@ -64,3 +59,9 @@ esac
 # === Custom / Local Configuration ===
 # Load local only zshrc if it exists
 [ -f "${HOME}/.zshrc-local" ] && source "${HOME}/.zshrc-local"
+
+# === Custom Aliases ===
+# Load custom aliases (ensure the file exists)
+[ -f "$HOME/.aliases" ] && source "$HOME/.aliases"
+[ -f "$DOTCONFIGS/zsh/.aliases" ] && source "$DOTCONFIGS/zsh/.aliases"
+[ -f "$HOME/.aliases-local" ] && source "$HOME/.aliases-local"
