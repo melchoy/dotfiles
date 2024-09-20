@@ -1,0 +1,141 @@
+#!/bin/bash
+
+# Function to find the main worktree
+get_main_worktree() {
+  # If we are in the main worktree, the result will be ".git"
+  git_dir=$(git rev-parse --git-dir)
+
+  if [ "$git_dir" = ".git" ]; then
+    # We are in the main worktree, so return the top-level directory
+    git rev-parse --show-toplevel
+  else
+    # We are in a linked worktree, so fetch the main worktree from the worktree list
+    git worktree list --porcelain | grep "worktree" | head -n 1 | awk '{print $2}'
+  fi
+}
+
+# Function to create an absolute symlink for .local directory
+create_symlink() {
+  main_worktree=$(get_main_worktree)
+
+  # Debugging: Print the path being checked
+  echo "Checking .local directory in main worktree: $main_worktree/.local"
+
+  # Create absolute symlink for .local if it exists in the main worktree
+  if [ -d "$main_worktree/.local" ]; then
+    ln -sf "$main_worktree/.local" "$1/.local"
+    if [ $? -eq 0 ]; then
+      echo "Symlinked .local directory from $main_worktree to $1"
+    else
+      echo "Error: Failed to create symlink for $1."
+      exit 1
+    fi
+  else
+    echo "No .local directory found in the main worktree."
+  fi
+}
+
+# Function to add a new worktree and symlink .local directory from the main worktree
+add_worktree_with_symlink() {
+  if [ "$#" -ne 2 ]; then
+    echo "Usage: gt-wt add <branch> <worktree-path>"
+    exit 1
+  fi
+
+  branch=$1
+  new_worktree_path=$(get_absolute_path "$2")  # Convert the worktree path to absolute
+
+  main_worktree=$(get_main_worktree)
+
+  # Ensure the worktree path is not inside the .git directory
+  if [[ "$new_worktree_path" == "$main_worktree/.git"* ]]; then
+    echo "Error: Worktree cannot be created inside the .git directory."
+    exit 1
+  fi
+
+  # Change to the main worktree
+  cd "$main_worktree" || { echo "Error: Could not change to main worktree directory"; exit 1; }
+
+  # Create the new worktree
+  if git rev-parse --verify "$branch" >/dev/null 2>&1; then
+    git worktree add "$new_worktree_path" "$branch"
+  else
+    git worktree add -b "$branch" "$new_worktree_path"
+  fi
+
+  if [ $? -ne 0 ]; then
+    echo "Error: Failed to create the new worktree."
+    exit 1
+  fi
+
+  # Call the symlink creation function
+  create_symlink "$new_worktree_path"
+
+  # Output the cd command for the user to run in their shell
+  echo "Worktree $branch created at $new_worktree_path"
+  echo "To switch to the new worktree, run:"
+  echo "cd $new_worktree_path"
+}
+
+# Function to restore symlinks for all existing worktrees
+resym() {
+  main_worktree=$(get_main_worktree)
+
+  # Debugging: Print the main worktree path
+  echo "Main worktree path: $main_worktree"
+
+  # Check if .local exists in the main worktree
+  if [ ! -d "$main_worktree/.local" ]; then
+    echo "No .local directory found in the main worktree. Nothing to symlink."
+    exit 1
+  fi
+
+  # Loop through all linked worktrees
+  worktrees=$(git worktree list --porcelain | grep "worktree" | awk '{print $2}')
+
+  for worktree in $worktrees; do
+    local_symlink="$worktree/.local"
+    correct_target="$main_worktree/.local"
+
+    # Check if .local exists and is a symlink
+    if [ -L "$local_symlink" ]; then
+      current_target=$(readlink "$local_symlink")
+
+      if [ "$current_target" != "$correct_target" ]; then
+        echo "Incorrect symlink detected for $local_symlink. Removing it."
+        rm "$local_symlink"
+        create_symlink "$worktree"
+      else
+        echo "Symlink for $local_symlink is correct."
+      fi
+    elif [ -e "$local_symlink" ]; then
+      echo "Warning: $local_symlink exists but is not a symlink. Skipping."
+    else
+      echo "$local_symlink does not exist. Creating it."
+      create_symlink "$worktree"
+    fi
+  done
+}
+
+# Function to convert a relative path to an absolute path
+get_absolute_path() {
+  echo "$(cd "$(dirname "$1")" && pwd)/$(basename "$1")"
+}
+
+# Main script logic
+case "$1" in
+  add)
+    shift
+    add_worktree_with_symlink "$@"
+    ;;
+  resym)
+    resym
+    ;;
+  *)
+    echo "Usage: gt-wt <command> [options]"
+    echo "Commands:"
+    echo "  add <branch> <worktree-path>  Add a new worktree and symlink .local"
+    echo "  resym                         Restore symlinks for all worktrees"
+    exit 1
+    ;;
+esac
