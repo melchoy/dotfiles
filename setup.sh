@@ -25,6 +25,9 @@ do_install() {
 	# LINKING GENERIC DOTS
 	sh $DOTMANGR_PACKAGES_DIR/dots.sh
 
+	# UTILITIES
+	sh $DOTMANGR_PACKAGES_DIR/utils/setup.sh
+
 	# DESKTOP STUFF
 	if [[ "$PLATFORM_NAME" == "mac" ]]; then
 		sh $DOTMANGR_PLATFORM_DIR/applications.sh
