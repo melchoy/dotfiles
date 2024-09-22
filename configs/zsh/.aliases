@@ -1,3 +1,4 @@
+alias edit="vim"
 alias edot="code ~/.dotfiles"
 alias udot="update_dotfiles"
 
