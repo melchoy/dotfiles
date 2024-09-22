@@ -65,3 +65,9 @@ esac
 [ -f "$HOME/.aliases" ] && source "$HOME/.aliases"
 [ -f "$DOTCONFIGS/zsh/.aliases" ] && source "$DOTCONFIGS/zsh/.aliases"
 [ -f "$HOME/.aliases-local" ] && source "$HOME/.aliases-local"
+
+# === Update Dotfiles ===
+update_dotfiles() {
+	cd "$DOTHOME" && git pull
+	git submodule update --init --recursive
+}
