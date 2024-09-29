@@ -17,6 +17,7 @@ do_install() {
 	# PROGRAMMING UTILITIES
 	sh $DOTMANGR_PACKAGES_DIR/git.sh
 	sh $DOTMANGR_PACKAGES_DIR/langs/setup.sh
+	sh $DOTMANGR_PACKAGES_DIR/utils/setup.sh
 
 	# CODE EDITORS
 	sh $DOTMANGR_PACKAGES_DIR/nvim.sh
@@ -24,9 +25,6 @@ do_install() {
 
 	# LINKING GENERIC DOTS
 	sh $DOTMANGR_PACKAGES_DIR/dots.sh
-
-	# UTILITIES
-	sh $DOTMANGR_PACKAGES_DIR/utils/setup.sh
 
 	# DESKTOP STUFF
 	if [[ "$PLATFORM_NAME" == "mac" ]]; then

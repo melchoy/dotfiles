@@ -41,3 +41,5 @@ install_asdf_package_version elixir
 
 sh "$SCRIPT_DIR/node.sh"
 sh "$SCRIPT_DIR/golang.sh"
+
+

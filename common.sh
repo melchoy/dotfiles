@@ -152,7 +152,7 @@ install_or_update_packages() {
 	# Parse arguments
 	for arg in "$@"; do
 		if [[ "$arg" == --update_package_manager ]]; then
-			update_update_package_managermanager=true
+			update_package_managermanager=true
 		else
 			cmds+=("$arg")
 		fi
@@ -171,15 +171,17 @@ install_or_update_packages() {
 # TODO: MacOs only need Linux Equivalent
 brew_install_or_update_cask() {
 	local app_name="$1"
+	shift # Remove the app_name from the arguments list
+	local additional_args=("$@")
 
 	if brew list --cask "$app_name" &> /dev/null; then
 		if brew outdated --cask | grep -q "^$app_name"; then
-  		echo "$app_name is outdated. Updating..."
-  		brew upgrade --cask "$app_name"
+			echo "$app_name is outdated. Updating..."
+			brew upgrade --cask "$app_name"
 		fi
 	else
 		echo "Installing $app_name..."
-		brew install --cask --force "$app_name"
+		brew install --cask --force "$app_name" "${additional_args[@]}"
 	fi
 }
 

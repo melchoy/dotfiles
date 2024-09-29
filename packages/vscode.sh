@@ -5,9 +5,11 @@ source ~/.dotfiles/common.sh
 extension_list=(
   "editorconfig.editorconfig"
   "esbenp.prettier-vscode"
-  
+
   "golang.Go"
   "shopify.ruby-lsp"
+
+	"tamasfe.even-better-toml"
 
   "dracula-theme.theme-dracula"
 )

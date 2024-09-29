@@ -11,6 +11,10 @@ cask_apps=(
 	#"alfred"
 	"raycast"
 
+	# TODO: Optional or Choose one
+	"iterm2"
+	#"alacritty" # needs --no-quarantine"
+
 	# TODO: Make Optional/Section Menu
 	#"choosy"
 	"chatgpt"

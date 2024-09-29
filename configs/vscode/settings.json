@@ -27,5 +27,6 @@
 			".zshrc-local": "shellscript",
 			".zprofile-local": "shellscript"
 		},
+		"git.openRepositoryInParentFolders": "never",
 		"gitlens.views.worktrees.files.layout": "list"
 }
