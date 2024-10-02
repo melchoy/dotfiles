@@ -5,20 +5,19 @@
 		"window.zoomLevel": 1,
 		"workbench.colorTheme": "Dracula Theme",
 		"files.exclude": {
-			"**/build": true,
 			"**/cache": true,
 			"**/coverage": true,
-			"**/dist": true,
 			"**/log": true,
 			"**/node_modules": true,
-			"**/public/assets": true,
 			"**/public/packs": true,
 			"**/storage": true,
 			"**/temp": true,
 			"**/tmp": true,
 			"**/.bundle": true,
 			"**/.idea": true,
+			"**/.next": true,
 			"**/.sass-cache": true,
+			"**/.pnpm-store": true,
 			".DS_Store": true,
 			"*.log": true
 		},
@@ -28,5 +27,6 @@
 			".zprofile-local": "shellscript"
 		},
 		"git.openRepositoryInParentFolders": "never",
-		"gitlens.views.worktrees.files.layout": "list"
+		"gitlens.views.worktrees.files.layout": "list",
+		"redhat.telemetry.enabled": false
 }
