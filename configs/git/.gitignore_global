@@ -21,6 +21,7 @@ Icon\r
 .cache
 node_modules
 .netlify
+.pnpm-store
 
 # Configuration and environment files
 .env
