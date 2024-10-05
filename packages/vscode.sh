@@ -12,6 +12,7 @@ extension_list=(
 	"tamasfe.even-better-toml"
 
   "dracula-theme.theme-dracula"
+	"catppuccin.catppuccin-vsc"
 )
 
 install_vscode_extensions() {

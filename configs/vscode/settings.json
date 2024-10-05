@@ -3,7 +3,7 @@
 		"editor.insertSpaces": false,
 		"editor.fontSize": 14,
 		"window.zoomLevel": 1,
-		"workbench.colorTheme": "Dracula Theme",
+		"workbench.colorTheme": "Catppuccin Macchiato",
 		"files.exclude": {
 			"**/cache": true,
 			"**/coverage": true,
