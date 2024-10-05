@@ -6,7 +6,8 @@ export NVM_DIR="$HOME/.nvm"
 
 # === Oh My Zsh Settings ===
 DEFAULT_USER="$USER"
-ZSH_THEME="melzz"
+#ZSH_THEME="melzz"
+ZSH_THEME="robbyrussell"
 plugins=(git)
 zstyle ':omz:update' mode reminder
 source "$ZSH/oh-my-zsh.sh"
