@@ -6,23 +6,28 @@ echo "Installing & Configuring ZSH"
 
 # TODO: Review the powerline font installer
 
+check_font_installed() {
+  local font_name=$1
+  if ls ~/Library/Fonts | grep -i "$font_name"; then
+    echo "$font_name is installed."
+  else
+    echo "Error: $font_name is not installed."
+  fi
+}
+
 # Install Fira Code Nerd Font for Poweline Prompt Support in Oh My Zsh
-# Function to install Fira Code Nerd Font
 install_fira_code_nerd_font() {
-	echo "Installing Fira Code Nerd Font..."
+	echo "Installing Nerd Fonts..."
 
 	# TODO: MacOs only need Linux Equivalent
 	brew_install_or_update_cask font-fira-code-nerd-font
+	brew_install_or_update_cask font-0xproto-nerd-font
 
-	echo "Fira Code Nerd Font installed successfully."
+	echo "Nerd Fonts installed successfully."
 
 	# Verify the font installation
-	echo "Verifying font installation..."
-	if ls ~/Library/Fonts | grep -i "FiraCodeNerdFont"; then
-		echo "Fira Code Nerd Font is installed at ~/Library/Fonts"
-	else
-		echo "Error: Fira Code Nerd Font is not installed properly."
-	fi
+	check_font_installed "FiraCodeNerdFont"
+	check_font_installed "0xProtoNerdFont"
 }
 
 # Function to ensure proper permissions and refresh font cache

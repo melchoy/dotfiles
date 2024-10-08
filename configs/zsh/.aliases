@@ -1,6 +1,7 @@
-alias edit="vim"
-alias edot="code ~/.dotfiles"
+alias edit="nvim"
+alias edot="nvim ~/.dotfiles"
 alias udot="update_dotfiles"
+alias evim="nvim ~/.config/nvim"
 
 alias copilot="gh copilot"
 alias suggest="gh copilot suggest"

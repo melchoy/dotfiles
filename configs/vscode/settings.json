@@ -3,7 +3,7 @@
 		"editor.insertSpaces": false,
 		"editor.fontSize": 14,
 		"window.zoomLevel": 1,
-		"workbench.colorTheme": "Catppuccin Macchiato",
+		"workbench.colorTheme": "Catppuccin Mocha",
 		"files.exclude": {
 			"**/cache": true,
 			"**/coverage": true,
@@ -28,5 +28,8 @@
 		},
 		"git.openRepositoryInParentFolders": "never",
 		"gitlens.views.worktrees.files.layout": "list",
-		"redhat.telemetry.enabled": false
+		"redhat.telemetry.enabled": false,
+		"supermaven.enable": {
+			"*": false
+		}
 }
