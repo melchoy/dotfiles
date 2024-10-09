@@ -3,6 +3,7 @@
 source ~/.dotfiles/common.sh
 
 extension_list=(
+	"vscodevim.vim",
   "editorconfig.editorconfig"
   "esbenp.prettier-vscode"
 
