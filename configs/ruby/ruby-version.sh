@@ -16,7 +16,8 @@ load-ruby-version() {
         echo "Ruby version $ruby_version has been installed and set as global."
       else
         echo "Ruby version $ruby_version is not installed."
-        echo "If you would like to run this project, please install it using the following command:"
+        echo "If you would like to run this project"
+				echo "please install it using the following command:"
         echo "rbenv install $ruby_version"
       fi
     else
