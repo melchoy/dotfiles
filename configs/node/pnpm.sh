@@ -1,4 +1,3 @@
-
 # CHECK OS FOR PNPM PATH
 if [[ "$OSTYPE" == "darwin"* ]]; then
   PNPM_HOME="/Users/mel/Library/pnpm"

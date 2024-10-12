@@ -39,13 +39,9 @@ if command -v fzf > /dev/null; then
 	source <(fzf --zsh)
 fi
 
-# ASDF Version Manager
-if [ -f "$HOME/.asdf/asdf.sh" ]; then
-  source "$HOME/.asdf/asdf.sh"
-  source "$HOME/.dotfiles/configs/asdf/asdf.sh"
-fi
-
-source "$HOME/.dotfiles/configs/node/pnpm.sh"
+# === Dev Version & Package Managers ===
+# source "$DOTCONFIGS/node/nvm.sh"
+source "$DOTCONFIGS/ruby/rbenv.sh"
 
 # === Custom / Local Configuration ===
 # Load local only zshrc if it exists
