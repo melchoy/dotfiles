@@ -13,5 +13,5 @@ elif [[ "$PLATFORM_NAME" == "ubuntu" ]]; then
 fi
 
 # Create & Symlink Starship Config Files
-echo "Creating & Symlinking Starship DOTCONFIGS"
+echo "Creating & Symlinking Starship DOTFCONFIG"
 symlink_dotfile "$DOTMANGR_CONFIGS_DIR/starship/starship.toml" "$HOME/.config/starship.toml"

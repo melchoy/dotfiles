@@ -20,7 +20,7 @@ install_or_update_ohmyzsh() {
 install_or_update_packages "zsh"
 
 # Create & Symlink ZSH Config Files
-echo "Creating & Symlinking ZSH DOTCONFIGS"
+echo "Creating & Symlinking ZSH DOTFCONFIG"
 touch "$HOME/.zshrc-local"
 touch "$HOME/.zprofile-local"
 symlink_dotfile "$DOTMANGR_CONFIGS_DIR/zsh/.zshrc"

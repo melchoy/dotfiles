@@ -5,5 +5,5 @@ export PATH="$HOME/.rbenv/bin:$PATH"
 if command -v rbenv &> /dev/null; then
   eval "$(rbenv init -)"
 
-	source "$DOTCONFIGS/ruby/ruby-version.sh"
+	source "$DOTFCONFIG/ruby/ruby-version.sh"
 fi

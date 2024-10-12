@@ -32,8 +32,8 @@ if command -v fzf > /dev/null; then
 fi
 
 # === Dev Version & Package Managers ===
-source "$DOTCONFIGS/node/nvm.sh"
-source "$DOTCONFIGS/ruby/rbenv.sh"
+source "$DOTFCONFIG/node/nvm.sh"
+source "$DOTFCONFIG/ruby/rbenv.sh"
 
 # === Custom / Local Configuration ===
 # Load local only zshrc if it exists
@@ -41,13 +41,13 @@ source "$DOTCONFIGS/ruby/rbenv.sh"
 
 # === Custom Aliases ===
 # Load custom aliases (ensure the file exists)
-source "$DOTCONFIGS/zsh/.aliases"
+source "$DOTFCONFIG/zsh/.aliases"
 [ -f "$HOME/.aliases" ] && source "$HOME/.aliases"
-[ -f "$DOTCONFIGS/zsh/.aliases" ] && source "$DOTCONFIGS/zsh/.aliases"
+[ -f "$DOTFCONFIG/zsh/.aliases" ] && source "$DOTFCONFIG/zsh/.aliases"
 [ -f "$HOME/.aliases-local" ] && source "$HOME/.aliases-local"
 
 # === Update Dotfiles ===
 update_dotfiles() {
-	cd "$DOTHOME" && git pull
+	cd "$DOTFHOME" && git pull
 	git submodule update --init --recursive
 }
