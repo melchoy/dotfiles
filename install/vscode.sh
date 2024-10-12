@@ -3,7 +3,7 @@
 source ~/.dotfiles/common.sh
 
 extension_list=(
-	"vscodevim.vim",
+	"vscodevim.vim"
   "editorconfig.editorconfig"
   "esbenp.prettier-vscode"
 
@@ -27,10 +27,10 @@ install_vscode_extensions() {
   for extension in "${extension_list[@]}"; do
     if ! echo "$installed_extensions" | grep -q "$extension"; then
       echo "Installing VSCode extension: $extension"
-      if ! code --install-extension "$extension"; then
+      if ! code --install-extension "$extension" --force; then
         echo "Error: Failed to install $extension. Retrying..."
         # Retry the installation once
-        if ! code --install-extension "$extension"; then
+        if ! code --install-extension "$extension" --force; then
           echo "Error: Failed to install $extension after retry. Skipping..."
           continue
         fi
