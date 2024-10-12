@@ -18,7 +18,6 @@ install_or_update_ohmyzsh() {
 
 # Install ZSH & Oh My Zsh
 install_or_update_packages "zsh"
-#install_or_update_ohmyzsh
 
 # Create & Symlink ZSH Config Files
 echo "Creating & Symlinking ZSH DOTCONFIGS"

@@ -1,17 +1,3 @@
-# === Global Variables ===
-#export ZSH="$HOME/.oh-my-zsh"
-#export ZSH_CUSTOM="$DOTCONFIGS/zsh/ohmyzsh"
-#export PNPM_HOME="$HOME/Library/pnpm"
-#export NVM_DIR="$HOME/.nvm"
-
-# === Oh My Zsh Settings ===
-#DEFAULT_USER="$USER"
-#ZSH_THEME="melzz"
-#ZSH_THEME="robbyrussell"
-#plugins=(git)
-#zstyle ':omz:update' mode reminder
-#source "$ZSH/oh-my-zsh.sh"
-
 # Auto-load colors for zsh
 autoload -Uz colors && colors
 
