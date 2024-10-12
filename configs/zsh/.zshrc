@@ -40,7 +40,7 @@ if command -v fzf > /dev/null; then
 fi
 
 # === Dev Version & Package Managers ===
-# source "$DOTCONFIGS/node/nvm.sh"
+source "$DOTCONFIGS/node/nvm.sh"
 source "$DOTCONFIGS/ruby/rbenv.sh"
 
 # === Custom / Local Configuration ===
