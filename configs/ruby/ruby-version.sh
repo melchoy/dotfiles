@@ -28,9 +28,6 @@ load-ruby-version() {
         echo "Now using ruby version to $ruby_version."
       else
         echo "Ruby version $ruby_version is not installed."
-        echo "If you would like to run this project"
-        echo "please install it using the following command:"
-        echo "rbenv install $ruby_version"
       fi
     else
       rbenv shell "$ruby_version"
