@@ -30,9 +30,8 @@ DOTMANGR_LOCAL_DIR=$DOTMANGR_BASE_DIR/@local
 DOTMANGR_BACKUP_DIR=$DOTMANGR_LOCAL_DIR/bkup
 
 DOTMANGR_CONFIGS_DIR=$DOTMANGR_BASE_DIR/configs
-DOTMANGR_PACKAGES_DIR=$DOTMANGR_BASE_DIR/install
-
-DOTMANGR_PLATFORM_DIR="$DOTMANGR_BASE_DIR/platforms/$PLATFORM_NAME"
+DOTMANGR_INSTALLER_DIR=$DOTMANGR_BASE_DIR/install
+DOTMANGR_PLATFORM_DIR="$DOTMANGR_INSTALLER_DIR/platforms/$PLATFORM_NAME"
 
 # Generic Utilitites
 
@@ -182,32 +181,5 @@ brew_install_or_update_cask() {
 	else
 		echo "Installing $app_name..."
 		brew install --cask --force "$app_name" "${additional_args[@]}"
-	fi
-}
-
-# ASDF Utilities
-
-is_asdf_plugin_installed() {
-	local plugin_name="$1"
-	asdf plugin list | grep -q "^$plugin_name" &> /dev/null
-}
-
-install_asdf_plugin() {
-	local plugin_name="$1"
-	local plugin_repo="$2"
-	if ! is_asdf_plugin_installed "$plugin_name"; then
-		echo "Installing $plugin_name plugin..."
-		asdf plugin add "$plugin_name" "$plugin_repo"
-	fi
-}
-
-install_asdf_package_version() {
-	local lang="$1"
-	local latest_version
-	if [[ -z "$(asdf list "$lang")" ]]; then
-		echo "No versions of $lang installed. Installing latest..."
-		latest_version=$(asdf latest "$lang")
-		asdf install "$lang" "$latest_version"
-		asdf global "$lang" "$latest_version"
 	fi
 }
