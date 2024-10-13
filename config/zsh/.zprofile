@@ -2,6 +2,7 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 
 export DOTFHOME="$HOME/.dotfiles"
 export DOTFCONFIG="$DOTFHOME/config"
+export DOTZSH="$DOTFCONFIG/zsh"
 
 export PATH="/opt/homebrew/bin:$PATH"
 export PATH="$HOME/.composer/vendor/bin:$PATH"
