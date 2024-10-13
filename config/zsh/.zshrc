@@ -8,8 +8,8 @@ if command -v starship > /dev/null; then
 fi
 
 # === ENV VARS ===
-# Preferred Editor
-export EDITOR="nvim"
+export EDITOR=nvim
+export TERM=xterm-256color
 
 # === Plugin Initialization ===
 # fzf (if available)
