@@ -11,3 +11,9 @@ update_dotfiles() {
 
   cd "$current_dir"
 }
+
+update_vault() {
+	local current_dir=$(pwd)
+	cd "$VAULTHOME" && git pull
+	cd "$current_dir"
+}
