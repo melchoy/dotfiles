@@ -9,6 +9,7 @@ coreutils=(
 	# Development Tools
 	"git"
 	"gh"
+	"cmake"
 
 	# Shell and Terminal Enhancements
 	"bash-completion"
