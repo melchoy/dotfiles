@@ -10,9 +10,9 @@ add_newline = true
 
 # Starship modules
 [character]
-success_symbol = "[[󱓞](green) ❯](peach)"
-error_symbol = "[[󱓞](red) ❯](peach)"
-vimcmd_symbol = "[󱓞 ❮](subtext1)" # For use with zsh-vi-mode
+#success_symbol = "[[󱓞](green) ❯](peach)"
+#error_symbol = "[[󱓞](red) ❯](peach)"
+#vimcmd_symbol = "[󱓞 ❮](subtext1)" # For use with zsh-vi-mode
 
 [git_branch]
 style = "bold mauve"
@@ -27,7 +27,16 @@ symbol = "[](red) "
 [golang]
 symbol = "[](sky) "
 
-# Palette definitions
+[python]
+
+[os]
+disabled = false
+
+[os.symbols]
+Macos = "[](teal) "
+Linux = "[](teal) "
+Ubuntu = "[](teal) "
+
 [palettes.catppuccin_macchiato]
 rosewater = "#f4dbd6"
 flamingo = "#f0c6c6"
