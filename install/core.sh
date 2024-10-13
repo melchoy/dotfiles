@@ -30,6 +30,7 @@ coreutils=(
 	# Data Processing
 	"jq"
 	"shellcheck"
+	"tree-sitter"
 )
 
 for util in "${coreutils[@]}"; do
