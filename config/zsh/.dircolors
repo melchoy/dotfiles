@@ -1,0 +1,46 @@
+# Configuration file for dircolors, a utility to help you set the
+# LS_COLORS environment variable used by GNU ls with the --color option.
+
+# Below are the color codes:
+# Attribute codes:
+# 00 = default color
+# 01 = bold
+# 04 = underscore
+# 05 = blink
+# 07 = reverse
+# 08 = concealed
+
+# Text color codes:
+# 30 = black
+# 31 = red
+# 32 = green
+# 33 = yellow
+# 34 = blue
+# 35 = magenta
+# 36 = cyan
+# 37 = white
+
+# Background color codes:
+# 40 = black
+# 41 = red
+# 42 = green
+# 43 = yellow
+# 44 = blue
+# 45 = magenta
+# 46 = cyan
+# 47 = white
+
+# File type codes:
+NORMAL 00 # global default, although everything should be something.
+FILE 00 # normal file
+DIR 01;34 # directory
+LINK 01;36 # symbolic link
+FIFO 40;33 # pipe
+SOCK 01;35 # socket
+BLK 40;33;01 # block device driver
+CHR 40;33;01 # character device driver
+ORPHAN 40;31;01 # orphaned syminks
+MISSING 40;31;01 # ... and the files they point to
+
+# This is for files with execute permission:
+EXEC 01;32

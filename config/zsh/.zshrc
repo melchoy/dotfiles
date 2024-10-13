@@ -17,12 +17,25 @@ if command -v fzf > /dev/null; then
 	source <(fzf --zsh)
 fi
 
+# === Colorize Directory Listings ===
+# Load dircolors if available
+if [[ "$OSTYPE" == "darwin"* ]] && command -v gdircolors > /dev/null 2>&1; then
+  alias dircolors='gdircolors'
+fi
+
+if command -v dircolors > /dev/null 2>&1; then
+  if [ -f ~/.dircolors ]; then
+    eval "$(dircolors -b ~/.dircolors)"
+  else
+    eval "$(dircolors -b)"
+  fi
+fi
+
 # === Functions ===
-source "$DOTZSH/functions/dotfiles.zsh"
-source "$DOTZSH/functions/utils.zsh"
+source "$DOTZSH/functions/.functions.sh"
 
 # === Aliases ===
-source "$DOTZSH/aliases/.aliases"
+source "$DOTZSH/aliases/.aliases.sh"
 
 # === Custom / Local Configuration ===
 [ -f "${HOME}/.zshrc-local" ] && source "${HOME}/.zshrc-local"
