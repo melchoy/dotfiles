@@ -18,8 +18,14 @@ install_rbenv() {
   fi
 
   latest_ruby=$(rbenv install -l | grep -v - | tail -1)
-  rbenv install "$latest_ruby"
-  rbenv global "$latest_ruby"
+  if rbenv versions | grep -q "$latest_ruby"; then
+		echo "Ruby $latest_ruby is already installed."
+		return
+	else
+		echo "Installing Ruby $latest_ruby..."
+		rbenv install "$latest_ruby"
+		rbenv global "$latest_ruby"
+	fi
 
   ruby -v
   gem -v
