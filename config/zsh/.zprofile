@@ -5,9 +5,11 @@ export DOTCONFIG="$DOTHOME/config"
 export DOTZSH="$DOTCONFIG/zsh"
 export VAULTHOME="$HOME/.vault"
 
+export GOPATH="$HOME/.go"
+
 export PATH="/opt/homebrew/bin:$PATH"
 export PATH="$HOME/.composer/vendor/bin:$PATH"
-export PATH="$HOME/go/bin:$PATH"
+export PATH="$GOPATH:$PATH"
 export PATH="$HOME/.bin:$DOTHOME/bin:$PATH"
 
 # Suppress Homebrew environment hints/warnings
