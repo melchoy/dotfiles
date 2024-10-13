@@ -13,8 +13,12 @@ _local
 _notes
 _deleteme
 
-# System-specific files
+# Folder view configuration files
 .DS_Store
+Desktop.ini
+
+# Thumbnail cache files & Icon?
+Thumbs.db
 Icon\r
 
 # Build directories

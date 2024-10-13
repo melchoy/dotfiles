@@ -51,3 +51,4 @@ elif [[ "$PLATFORM_NAME" == "ubuntu" ]]; then
 fi
 
 symlink_dotfile "$DOTMANGR_CONFIGS_DIR/git/.gitconfig"
+touch $HOME/.gitlocal
