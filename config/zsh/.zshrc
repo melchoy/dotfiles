@@ -31,5 +31,5 @@ source "$DOTZSH/aliases/.aliases"
 [ -f "${HOME}/.alias-local" ] && source "${HOME}/.alias-local"
 
 # === Dev Version & Package Managers ===
-source "$DOTFCONFIG/node/nvm.sh"
-source "$DOTFCONFIG/ruby/rbenv.sh"
+source "$DOTCONFIG/node/nvm.sh"
+source "$DOTCONFIG/ruby/rbenv.sh"

@@ -3,7 +3,7 @@
 
 source ~/.dotfiles/common.sh
 
-echo "Reversing .DOTFCONFIG setup..."
+echo "Reversing .DOTCONFIG setup..."
 
 ### Uninstalling Homebrew Cask Applications ###
 echo "Uninstalling Homebrew Cask Applications..."
