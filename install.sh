@@ -3,7 +3,8 @@
 source ~/.dotfiles/common.sh
 
 do_install() {
-	# COMMAND LINE STUFF
+
+	# BOOTSTRAP MACOS PREREQUISITES
 	if [[ "$PLATFORM_NAME" == "mac" ]]; then
 		sh $DOTMANGR_PLATFORM_DIR/defaults.sh
 		sh $DOTMANGR_PLATFORM_DIR/brew.sh
@@ -18,8 +19,14 @@ do_install() {
 
 	# PROGRAMMING UTILITIES
 	sh $DOTMANGR_INSTALLER_DIR/git.sh
-	sh $DOTMANGR_INSTALLER_DIR/langs/setup.sh
-	sh $DOTMANGR_INSTALLER_DIR/utils/setup.sh
+	sh $DOTMANGR_INSTALLER_DIR/dbmate.sh
+	sh $DOTMANGR_INSTALLER_DIR/ngrok.sh
+	sh "$DOTMANGR_INSTALLER_DIR/helix.sh" "$@"
+
+	# PROGAMMING LANGUAGES & RUNTIMES
+	sh $DOTMANGR_INSTALLER_DIR/go.sh
+	sh $DOTMANGR_INSTALLER_DIR/node.sh
+	sh $DOTMANGR_INSTALLER_DIR/ruby.sh
 
 	# CODE EDITORS
 	sh $DOTMANGR_INSTALLER_DIR/nvim.sh
@@ -28,6 +35,7 @@ do_install() {
 	# TERMINAL EMULATORS
 	sh $DOTMANGR_INSTALLER_DIR/kitty.sh
 	sh $DOTMANGR_INSTALLER_DIR/alacritty.sh
+
 
 	# LINKING GENERIC DOTS
 	sh $DOTMANGR_INSTALLER_DIR/dots.sh
