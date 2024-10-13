@@ -2,7 +2,6 @@
 autoload -Uz colors && colors
 
 # === Starship Prompt ===
-# check if starship is installed
 if command -v starship > /dev/null; then
 	eval "$(starship init zsh)"
 fi
@@ -12,13 +11,11 @@ export EDITOR=nvim
 export TERM=xterm-256color
 
 # === Plugin Initialization ===
-# fzf (if available)
 if command -v fzf > /dev/null; then
 	source <(fzf --zsh)
 fi
 
 # === Colorize Directory Listings ===
-# Load dircolors if available
 if [[ "$OSTYPE" == "darwin"* ]] && command -v gdircolors > /dev/null 2>&1; then
   alias dircolors='gdircolors'
 fi
@@ -42,7 +39,3 @@ source "$DOTZSH/aliases/.aliases.sh"
 
 [ -f "${HOME}/.alias" ] && source "${HOME}/.alias"
 [ -f "${HOME}/.alias-local" ] && source "${HOME}/.alias-local"
-
-# === Dev Version & Package Managers ===
-source "$DOTCONFIG/node/nvm.sh"
-source "$DOTCONFIG/ruby/rbenv.sh"

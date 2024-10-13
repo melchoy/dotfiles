@@ -1,8 +1,13 @@
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
+# Suppress Homebrew environment hints/warnings
+export HOMEBREW_NO_ENV_HINTS=1
+
+# === ENV VARS ===
 export DOTHOME="$HOME/.dotfiles"
 export DOTCONFIG="$DOTHOME/config"
 export DOTZSH="$DOTCONFIG/zsh"
+
 export VAULTHOME="$HOME/.vault"
 
 export GOPATH="$HOME/.go"
@@ -12,15 +17,9 @@ export PATH="$HOME/.composer/vendor/bin:$PATH"
 export PATH="$GOPATH:$PATH"
 export PATH="$HOME/.bin:$DOTHOME/bin:$PATH"
 
-# Suppress Homebrew environment hints/warnings
-export HOMEBREW_NO_ENV_HINTS=1
+# Load Additional Local Variables
+[ -f "$HOME/.env" ] && source "$HOME/.env"
 
-# Load Environment Variables
-[ -f "$HOME/.env_vars" ] && source "$HOME/.env_vars"
-
-# Load PNPM Integration
-[ -f "$HOME/$DOTCONFIG/zsh/pnpm.sh" ] && . "$HOME/$DOTCONFIG/zsh/pnpm.sh"
-
-# === Custom / Local Configuration ===
-# Load local only zprofile if it exists
-[ -f "$HOME/.zprofile-local" ] && source "$HOME/.zprofile-local"
+# === Dev Version & Package Managers ===
+source "$DOTCONFIG/node/nvm.sh"
+source "$DOTCONFIG/ruby/rbenv.sh"
