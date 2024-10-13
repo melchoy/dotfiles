@@ -31,5 +31,7 @@
 		"redhat.telemetry.enabled": false,
 		"supermaven.enable": {
 			"*": false
-		}
+		},
+		"terminal.integrated.fontFamily": "FiraCode Nerd Font Mono",
+		"terminal.integrated.fontSize": 14
 }
