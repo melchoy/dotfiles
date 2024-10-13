@@ -1,5 +1,5 @@
-alias edit="nvim"
-alias evim="nvim ~/.config/nvim"
+alias edit="vim"
+alias evim="vim ~/.config/nvim"
 
 alias copilot="gh copilot"
 alias suggest="gh copilot suggest"
