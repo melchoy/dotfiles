@@ -10,15 +10,17 @@ add_newline = true
 
 # Starship modules
 [character]
-#success_symbol = "[[󱓞](green) ❯](peach)"
-#error_symbol = "[[󱓞](red) ❯](peach)"
-#vimcmd_symbol = "[󱓞 ❮](subtext1)" # For use with zsh-vi-mode
+success_symbol = "[[󱓞](green) ❯](peach)"
+error_symbol = "[[󱓞](red) ❯](peach)"
+vimcmd_symbol = "[󱓞 ❮](subtext1)" # For use with zsh-vi-mode
 
 [git_branch]
 style = "bold mauve"
+symbol = " "
 
 [directory]
 truncation_length = 4
+truncate_to_repo = false
 style = "bold teal"
 
 [ruby]
@@ -27,10 +29,13 @@ symbol = "[](red) "
 [golang]
 symbol = "[](sky) "
 
+[lua]
+symbol = " "
+
 [python]
 
 [os]
-disabled = false
+disabled = true
 
 [os.symbols]
 Macos = "[](teal) "
