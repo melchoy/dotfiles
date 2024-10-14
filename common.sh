@@ -59,6 +59,27 @@ symlink_dotfile() {
 	echo "Symlink created: $source_file -> $target_file"
 }
 
+get_files_in_directory() {
+  local dir="$1"
+  local files=()
+
+  if [ -d "$dir" ]; then
+    # Enable dotglob to include hidden files
+    shopt -s dotglob
+    for file in "$dir"/*; do
+      if [ -f "$file" ]; then
+        files+=("$file")
+      fi
+    done
+    # Disable dotglob to avoid side effects
+    shopt -u dotglob
+  else
+    echo "Error: Directory '$dir' does not exist."
+  fi
+
+  echo "${files[@]}"
+}
+
 # Git & Github Utilitits
 
 github_auth_and_clone() {
