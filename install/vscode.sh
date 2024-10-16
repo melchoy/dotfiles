@@ -7,6 +7,8 @@ extension_list=(
   "editorconfig.editorconfig"
   "esbenp.prettier-vscode"
 
+	"Gruntfuggly.todo-tree"
+
   "golang.Go"
   "shopify.ruby-lsp"
 
