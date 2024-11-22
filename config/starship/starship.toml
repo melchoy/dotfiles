@@ -34,6 +34,7 @@ symbol = " "
 
 [python]
 
+
 [os]
 disabled = true
 
@@ -41,6 +42,14 @@ disabled = true
 Macos = "[](teal) "
 Linux = "[](teal) "
 Ubuntu = "[](teal) "
+
+[gcloud]
+disabled = true
+
+#[custom.gcloud-active-auth]
+#command = "gcloud-active-auth"
+#when = "true"
+#style = "blue"
 
 [palettes.catppuccin_macchiato]
 rosewater = "#f4dbd6"
