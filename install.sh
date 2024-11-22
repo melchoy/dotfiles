@@ -36,6 +36,11 @@ do_install() {
 	sh $DOTMANGR_INSTALLER_DIR/kitty.sh
 	sh $DOTMANGR_INSTALLER_DIR/alacritty.sh
 
+	# CLOUD UTILITIES & SDKs
+	sh $DOTMANGR_INSTALLER_DIR/gcloud.sh
+
+	# Pulumi
+	sh $DOTMANGR_INSTALLER_DIR/gcloud.sh
 
 	# LINKING GENERIC DOTS
 	sh $DOTMANGR_INSTALLER_DIR/dots.sh
