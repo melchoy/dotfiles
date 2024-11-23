@@ -46,10 +46,11 @@ Ubuntu = "[](teal) "
 [gcloud]
 disabled = true
 
-#[custom.gcloud-active-auth]
-#command = "gcloud-active-auth"
-#when = "true"
-#style = "blue"
+[custom.gcloud]
+command = "gcloud auth list --filter=status:ACTIVE --format='value(account)'"
+when = "gcloud auth list --filter=status:ACTIVE --format='value(account)' | grep -q ."
+symbol = "[](blue) "
+style = "blue"
 
 [palettes.catppuccin_macchiato]
 rosewater = "#f4dbd6"
