@@ -8,6 +8,10 @@ palette = "catppuccin_macchiato"
 # Inserts a blank line between shell prompts
 add_newline = true
 
+# Format the prompt to include custom modules in the desired order
+format = """$custom $pulumi
+$all"""
+
 # Starship modules
 [character]
 success_symbol = "[[󱓞](green) ❯](peach)"
@@ -51,6 +55,12 @@ command = "gcloud auth list --filter=status:ACTIVE --format='value(account)'"
 when = "gcloud auth list --filter=status:ACTIVE --format='value(account)' | grep -q ."
 symbol = "[](blue) "
 style = "blue"
+ignore_timeout = true
+
+[pulumi]
+disabled = false
+symbol = "[ pulumi:](pink) "
+style = "bold 5 pink"
 
 [palettes.catppuccin_macchiato]
 rosewater = "#f4dbd6"
