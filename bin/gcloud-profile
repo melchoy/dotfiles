@@ -10,7 +10,6 @@ if [[ -z "$PROFILE" ]]; then
   exit 1
 fi
 
-# Ensure that the ADC file exists and can be decrypted
 if [[ -f "$ADC_FILE" ]]; then
   echo "Found encrypted ADC file: $ADC_FILE"
 else
@@ -18,10 +17,8 @@ else
   exit 1
 fi
 
-# Get decrypted content using ~/.vault/ev view
 DECRYPTED_CONTENT=$(~/.vault/ev view "$ADC_FILE")
 
-# Check if account exists in the decrypted content
 DECRYPTED_ACCOUNT=$(echo "$DECRYPTED_CONTENT" | jq -r '.account')
 
 if [[ -z "$DECRYPTED_ACCOUNT" ]]; then
@@ -31,7 +28,6 @@ fi
 
 echo "Setting gcloud profile: $PROFILE"
 
-# List all authenticated accounts and check if the desired account is present
 if gcloud auth list --format="value(account)" | grep -q "$DECRYPTED_ACCOUNT"; then
   echo "Account '$DECRYPTED_ACCOUNT' is already authenticated. Switching to it."
   gcloud config set account "$DECRYPTED_ACCOUNT"
@@ -41,13 +37,15 @@ else
   gcloud auth login
 fi
 
-# Set or unset the project
+# Set quota project first (before setting the active project)
 if [[ -n "$PROJECT" ]]; then
+  echo "Setting quota project in ADC: $PROJECT"
+  gcloud auth application-default set-quota-project "$PROJECT"
+
+  # Then, set the gcloud project
   echo "Setting gcloud project: $PROJECT"
   if gcloud projects describe "$PROJECT" &>/dev/null; then
     gcloud config set project "$PROJECT"
-    echo "Updating quota project in ADC to: $PROJECT"
-    gcloud auth application-default set-quota-project "$PROJECT"
   else
     echo "Error: Project '$PROJECT' does not exist or you do not have access."
     exit 1
@@ -57,7 +55,6 @@ else
   gcloud config unset project
 fi
 
-# Write the decrypted content to the ACTIVE_ADC_FILE for gcloud or other tools
 echo "$DECRYPTED_CONTENT" > "$ACTIVE_ADC_FILE"
 export GOOGLE_APPLICATION_CREDENTIALS="$ACTIVE_ADC_FILE"
 
