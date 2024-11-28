@@ -1,0 +1,56 @@
+#!/bin/bash
+
+PROFILE="$1"
+PROJECT="$2"
+ADC_FILE="$HOME/.config/gcloud/${PROFILE}_adc.json"
+
+if [[ -z "$PROFILE" ]]; then
+  echo "Usage: $0 <profile-name> [project-id]"
+  exit 1
+fi
+
+if [[ -f "$ADC_FILE" ]]; then
+  echo "Found ADC file: $ADC_FILE"
+else
+  echo "Error: ADC file '$ADC_FILE' does not exist. Please log in and save it first."
+  exit 1
+fi
+
+# Extract account from the ADC file
+ACCOUNT=$(jq -r '.account' "$ADC_FILE")
+
+if [[ -z "$ACCOUNT" ]]; then
+  echo "Error: Could not find account in ADC file '$ADC_FILE'."
+  exit 1
+fi
+
+echo "Setting gcloud profile: $PROFILE"
+
+# List all authenticated accounts and check if the desired account is present
+if gcloud auth list --format="value(account)" | grep -q "$ACCOUNT"; then
+  echo "Account '$ACCOUNT' is already authenticated. Switching to it."
+  gcloud config set account "$ACCOUNT"
+else
+  echo "Account '$ACCOUNT' is not authenticated. Running gcloud auth login."
+  gcloud config set account "$ACCOUNT"
+  gcloud auth login
+fi
+
+# Set or unset the project
+if [[ -n "$PROJECT" ]]; then
+  echo "Setting gcloud project: $PROJECT"
+  if gcloud projects describe "$PROJECT" &>/dev/null; then
+    gcloud config set project "$PROJECT"
+    echo "Updating quota project in ADC to: $PROJECT"
+    gcloud auth application-default set-quota-project "$PROJECT"
+  else
+    echo "Error: Project '$PROJECT' does not exist or you do not have access."
+    exit 1
+  fi
+else
+  echo "Unsetting the currently active gcloud project"
+  gcloud config unset project
+fi
+
+export GOOGLE_APPLICATION_CREDENTIALS="$ADC_FILE"
+echo "Switched to ADC credentials: $ADC_FILE"
