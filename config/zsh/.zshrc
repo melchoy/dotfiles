@@ -33,6 +33,7 @@ source "$DOTZSH/functions/.functions.sh"
 
 # === Aliases ===
 source "$DOTZSH/aliases/.aliases.sh"
+source "$DOTZSH/aliases/gcp.sh"
 
 # === Custom / Local Configuration ===
 [ -f "${HOME}/.zshrc-local" ] && source "${HOME}/.zshrc-local"
