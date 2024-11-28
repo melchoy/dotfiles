@@ -2,37 +2,42 @@
 
 PROFILE="$1"
 PROJECT="$2"
-ADC_FILE="$HOME/.config/gcloud/${PROFILE}_adc.json"
+ADC_FILE="$HOME/.vault/secrets/gcloud/${PROFILE}_adc.json"
+ACTIVE_ADC_FILE="$HOME/.config/gcloud/active_adc.json"
 
 if [[ -z "$PROFILE" ]]; then
   echo "Usage: $0 <profile-name> [project-id]"
   exit 1
 fi
 
+# Ensure that the ADC file exists and can be decrypted
 if [[ -f "$ADC_FILE" ]]; then
-  echo "Found ADC file: $ADC_FILE"
+  echo "Found encrypted ADC file: $ADC_FILE"
 else
-  echo "Error: ADC file '$ADC_FILE' does not exist. Please log in and save it first."
+  echo "Error: Encrypted ADC file '$ADC_FILE' does not exist."
   exit 1
 fi
 
-# Extract account from the ADC file
-ACCOUNT=$(jq -r '.account' "$ADC_FILE")
+# Get decrypted content using ~/.vault/ev view
+DECRYPTED_CONTENT=$(~/.vault/ev view "$ADC_FILE")
 
-if [[ -z "$ACCOUNT" ]]; then
-  echo "Error: Could not find account in ADC file '$ADC_FILE'."
+# Check if account exists in the decrypted content
+DECRYPTED_ACCOUNT=$(echo "$DECRYPTED_CONTENT" | jq -r '.account')
+
+if [[ -z "$DECRYPTED_ACCOUNT" ]]; then
+  echo "Error: Could not find 'account' in decrypted ADC file."
   exit 1
 fi
 
 echo "Setting gcloud profile: $PROFILE"
 
 # List all authenticated accounts and check if the desired account is present
-if gcloud auth list --format="value(account)" | grep -q "$ACCOUNT"; then
-  echo "Account '$ACCOUNT' is already authenticated. Switching to it."
-  gcloud config set account "$ACCOUNT"
+if gcloud auth list --format="value(account)" | grep -q "$DECRYPTED_ACCOUNT"; then
+  echo "Account '$DECRYPTED_ACCOUNT' is already authenticated. Switching to it."
+  gcloud config set account "$DECRYPTED_ACCOUNT"
 else
-  echo "Account '$ACCOUNT' is not authenticated. Running gcloud auth login."
-  gcloud config set account "$ACCOUNT"
+  echo "Account '$DECRYPTED_ACCOUNT' is not authenticated. Running gcloud auth login."
+  gcloud config set account "$DECRYPTED_ACCOUNT"
   gcloud auth login
 fi
 
@@ -52,5 +57,8 @@ else
   gcloud config unset project
 fi
 
-export GOOGLE_APPLICATION_CREDENTIALS="$ADC_FILE"
-echo "Switched to ADC credentials: $ADC_FILE"
+# Write the decrypted content to the ACTIVE_ADC_FILE for gcloud or other tools
+echo "$DECRYPTED_CONTENT" > "$ACTIVE_ADC_FILE"
+export GOOGLE_APPLICATION_CREDENTIALS="$ACTIVE_ADC_FILE"
+
+echo "Switched to ADC credentials: $ACTIVE_ADC_FILE"
