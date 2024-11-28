@@ -51,7 +51,7 @@ Ubuntu = "[](teal) "
 disabled = true
 
 [custom.gcloud]
-command = "gcloud auth list --filter=status:ACTIVE --format='value(account)'"
+command = "account=$(gcloud auth list --filter=status:ACTIVE --format='value(account)') && project=$(gcloud config get-value project) && if [[ -n \"$project\" ]]; then printf '%s | %s' \"$account\" \"$project\"; else printf '%s' \"$account\"; fi"
 when = "gcloud auth list --filter=status:ACTIVE --format='value(account)' | grep -q ."
 symbol = "[](blue) "
 style = "blue"
