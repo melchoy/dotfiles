@@ -56,6 +56,7 @@ when = "gcloud auth list --filter=status:ACTIVE --format='value(account)' | grep
 symbol = "[](blue) "
 style = "blue"
 ignore_timeout = true
+disabled = false
 
 [pulumi]
 disabled = false
