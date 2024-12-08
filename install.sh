@@ -40,7 +40,7 @@ do_install() {
 	sh $DOTMANGR_INSTALLER_DIR/gcloud.sh
 
 	# Pulumi
-	sh $DOTMANGR_INSTALLER_DIR/gcloud.sh
+	sh $DOTMANGR_INSTALLER_DIR/pulumi.sh
 
 	# LINKING GENERIC DOTS
 	sh $DOTMANGR_INSTALLER_DIR/dots.sh
