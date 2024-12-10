@@ -23,5 +23,7 @@ install_or_update_packages "zsh"
 echo "Creating & Symlinking ZSH DOTCONFIG"
 touch "$HOME/.zshrc-local"
 touch "$HOME/.zprofile-local"
+symlink_dotfile "$DOTMANGR_CONFIGS_DIR/zsh/.env.sh"
 symlink_dotfile "$DOTMANGR_CONFIGS_DIR/zsh/.zshrc"
 symlink_dotfile "$DOTMANGR_CONFIGS_DIR/zsh/.zprofile"
+

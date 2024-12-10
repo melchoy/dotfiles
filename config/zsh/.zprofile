@@ -18,7 +18,8 @@ export PATH="$GOPATH:$PATH"
 export PATH="$HOME/.bin:$DOTHOME/bin:$PATH"
 
 # Load Additional Local Variables
-[ -f "$HOME/.env" ] && source "$HOME/.env"
+[ -f "$HOME/.env.sh" ] && source "$HOME/.env.sh"
+[ -f "$HOME/.env.local.sh" ] && source "$HOME/.env.local.sh"
 
 # === Dev Version & Package Managers ===
 source "$DOTCONFIG/node/nvm.sh"
