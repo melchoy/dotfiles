@@ -40,3 +40,6 @@ source "$DOTZSH/aliases/gcp.sh"
 
 [ -f "${HOME}/.alias" ] && source "${HOME}/.alias"
 [ -f "${HOME}/.alias-local" ] && source "${HOME}/.alias-local"
+
+[ -f "$HOME/.env.sh" ] && source "$HOME/.env.sh"
+[ -f "$HOME/.env.local.sh" ] && source "$HOME/.env.local.sh"
