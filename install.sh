@@ -2,6 +2,8 @@
 
 source ~/.dotfiles/common.sh
 
+# TODO: Create a method to configure the installer to select and install specific packages
+
 do_install() {
 
 	# BOOTSTRAP MACOS PREREQUISITES
@@ -33,8 +35,9 @@ do_install() {
 	sh $DOTMANGR_INSTALLER_DIR/vscode.sh
 
 	# TERMINAL EMULATORS
-	sh $DOTMANGR_INSTALLER_DIR/kitty.sh
-	sh $DOTMANGR_INSTALLER_DIR/alacritty.sh
+	sh $DOTMANGR_INSTALLER_DIR/ghosty.sh
+	#sh $DOTMANGR_INSTALLER_DIR/kitty.sh
+	#sh $DOTMANGR_INSTALLER_DIR/alacritty.sh
 
 	# CLOUD UTILITIES & SDKs
 	sh $DOTMANGR_INSTALLER_DIR/gcloud.sh
