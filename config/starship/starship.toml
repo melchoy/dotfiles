@@ -9,7 +9,7 @@ palette = "catppuccin_macchiato"
 add_newline = true
 
 # Format the prompt to include custom modules in the desired order
-format = """$custom $pulumi
+format = """$custom$pulumi
 $all"""
 
 # Starship modules
@@ -53,14 +53,15 @@ disabled = true
 [custom.gcloud]
 command = "account=$(gcloud auth list --filter=status:ACTIVE --format='value(account)') && project=$(gcloud config get-value project) && if [[ -n \"$project\" ]]; then printf '%s | %s' \"$account\" \"$project\"; else printf '%s' \"$account\"; fi"
 when = "gcloud auth list --filter=status:ACTIVE --format='value(account)' | grep -q ."
-symbol = "[](blue) "
-style = "blue"
+symbol = "[](blue bg:black) "
+style = "teal bg:black"
+format = "[ $symbol$output ]($style)[](black bg:transparent) "
 ignore_timeout = true
 disabled = false
 
 [pulumi]
 disabled = false
-symbol = "[ pulumi:](pink) "
+symbol = "[ pulumi:](pink)"
 style = "bold 5 pink"
 
 [palettes.catppuccin_macchiato]
