@@ -35,7 +35,7 @@ do_install() {
 	sh $DOTMANGR_INSTALLER_DIR/vscode.sh
 
 	# TERMINAL EMULATORS
-	sh $DOTMANGR_INSTALLER_DIR/ghosty.sh
+	sh $DOTMANGR_INSTALLER_DIR/ghostty.sh
 	#sh $DOTMANGR_INSTALLER_DIR/kitty.sh
 	#sh $DOTMANGR_INSTALLER_DIR/alacritty.sh
 
