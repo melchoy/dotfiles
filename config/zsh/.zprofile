@@ -8,8 +8,8 @@ export DOTHOME="$HOME/.dotfiles"
 export DOTCONFIG="$DOTHOME/config"
 export DOTZSH="$DOTCONFIG/zsh"
 
+export XDG_CONFIG_HOME="$HOME/.config"
 export VAULTHOME="$HOME/.vault"
-
 export GOPATH="$HOME/.go"
 
 export PATH="/opt/homebrew/bin:$PATH"
