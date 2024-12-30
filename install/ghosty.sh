@@ -11,3 +11,4 @@ elif [[ "$PLATFORM_NAME" == "ubuntu" ]]; then
 fi
 
 # Create & Symlink Ghosty Config Files
+symlink_dotfile "$DOTMANGR_CONFIGS_DIR/ghosty" "$HOME/.config/ghosty"
