@@ -1,11 +1,17 @@
 background = 282c34
 foreground = ffffff
 
+window-width = 85
+window-height = 25
+window-padding-x = 8
+window-padding-y = 5
+
+font-size = 18
+font-family = "0xProto Nerd Font Mono"
+
 keybind = ctrl+z=close_surface
 keybind = ctrl+d=new_split:right
 
-font-family = "0xProto Nerd Font Mono"
-font-size = 18
 
-window-padding-x = 8
-window-padding-y = 5
+
+
