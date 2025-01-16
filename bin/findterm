@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# Usage: findterm "search_term" [search_path]
+
+# Check if the required arguments are provided
+if [ "$#" -lt 1 ]; then
+  echo "Usage: findterm <search_term> [search_path]"
+  exit 1
+fi
+
+# Assign arguments to variables
+SEARCH_TERM="$1"
+SEARCH_PATH="${2:-.}" # Default to current directory if no search path is provided
+
+# Perform the search
+RESULT=$(grep -Rn "$SEARCH_TERM" "$SEARCH_PATH" | awk -F: '{print $1 ":" $2}')
+
+# Print the results to the screen
+echo "$RESULT"
+
+# Print totals
+echo ""
+echo "Total occurrences: $(echo "$RESULT" | wc -l)"
+echo "Total files with occurrences: $(echo "$RESULT" | cut -d':' -f1 | sort | uniq | wc -l)"
