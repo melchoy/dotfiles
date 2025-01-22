@@ -1,7 +1,7 @@
 {
 		"editor.tabSize": 2,
 		"editor.insertSpaces": false,
-		"editor.fontSize": 14,
+		"editor.fontSize": 16,
 		"window.zoomLevel": 1,
 		"workbench.colorTheme": "Catppuccin Macchiato",
 		"files.exclude": {
@@ -35,5 +35,44 @@
 		"terminal.integrated.fontFamily": "FiraCode Nerd Font Mono",
 		"terminal.integrated.fontSize": 14,
 		"editor.fontFamily": "FiraCode Nerd Font Mono, Menlo, Monaco, 'Courier New', monospace",
-		"[ruby]": {}
+		"[ruby]": {},
+		"editor.stickyScroll.enabled": false,
+		"database-client.autoSync": true,
+		"css.validate": false,
+  "scss.validate": false,
+  "less.validate": false,
+  "stylelint.validate": [
+    "css",
+    "scss",
+    "less",
+    "postcss",
+    "sass",
+    "vue",
+    "html",
+    "markdown",
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+  "stylelint.config": {
+    "extends": [
+      "stylelint-config-standard",
+      "stylelint-config-tailwindcss"
+    ],
+    "rules": {
+      "at-rule-no-unknown": [
+        true,
+        {
+          "ignoreAtRules": [
+            "tailwind",
+            "apply",
+            "variants",
+            "responsive",
+            "screen"
+          ]
+        }
+      ]
+    }
+  }
 }
