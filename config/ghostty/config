@@ -11,7 +11,3 @@ font-family = "0xProto Nerd Font Mono"
 
 keybind = ctrl+z=close_surface
 keybind = ctrl+d=new_split:right
-
-
-
-
