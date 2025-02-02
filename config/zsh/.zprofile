@@ -15,7 +15,7 @@ export GOPATH="$HOME/.go"
 export PATH="/opt/homebrew/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.composer/vendor/bin:$PATH"
-export PATH="$GOPATH:$PATH"
+export PATH="$GOPATH/bin:$PATH"
 export PATH="$HOME/.bin:$DOTHOME/bin:$PATH"
 
 # Load Additional Local Variables
