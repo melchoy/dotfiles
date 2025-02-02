@@ -4,6 +4,7 @@
 		"editor.fontSize": 16,
 		"window.zoomLevel": 1,
 		"workbench.colorTheme": "Catppuccin Macchiato",
+		"workbench.editor.enablePreview": false,
 		"files.exclude": {
 			"**/cache": true,
 			"**/coverage": true,
