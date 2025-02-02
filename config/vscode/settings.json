@@ -74,5 +74,7 @@
         }
       ]
     }
-  }
+	},
+	"gitlens.gitKraken.activeOrganizationId": "65c6500b2cebeb757dd5453d",
+	"window.commandCenter": false
 }
