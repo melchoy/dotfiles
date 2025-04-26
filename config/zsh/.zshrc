@@ -28,6 +28,12 @@ if command -v dircolors > /dev/null 2>&1; then
   fi
 fi
 
+
+# === GO STUFFS ===
+export GOBIN=$HOME/.go/bin
+export PATH=$PATH:$GOBIN
+export AIR_CONFIG=air.toml
+
 # === Functions ===
 source "$DOTZSH/functions/.functions.sh"
 
