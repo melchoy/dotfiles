@@ -197,5 +197,6 @@
   },
   "javascript.updateImportsOnFileMove.enabled": "always",
   "github.copilot.nextEditSuggestions.enabled": false,
-  "github.copilot.chat.agent.thinkingTool": true
+  "github.copilot.chat.agent.thinkingTool": true,
+  "docker.lsp.experimental.vulnerabilityScanning": false
 }
