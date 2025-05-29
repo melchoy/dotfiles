@@ -8,15 +8,21 @@
   "editor.inlineSuggest.edits.allowCodeShifting": "never",
 
   "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.tabSize": 2
   },
   "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.tabSize": 2
   },
   "[typescriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.tabSize": 2
   },
-  "[ruby]": {},
+  "[ruby]": {
+    "editor.tabSize": 2,
+    "editor.rulers": [120]
+  },
 
   "files.exclude": {
     "**/cache": true,
@@ -198,5 +204,98 @@
   "javascript.updateImportsOnFileMove.enabled": "always",
   "github.copilot.nextEditSuggestions.enabled": false,
   "github.copilot.chat.agent.thinkingTool": true,
-  "docker.lsp.experimental.vulnerabilityScanning": false
+  "docker.lsp.experimental.vulnerabilityScanning": false,
+  "docker.extension.experimental.composeCompletions": true,
+  "workbench.editor.empty.hint": "hidden",
+
+  "editor.detectIndentation": true,
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "files.eol": "\n",
+
+  "editor.rulers": [100],
+  "editor.wordWrap": "off",
+
+  "editor.formatOnSaveMode": "file",
+	"editorconfig.generateAuto": true,
+	"highlight.regexes": {
+		"pulumi\\.interpolate`([\\s\\S]*?)`": {
+			"language": "shellscript",
+			"filterLanguageRegex": "typescript|javascript"
+		},
+		"(sh|bash)`([\\s\\S]*?)`": {
+			"language": "shellscript",
+			"filterLanguageRegex": "typescript|javascript"
+		},
+		"((?:<!-- *)?(?:#|// @|//|./\\*+|<!--|--|\\* @|{!|{{!--|{{!) *TODO(?:\\s*\\([^)]+\\))?:?)((?!\\w)(?: *-->| *\\*/| *!}| *--}}| *}}|(?= *(?:[^:]//|/\\*+|<!--|@|--|{!|{{!--|{{!))|(?: +[^\\n@]*?)(?= *(?:[^:]//|/\\*+|<!--|@|--(?!>)|{!|{{!--|{{!))|(?: +[^@\\n]+)?))": {
+			"filterFileRegex": ".*(?<!CHANGELOG.md)$",
+			"decorations": [
+				{
+					"overviewRulerColor": "#ffcc00",
+					"backgroundColor": "#ffcc00",
+					"color": "#1f1f1f",
+					"fontWeight": "bold"
+				},
+				{
+					"backgroundColor": "#ffcc00",
+					"color": "#1f1f1f"
+				}
+			]
+		},
+		"((?:<!-- *)?(?:#|// @|//|./\\*+|<!--|--|\\* @|{!|{{!--|{{!) *(?:FIXME|FIX|BUG|UGLY|DEBUG|HACK)(?:\\s*\\([^)]+\\))?:?)((?!\\w)(?: *-->| *\\*/| *!}| *--}}| *}}|(?= *(?:[^:]//|/\\*+|<!--|@|--|{!|{{!--|{{!))|(?: +[^\\n@]*?)(?= *(?:[^:]//|/\\*+|<!--|@|--(?!>)|{!|{{!--|{{!))|(?: +[^@\\n]+)?))": {
+			"filterFileRegex": ".*(?<!CHANGELOG.md)$",
+			"decorations": [
+				{
+					"overviewRulerColor": "#cc0000",
+					"backgroundColor": "#cc0000",
+					"color": "#1f1f1f",
+					"fontWeight": "bold"
+				},
+				{
+					"backgroundColor": "#cc0000",
+					"color": "#1f1f1f"
+				}
+			]
+		},
+		"((?:<!-- *)?(?:#|// @|//|./\\*+|<!--|--|\\* @|{!|{{!--|{{!) *(?:REVIEW|OPTIMIZE|TSC)(?:\\s*\\([^)]+\\))?:?)((?!\\w)(?: *-->| *\\*/| *!}| *--}}| *}}|(?= *(?:[^:]//|/\\*+|<!--|@|--|{!|{{!--|{{!))|(?: +[^\\n@]*?)(?= *(?:[^:]//|/\\*+|<!--|@|--(?!>)|{!|{{!--|{{!))|(?: +[^@\\n]+)?))": {
+			"filterFileRegex": ".*(?<!CHANGELOG.md)$",
+			"decorations": [
+				{
+					"overviewRulerColor": "#00ccff",
+					"backgroundColor": "#00ccff",
+					"color": "#1f1f1f",
+					"fontWeight": "bold"
+				},
+				{
+					"backgroundColor": "#00ccff",
+					"color": "#1f1f1f"
+				}
+			]
+		},
+		"((?:<!-- *)?(?:#|// @|//|./\\*+|<!--|--|\\* @|{!|{{!--|{{!) *(?:IDEA)(?:\\s*\\([^)]+\\))?:?)((?!\\w)(?: *-->| *\\*/| *!}| *--}}| *}}|(?= *(?:[^:]//|/\\*+|<!--|@|--|{!|{{!--|{{!))|(?: +[^\\n@]*?)(?= *(?:[^:]//|/\\*+|<!--|@|--(?!>)|{!|{{!--|{{!))|(?: +[^@\\n]+)?))": {
+			"filterFileRegex": ".*(?<!CHANGELOG.md)$",
+			"decorations": [
+				{
+					"overviewRulerColor": "#cc00cc",
+					"backgroundColor": "#cc00cc",
+					"color": "#1f1f1f",
+					"fontWeight": "bold"
+				},
+				{
+					"backgroundColor": "#cc00cc",
+					"color": "#1f1f1f"
+				}
+			]
+		}
+  },
+  "github.copilot.selectedCompletionModel": "",
+  "github.copilot.chat.followUps": "firstOnly",
+  "github.copilot.chat.codesearch.enabled": true,
+  "github.copilot.chat.completionContext.typescript.mode": "sidecar",
+  "github.copilot.chat.editor.temporalContext.enabled": true,
+  "github.copilot.chat.edits.temporalContext.enabled": true,
+  "github.copilot.chat.languageContext.fix.typescript.enabled": true,
+  "gitlens.advanced.messages": {
+    "suppressLineUncommittedWarning": true
+  }
 }

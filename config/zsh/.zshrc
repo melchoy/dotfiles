@@ -28,7 +28,6 @@ if command -v dircolors > /dev/null 2>&1; then
   fi
 fi
 
-
 # === GO STUFFS ===
 export GOBIN=$HOME/.go/bin
 export PATH=$PATH:$GOBIN
@@ -49,3 +48,11 @@ source "$DOTZSH/aliases/gcp.sh"
 
 [ -f "$HOME/.env.sh" ] && source "$HOME/.env.sh"
 [ -f "$HOME/.env.local.sh" ] && source "$HOME/.env.local.sh"
+
+# pnpm
+export PNPM_HOME="/Users/mel/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end

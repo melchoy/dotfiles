@@ -31,7 +31,7 @@ load-ruby-version() {
       fi
     else
       rbenv shell "$ruby_version"
-      echo "Now using ruby version to $ruby_version."
+      # echo "Now using ruby version to $ruby_version."
     fi
   else
     rbenv shell --unset

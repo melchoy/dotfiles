@@ -2021,5 +2021,10 @@
 	{ "key": "escape",                "command": "diffEditor.exitCompareMove",
 																			 "when": "comparingMovedCode" },
 	{ "key": "cmd+space",             "command": "editor.action.inlineEdits.accept",
-																			 "when": "inlineEditsVisible" }
+																			"when": "inlineEditsVisible"
+																		},
+																		{
+																			"key": "cmd+i",
+																			"command": "composerMode.agent"
+																		}
 	]

@@ -60,7 +60,7 @@ ignore_timeout = true
 disabled = false
 
 [pulumi]
-disabled = false
+disabled = true
 symbol = "[ pulumi:](pink)"
 style = "bold 5 pink"
 
