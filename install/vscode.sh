@@ -47,7 +47,7 @@ if [[ "$PLATFORM_NAME" == "mac" ]]; then
   install_or_update_package "visual-studio-code"
 
   # Symlink configuration files
-  symlink_dotfile ~/.dotfiles/config/vscode/macos/keybindings.json ~/Library/Application\ Support/Code/User/keybindings.json
+  #symlink_dotfile ~/.dotfiles/config/vscode/macos/keybindings.json ~/Library/Application\ Support/Code/User/keybindings.json
   symlink_dotfile ~/.dotfiles/config/vscode/settings.json ~/Library/Application\ Support/Code/User/settings.json
   symlink_dotfile ~/.dotfiles/config/vscode/snippets ~/Library/Application\ Support/Code/User/snippets
 
@@ -63,7 +63,7 @@ elif [[ "$PLATFORM_NAME" == "ubuntu" ]]; then
 
   install_or_update_package "code"
 
-  symlink_dotfile ~/.dotfiles/config/vscode/ubuntu/keybindings.json ~/.config/Code/User/keybindings.json
+  #symlink_dotfile ~/.dotfiles/config/vscode/ubuntu/keybindings.json ~/.config/Code/User/keybindings.json
   symlink_dotfile ~/.dotfiles/config/vscode/settings.json ~/.config/Code/User/settings.json
   symlink_dotfile ~/.dotfiles/config/vscode/snippets ~/.config/Code/User/snippets
 fi
