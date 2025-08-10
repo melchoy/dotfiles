@@ -50,3 +50,5 @@
 	path=~/.gitlocal
 [advice]
 	skippedCherryPicks = false
+[push]
+	default = current
