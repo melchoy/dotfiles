@@ -54,5 +54,23 @@ export PNPM_HOME="/Users/mel/Library/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
+ esac
 # pnpm end
+
+# === Auto-start tmux ===
+# Behavior:
+# - Default: start tmux in all terminals except VSCode/Cursor (TERM_PROGRAM=vscode)
+# - Global disable: set TMUX_EVERYWHERE=0 in ~/.zshrc-local
+# - Per-shell disable: export DISABLE_TMUX_AUTOSTART=1
+TMUX_EVERYWHERE=${TMUX_EVERYWHERE:-1}
+
+if command -v tmux &> /dev/null && \
+   [ -n "$PS1" ] && \
+   [ -z "$TMUX" ] && \
+   [ -z "$DISABLE_TMUX_AUTOSTART" ] && \
+   [ -z "$INTELLIJ_ENVIRONMENT_READER" ] && \
+   [ "$TMUX_EVERYWHERE" = "1" ]; then
+  if [ "$TERM_PROGRAM" != "vscode" ]; then
+    exec tmux new-session -A -s main
+  fi
+fi

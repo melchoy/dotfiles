@@ -15,5 +15,11 @@ if [[ "$OSTYPE" == "darwin"* ]] && [[ -d "/Applications/GitKraken.app" ]]; then
     alias gitkraken="open -a GitKraken"
 fi
 
+# Cursor Agent CLI
+if command -v cursor-agent >/dev/null 2>&1; then
+  alias ca='cursor-agent'
+fi
+
 source $DOTZSH/aliases/dotfiles.sh
 source $DOTZSH/aliases/directory.sh
+source $DOTZSH/aliases/tmux.sh
