@@ -68,7 +68,7 @@
 
   "window.zoomLevel": 1,
   "window.commandCenter": false,
-  "workbench.colorTheme": "Catppuccin Macchiato",
+  "workbench.colorTheme": "Palenight (Mild Contrast)",
   "workbench.editor.enablePreview": false,
 
   "git.openRepositoryInParentFolders": "never",
@@ -297,5 +297,6 @@
   "github.copilot.chat.languageContext.fix.typescript.enabled": true,
   "gitlens.advanced.messages": {
     "suppressLineUncommittedWarning": true
-  }
+  },
+  "docker.extension.enableComposeLanguageServer": false
 }
