@@ -15,3 +15,8 @@ fi
 # Create & Symlink Starship Config Files
 echo "Creating & Symlinking Starship DOTCONFIG"
 symlink_dotfile "$DOTMANGR_CONFIGS_DIR/starship/starship.toml" "$HOME/.config/starship.toml"
+
+# Also symlink the tmux-specific config
+symlink_dotfile "$DOTMANGR_CONFIGS_DIR/starship/starship-tmux.toml" "$HOME/.config/starship-tmux.toml"
+
+echo "✅ Starship configured with tmux detection"

@@ -3,6 +3,14 @@ autoload -Uz colors && colors
 
 # === Starship Prompt ===
 if command -v starship > /dev/null; then
+	# Choose config based on tmux presence (improved detection)
+	if [ -n "$TMUX" ] && [ "$TERM_PROGRAM" != "vscode" ] && [ -z "$INTELLIJ_ENVIRONMENT_READER" ]; then
+		# Inside tmux - use minimal config
+		export STARSHIP_CONFIG="$HOME/.config/starship-tmux.toml"
+	else
+		# Outside tmux or in IDE - use full config
+		export STARSHIP_CONFIG="$HOME/.config/starship.toml"
+	fi
 	eval "$(starship init zsh)"
 fi
 
@@ -58,19 +66,20 @@ case ":$PATH:" in
 # pnpm end
 
 # === Auto-start tmux ===
+# DISABLED FOR NOW
 # Behavior:
 # - Default: start tmux in all terminals except VSCode/Cursor (TERM_PROGRAM=vscode)
 # - Global disable: set TMUX_EVERYWHERE=0 in ~/.zshrc-local
 # - Per-shell disable: export DISABLE_TMUX_AUTOSTART=1
-TMUX_EVERYWHERE=${TMUX_EVERYWHERE:-1}
+# TMUX_EVERYWHERE=${TMUX_EVERYWHERE:-1}
 
-if command -v tmux &> /dev/null && \
-   [ -n "$PS1" ] && \
-   [ -z "$TMUX" ] && \
-   [ -z "$DISABLE_TMUX_AUTOSTART" ] && \
-   [ -z "$INTELLIJ_ENVIRONMENT_READER" ] && \
-   [ "$TMUX_EVERYWHERE" = "1" ]; then
-  if [ "$TERM_PROGRAM" != "vscode" ]; then
-    exec tmux new-session -A -s main
-  fi
-fi
+# if command -v tmux &> /dev/null && \
+#    [ -n "$PS1" ] && \
+#    [ -z "$TMUX" ] && \
+#    [ -z "$DISABLE_TMUX_AUTOSTART" ] && \
+#    [ -z "$INTELLIJ_ENVIRONMENT_READER" ] && \
+#    [ "$TMUX_EVERYWHERE" = "1" ]; then
+#   if [ "$TERM_PROGRAM" != "vscode" ]; then
+#     exec tmux new-session -A -s work
+#   fi
+# fi

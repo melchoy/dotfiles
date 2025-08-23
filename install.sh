@@ -18,6 +18,7 @@ do_install() {
 	sh $DOTMANGR_INSTALLER_DIR/nerdfonts.sh
 	sh $DOTMANGR_INSTALLER_DIR/starship.sh
 	sh $DOTMANGR_INSTALLER_DIR/core.sh
+	sh $DOTMANGR_INSTALLER_DIR/tmux.sh
 
 	# PROGRAMMING UTILITIES
 	sh $DOTMANGR_INSTALLER_DIR/git.sh

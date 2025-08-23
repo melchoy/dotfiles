@@ -6,12 +6,21 @@ alias ta='tmux attach-session -t'
 alias tn='tmux new-session -s'
 alias tk='tmux kill-session -t'
 alias tka='tmux kill-session -a'  # Kill all sessions except current
+alias tr='tmux source-file ~/.dotfiles/config/tmux/tmux.conf \; display "Config reloaded 🚀"'  # Reload tmux config
 
 # Quick session switcher
 t() {
     if [ -z "$1" ]; then
-        # No argument: attach to 'main' or create it
-        tmux new-session -A -s main
+        # No argument: attach to 'work' or create it with multiple windows
+        if ! tmux has-session -t work 2>/dev/null; then
+            # Create new session with multiple windows
+            tmux new-session -d -s work -n code
+            tmux new-window -t work -n server
+            tmux new-window -t work -n docs
+            tmux new-window -t work -n term
+            tmux select-window -t work:code
+        fi
+        tmux attach-session -t work
     else
         # With argument: attach to named session or create it
         tmux new-session -A -s "$1"
