@@ -38,6 +38,7 @@
     "**/.next": true,
     "**/.sass-cache": true,
     "**/.pnpm-store": true,
+    "**/__pycache__": true,
     ".DS_Store": true,
     "*.log": true
   },
@@ -68,7 +69,7 @@
 
   "window.zoomLevel": 1,
   "window.commandCenter": false,
-  "workbench.colorTheme": "Palenight (Mild Contrast)",
+  "workbench.colorTheme": "Catppuccin Frappé",
   "workbench.editor.enablePreview": false,
 
   "git.openRepositoryInParentFolders": "never",
@@ -298,5 +299,9 @@
   "gitlens.advanced.messages": {
     "suppressLineUncommittedWarning": true
   },
-  "docker.extension.enableComposeLanguageServer": false
+  "docker.extension.enableComposeLanguageServer": false,
+  "cursor.composer.shouldChimeAfterChatFinishes": true,
+  "cursor.composer.usageSummaryDisplay": "always",
+  "cursor.composer.shouldAllowCustomModes": true,
+  "cursor.terminal.usePreviewBox": true
 }
