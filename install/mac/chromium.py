@@ -16,7 +16,8 @@ SNAP_BASE = "https://commondatastorage.googleapis.com/chromium-browser-snapshots
 HOME = str(Path.home())
 LIB_DIR = f"{APP}/Contents/Frameworks/Chromium Framework.framework/Libraries"
 PREFS_ROOT = f"{HOME}/Library/Application Support/Chromium"
-POLICY_DIR = f"{PREFS_ROOT}/policies/managed"
+# System-wide policy directory for macOS
+POLICY_DIR = "/Library/Managed Preferences"
 
 def get_platform():
   """Get Chromium platform identifier based on architecture."""
@@ -296,11 +297,30 @@ def install_widevine():
 
 def write_policy_file():
   """Write managed policy file for enterprise settings."""
-  policy_path = Path(POLICY_DIR) / "dotfiles.json"
+  # Create system-wide policy directory (requires sudo)
+  run(["sudo", "mkdir", "-p", POLICY_DIR])
+  policy_path = Path(POLICY_DIR) / "org.chromium.Chromium.json"
   policy_data = {
     "BrowserSignin": 0,
     "SyncDisabled": True,
-    "NewTabPageLocation": "about:blank"
+    "NewTabPageLocation": "about:blank",
+    "DefaultPluginsSetting": 1,
+    "PluginsAllowedForUrls": ["*"],
+    "DefaultWebBluetoothGuardSetting": 2,
+    "DefaultWebUsbGuardSetting": 2,
+    "DefaultMediaStreamSetting": 1,
+    "AudioCaptureAllowed": True,
+    "VideoCaptureAllowed": True,
+    "DefaultContentSettings": {
+      "ProtectedMediaIdentifier": 1
+    },
+    "ContentSettings": {
+      "ProtectedMediaIdentifier": {
+        "*,*": {
+          "setting": 1
+        }
+      }
+    }
   }
 
   # Check if update needed
@@ -312,8 +332,14 @@ def write_policy_file():
   except (FileNotFoundError, json.JSONDecodeError):
     pass
 
-  atomic_write(policy_path, json.dumps(policy_data))
-  print("Policy file written")
+  # Write policy file with sudo
+  with tempfile.NamedTemporaryFile(mode='w', delete=False) as tmp:
+    json.dump(policy_data, tmp, indent=2)
+    temp_path = tmp.name
+
+  run(["sudo", "mv", temp_path, str(policy_path)])
+  run(["sudo", "chmod", "644", str(policy_path)])
+  print("System-wide policy file written")
 
 def setup_default_preferences():
   """Set up default profile preferences."""
@@ -323,18 +349,45 @@ def setup_default_preferences():
   # Create First Run sentinel
   (prefs_dir / "../First Run").touch()
 
-  # Merge preferences
+  # Merge preferences with comprehensive Widevine support
   prefs_patch = {
     "signin": {"allowed": False},
     "sync": {"requested": False},
     "browser": {"check_default_browser": False},
     "session": {"restore_on_startup": 5, "startup_urls": ["about:blank"]},
     "homepage_is_newtabpage": False,
-    "ntp": {"custom_background": {"url": "about:blank"}}
+    "ntp": {"custom_background": {"url": "about:blank"}},
+    "profile": {
+      "content_settings": {
+        "exceptions": {
+          "protected_media_identifier": {
+            "*,*": {
+              "setting": 1,
+              "last_modified": "13400000000000000"
+            }
+          },
+          "media_stream": {
+            "*,*": {
+              "setting": 1,
+              "last_modified": "13400000000000000"
+            }
+          }
+        },
+        "default_content_setting_values": {
+          "protected_media_identifier": 1,
+          "media_stream": 1,
+          "plugins": 1
+        }
+      }
+    },
+    "plugins": {
+      "always_open_pdf_externally": False,
+      "plugins_list": []
+    }
   }
 
   if json_merge(prefs_dir / "Preferences", prefs_patch):
-    print("Preferences updated")
+    print("Default preferences updated with Widevine support")
 
 def setup_avatars(config):
   """Set up avatar symlinks if enabled."""
@@ -393,12 +446,27 @@ def provision_profiles(config):
     prefs_patch = {
       "signin": {"allowed": False},
       "sync": {"requested": False},
-      "browser": {"check_default_browser": False}
+      "browser": {"check_default_browser": False},
+      "profile": {
+        "content_settings": {
+          "exceptions": {
+            "protected_media_identifier": {
+              "*,*": {
+                "setting": 1,
+                "last_modified": "13400000000000000"
+              }
+            }
+          },
+          "default_content_setting_values": {
+            "protected_media_identifier": 1
+          }
+        }
+      }
     }
 
     # Add profile section only if display name is specified
     if disp:
-      prefs_patch["profile"] = {"name": disp}
+      prefs_patch["profile"]["name"] = disp
 
     # Note: Theme configuration temporarily disabled due to crash issues
 
@@ -500,7 +568,15 @@ def create_profile_launchers(config):
     script_lines = ["#!/bin/bash"]
     cmd_parts = ['exec open -a "Chromium" --args']
 
-    for flag in common_flags:
+    # Add Widevine-specific flags (removed explicit path - let Chromium find it)
+    widevine_flags = [
+      "--enable-widevine-cdm",
+      "--enable-features=VaapiVideoDecoder",
+      "--ignore-gpu-blocklist",
+
+    ]
+
+    for flag in common_flags + widevine_flags:
       cmd_parts.append(f'  {flag} \\')
 
     if effective_extensions:
@@ -518,7 +594,7 @@ def create_profile_launchers(config):
     script_lines = ["#!/bin/bash"]
     cmd_parts = ['exec open -a "Chromium" --args']
 
-    for flag in common_flags:
+    for flag in common_flags + widevine_flags:
       cmd_parts.append(f'  {flag} \\')
 
     cmd_parts.append(f'  --profile-directory="{profile_dir}" \\')
@@ -541,15 +617,8 @@ def create_generic_launcher(config):
   """Create generic Chromium launcher."""
   profiles = config.get("profiles", {})
 
-  # Skip creating generic launcher if profiles are configured
-  if profiles:
-    return
-
+  # Always create generic launcher with Widevine support
   launcher_path = Path(HOME) / "bin" / "chromium"
-
-  if launcher_path.exists():
-    return
-
   launcher_path.parent.mkdir(exist_ok=True)
 
   common_flags = [
@@ -559,7 +628,10 @@ def create_generic_launcher(config):
     "--disable-background-networking",
     "--enable-features=PlatformHEVCDecoderSupport",
     "--ignore-gpu-blocklist",
-    "--new-tab-page-url=about:blank"
+    "--new-tab-page-url=about:blank",
+    "--enable-widevine-cdm",
+    "--enable-features=VaapiVideoDecoder",
+
   ]
 
   script_lines = ["#!/bin/bash"]
@@ -583,6 +655,7 @@ def create_generic_launcher(config):
 
   atomic_write(launcher_path, "\n".join(script_lines))
   os.chmod(launcher_path, 0o755)
+  print("Generic launcher created with Widevine support")
 
 def uninstall_chromium():
   """Uninstall Chromium and clean up user data."""
@@ -601,13 +674,27 @@ def uninstall_chromium():
     print(f"Removing {PREFS_ROOT}")
     shutil.rmtree(PREFS_ROOT)
 
-  # Remove launcher scripts
-  bin_dir = Path(HOME) / "bin"
-  for launcher in ["chromium", "chromium-flexnet", "chromium-mel"]:
-    launcher_path = bin_dir / launcher
-    if launcher_path.exists():
-      print(f"Removing {launcher_path}")
-      launcher_path.unlink()
+  # Remove launcher scripts based on config
+  config_dir = os.getenv("CHROMIUM_CONFIG_DIR")
+  if config_dir:
+    config = read_config(config_dir)
+    profiles = config.get("profiles", {})
+
+    bin_dir = Path(HOME) / "bin"
+
+    # Remove generic launcher
+    generic_launcher = bin_dir / "chromium"
+    if generic_launcher.exists():
+      print(f"Removing {generic_launcher}")
+      generic_launcher.unlink()
+
+    # Remove profile-specific launchers
+    for profile_name in profiles.keys():
+      for launcher_type in ["", "-direct"]:
+        launcher_path = bin_dir / f"chromium-{profile_name}{launcher_type}"
+        if launcher_path.exists():
+          print(f"Removing {launcher_path}")
+          launcher_path.unlink()
 
   print("Chromium uninstalled successfully")
 
