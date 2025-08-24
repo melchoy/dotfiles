@@ -50,7 +50,7 @@ do_install() {
 	sh $DOTMANGR_INSTALLER_DIR/dots.sh
 
 	# DESKTOP & BROWSER ENVIRONMENT
-	sh $DOTMANGR_INSTALLER_DIR/chromium.sh
+	# sh $DOTMANGR_INSTALLER_DIR/chromium.sh
 
 	# PLATFORM SPECIFIC DESKTOP APPLICATIONS
 	if [[ "$PLATFORM_NAME" == "mac" ]]; then
