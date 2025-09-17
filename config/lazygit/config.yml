@@ -241,6 +241,10 @@ update:
   days: 14
 # Custom commands
 customCommands:
+  - key: '<c-p>'
+    context: 'files'
+    description: 'Push current branch'
+    command: 'git push origin {{.CheckedOutBranch.Name}}'
   - key: '<c-r>'
     context: 'files'
     description: 'Reload'
