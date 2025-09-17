@@ -2,6 +2,8 @@
 # https://github.com/jesseduffield/lazygit/blob/master/docs/Config.md
 
 gui:
+  # Disable random tips (donate/ask questions prompts)
+  showRandomTip: false
   # Theme configuration
   theme:
     # Use Catppuccin Macchiato color scheme
@@ -50,6 +52,8 @@ gui:
   expandFocusedSidePanel: false
   # Main panel split type
   mainPanelSplitMode: 'flexible'
+  # Show staged changes in separate view
+  splitDiff: 'auto'
 git:
   # Push behavior
   autoFetch: true
@@ -240,3 +244,9 @@ customCommands:
     description: 'Reload'
     command: 'git status'
     loadingText: 'Refreshing...'
+  - key: 'S'
+    context: 'files'
+    description: 'Show staged files only'
+    command: 'git diff --cached --name-status'
+    loadingText: 'Loading staged files...'
+    output: log
