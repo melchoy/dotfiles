@@ -1,223 +1,220 @@
 {
-  "editor.tabSize": 2,
-  "editor.insertSpaces": false,
-  "editor.fontSize": 16,
-  "editor.fontFamily": "FiraCode Nerd Font Mono, Menlo, Monaco, 'Courier New', monospace",
-  "editor.stickyScroll.enabled": false,
-  "editor.formatOnSave": true,
-  "editor.inlineSuggest.edits.allowCodeShifting": "never",
+	"editor.tabSize": 2,
+	"editor.insertSpaces": false,
+	"editor.fontSize": 16,
+	"editor.fontFamily": "FiraCode Nerd Font Mono, Menlo, Monaco, 'Courier New', monospace",
+	"editor.stickyScroll.enabled": false,
+	"editor.formatOnSave": true,
+	"editor.inlineSuggest.edits.allowCodeShifting": "never",
 
-  "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.tabSize": 2
-  },
-  "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.tabSize": 2
-  },
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.tabSize": 2
-  },
-  "[ruby]": {
-    "editor.tabSize": 2,
-    "editor.rulers": [120]
-  },
+	"[javascript]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode",
+		"editor.tabSize": 2
+	},
+	"[typescript]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode",
+		"editor.tabSize": 2
+	},
+	"[typescriptreact]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode",
+		"editor.tabSize": 2
+	},
+	"[ruby]": {
+		"editor.tabSize": 2,
+		"editor.rulers": [120]
+	},
 
-  "files.exclude": {
-    "**/cache": true,
-    "**/coverage": true,
-    "**/log": true,
-    "**/node_modules": true,
-    "**/public/packs": true,
-    "**/storage": true,
-    "**/temp": true,
-    "**/tmp": true,
-    "**/.bundle": true,
-    "**/.idea": true,
-    "**/.next": true,
-    "**/.sass-cache": true,
-    "**/.pnpm-store": true,
-    "**/__pycache__": true,
-    ".DS_Store": true,
-    "*.log": true
-  },
-  "files.associations": {
-    ".aliases": "shellscript",
-    ".zshrc-local": "shellscript",
-    ".zprofile-local": "shellscript"
-  },
-  "explorer.fileNesting.patterns": {
-    "*.ts": "${capture}.js",
-    "*.js": "${capture}.js.map, ${capture}.min.js, ${capture}.d.ts",
-    "*.jsx": "${capture}.js",
-    "*.tsx": "${capture}.ts",
-    "tsconfig.json": "tsconfig.*.json",
-    "package.json": "package-lock.json, yarn.lock, pnpm-lock.yaml, bun.lockb",
-    "*.sqlite": "${capture}.${extname}-*",
-    "*.db": "${capture}.${extname}-*",
-    "*.sqlite3": "${capture}.${extname}-*",
-    "*.db3": "${capture}.${extname}-*",
-    "*.sdb": "${capture}.${extname}-*",
-    "*.s3db": "${capture}.${extname}-*"
-  },
+	"files.exclude": {
+		".DS_Store": true,
+		"*.log": true,
+		"**/__pycache__": true,
+		"**/.bundle": true,
+		"**/.idea": true,
+		"**/.next": true,
+		"**/.pnpm-store": true,
+		"**/.sass-cache": true,
+		"**/cache": true,
+		"**/coverage": true,
+		"**/log": true,
+		"**/node_modules": true,
+		"**/node-compile-cache": true,
+		"**/public/packs": true,
+		"**/storage": true,
+		"**/temp": true,
+		"**/tmp": true
+	},
+	"files.associations": {
+		".aliases": "shellscript",
+		".zshrc-local": "shellscript",
+		".zprofile-local": "shellscript"
+	},
+	"explorer.fileNesting.patterns": {
+		"*.ts": "${capture}.js",
+		"*.js": "${capture}.js.map, ${capture}.min.js, ${capture}.d.ts",
+		"*.jsx": "${capture}.js",
+		"*.tsx": "${capture}.ts",
+		"tsconfig.json": "tsconfig.*.json",
+		"package.json": "package-lock.json, yarn.lock, pnpm-lock.yaml, bun.lockb",
+		"*.sqlite": "${capture}.${extname}-*",
+		"*.db": "${capture}.${extname}-*",
+		"*.sqlite3": "${capture}.${extname}-*",
+		"*.db3": "${capture}.${extname}-*",
+		"*.sdb": "${capture}.${extname}-*",
+		"*.s3db": "${capture}.${extname}-*"
+	},
 
-  "terminal.integrated.fontFamily": "FiraCode Nerd Font Mono",
-  "terminal.integrated.fontSize": 14,
-  "terminal.explorerKind": "external",
-  "terminal.external.osxExec": "Ghostty.app",
+	"terminal.integrated.fontFamily": "FiraCode Nerd Font Mono",
+	"terminal.integrated.fontSize": 14,
+	"terminal.explorerKind": "external",
+	"terminal.external.osxExec": "Ghostty.app",
 
-  "window.zoomLevel": 1,
-  "window.commandCenter": false,
-  "workbench.colorTheme": "Catppuccin Frappé",
-  "workbench.editor.enablePreview": false,
+	"window.zoomLevel": 1,
+	"window.commandCenter": false,
+	"workbench.colorTheme": "Catppuccin Frappé",
 
-  "git.openRepositoryInParentFolders": "never",
-  "git.autofetch": true,
+	"git.openRepositoryInParentFolders": "never",
+	"git.autofetch": true,
 
-  "gitlens.views.worktrees.files.layout": "list",
-  "gitlens.ai.model": "vscode",
-  "gitlens.ai.vscode.model": "copilot:gpt-4o",
+	"gitlens.views.worktrees.files.layout": "list",
+	"gitlens.ai.model": "gitkraken",
+	"gitlens.ai.vscode.model": "copilot:gpt-4o",
 
-  "css.validate": false,
-  "scss.validate": false,
-  "less.validate": false,
-  "stylelint.validate": [
-    "css",
-    "scss",
-    "less",
-    "postcss",
-    "sass",
-    "vue",
-    "html",
-    "markdown",
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact"
-  ],
-  "stylelint.config": {
-    "extends": [
-      "stylelint-config-standard",
-      "stylelint-config-tailwindcss"
-    ],
-    "rules": {
-      "at-rule-no-unknown": [
-        true,
-        {
-          "ignoreAtRules": [
-            "tailwind",
-            "apply",
-            "variants",
-            "responsive",
-            "screen"
-          ]
-        }
-      ]
-    }
-  },
+	"css.validate": false,
+	"scss.validate": false,
+	"less.validate": false,
+	"stylelint.validate": [
+		"css",
+		"scss",
+		"less",
+		"postcss",
+		"sass",
+		"vue",
+		"html",
+		"markdown",
+		"javascript",
+		"javascriptreact",
+		"typescript",
+		"typescriptreact"
+	],
+	"stylelint.config": {
+		"extends": ["stylelint-config-standard", "stylelint-config-tailwindcss"],
+		"rules": {
+			"at-rule-no-unknown": [
+				true,
+				{
+					"ignoreAtRules": [
+						"tailwind",
+						"apply",
+						"variants",
+						"responsive",
+						"screen"
+					]
+				}
+			]
+		}
+	},
 
-  "yaml.schemas": {
-    "https://json.schemastore.org/github-workflow.json": "file:///Users/mel/Work/flexnet-worktrees/main/.github/workflows/*.yml"
-  },
+	"yaml.schemas": {
+		"https://json.schemastore.org/github-workflow.json": "file:///Users/mel/Work/flexnet-worktrees/main/.github/workflows/*.yml"
+	},
 
-  "todo-tree.filtering.excludeGlobs": [
-    "**/node_modules/**",
-    "**/dist/**",
-    "**/build/**",
-    "**/coverage/**",
-    "**/tmp/**",
-    "**/vendor/**",
-    "**/.git/**",
-    "**/.bundle/**",
-    "**/.next/**",
-    "**/public/packs/**",
-    "**/storage/**",
-    "**/log/**",
-    "**/.sass-cache/**",
-    "**/.pnpm-store/**"
-  ],
-  "todo-tree.general.tags": [
-    "TODO",
-    "BUG",
-    "FIXME",
-    "NOTE",
-    "@todo",
-    "@bug",
-    "@fixme"
-  ],
-  "todo-tree.highlights.customHighlight": {
-    "TODO": {
-      "icon": "check-circle",
-      "foreground": "#ffffff",
-      "background": "#4abb89",
-      "iconColour": "#2ecc71",
-      "type": "tag"
-    },
-    "BUG": {
-      "icon": "bug",
-      "foreground": "#ffffff",
-      "background": "#e74c3c",
-      "iconColour": "#ee0000",
-      "type": "tag"
-    },
-    "FIXME": {
-      "icon": "tools",
-      "foreground": "#ffffff",
-      "background": "#e67e22",
-      "iconColour": "#f39c12",
-      "type": "tag"
-    },
-    "NOTE": {
-      "icon": "note",
-      "foreground": "#ffffff",
-      "background": "#3498db",
-      "iconColour": "#3498db",
-      "type": "tag"
-    },
-    "@todo": {
-      "icon": "check-circle",
-      "foreground": "#ffffff",
-      "background": "#4abb89",
-      "iconColour": "#2ecc71",
-      "type": "tag"
-    },
-    "@bug": {
-      "icon": "bug",
-      "foreground": "#ffffff",
-      "background": "#e74c3c",
-      "iconColour": "#ee0000",
-      "type": "tag"
-    },
-    "@fixme": {
-      "icon": "tools",
-      "foreground": "#ffffff",
-      "background": "#e67e22",
-      "iconColour": "#f39c12",
-      "type": "tag"
-    }
-  },
+	"todo-tree.filtering.excludeGlobs": [
+		"**/node_modules/**",
+		"**/dist/**",
+		"**/build/**",
+		"**/coverage/**",
+		"**/tmp/**",
+		"**/vendor/**",
+		"**/.git/**",
+		"**/.bundle/**",
+		"**/.next/**",
+		"**/public/packs/**",
+		"**/storage/**",
+		"**/log/**",
+		"**/.sass-cache/**",
+		"**/.pnpm-store/**"
+	],
+	"todo-tree.general.tags": [
+		"TODO",
+		"BUG",
+		"FIXME",
+		"NOTE",
+		"@todo",
+		"@bug",
+		"@fixme"
+	],
+	"todo-tree.highlights.customHighlight": {
+		"TODO": {
+			"icon": "check-circle",
+			"foreground": "#ffffff",
+			"background": "#4abb89",
+			"iconColour": "#2ecc71",
+			"type": "tag"
+		},
+		"BUG": {
+			"icon": "bug",
+			"foreground": "#ffffff",
+			"background": "#e74c3c",
+			"iconColour": "#ee0000",
+			"type": "tag"
+		},
+		"FIXME": {
+			"icon": "tools",
+			"foreground": "#ffffff",
+			"background": "#e67e22",
+			"iconColour": "#f39c12",
+			"type": "tag"
+		},
+		"NOTE": {
+			"icon": "note",
+			"foreground": "#ffffff",
+			"background": "#3498db",
+			"iconColour": "#3498db",
+			"type": "tag"
+		},
+		"@todo": {
+			"icon": "check-circle",
+			"foreground": "#ffffff",
+			"background": "#4abb89",
+			"iconColour": "#2ecc71",
+			"type": "tag"
+		},
+		"@bug": {
+			"icon": "bug",
+			"foreground": "#ffffff",
+			"background": "#e74c3c",
+			"iconColour": "#ee0000",
+			"type": "tag"
+		},
+		"@fixme": {
+			"icon": "tools",
+			"foreground": "#ffffff",
+			"background": "#e67e22",
+			"iconColour": "#f39c12",
+			"type": "tag"
+		}
+	},
 
-  "redhat.telemetry.enabled": false,
-  "supermaven.enable": {
-    "*": false
-  },
-  "javascript.updateImportsOnFileMove.enabled": "always",
-  "github.copilot.nextEditSuggestions.enabled": false,
-  "github.copilot.chat.agent.thinkingTool": true,
-  "docker.lsp.experimental.vulnerabilityScanning": false,
-  "docker.extension.experimental.composeCompletions": true,
-  "workbench.editor.empty.hint": "hidden",
+	"redhat.telemetry.enabled": false,
+	"supermaven.enable": {
+		"*": true
+	},
+	"javascript.updateImportsOnFileMove.enabled": "always",
+	"github.copilot.nextEditSuggestions.enabled": false,
+	"github.copilot.chat.agent.thinkingTool": true,
+	"docker.lsp.experimental.vulnerabilityScanning": false,
+	"docker.extension.experimental.composeCompletions": true,
+	"workbench.editor.empty.hint": "hidden",
 
-  "editor.detectIndentation": true,
-  "files.trimTrailingWhitespace": true,
-  "files.insertFinalNewline": true,
-  "files.eol": "\n",
+	"editor.detectIndentation": true,
+	"files.trimTrailingWhitespace": true,
+	"files.insertFinalNewline": true,
+	"files.eol": "\n",
 
-  "editor.rulers": [100],
-  "editor.wordWrap": "off",
+	"editor.rulers": [100],
+	"editor.wordWrap": "off",
 
-  "editor.formatOnSaveMode": "file",
+	"editor.formatOnSaveMode": "file",
 	"editorconfig.generateAuto": true,
 	"highlight.regexes": {
 		"pulumi\\.interpolate`([\\s\\S]*?)`": {
@@ -288,20 +285,26 @@
 				}
 			]
 		}
-  },
-  "github.copilot.selectedCompletionModel": "",
-  "github.copilot.chat.followUps": "firstOnly",
-  "github.copilot.chat.codesearch.enabled": true,
-  "github.copilot.chat.completionContext.typescript.mode": "sidecar",
-  "github.copilot.chat.editor.temporalContext.enabled": true,
-  "github.copilot.chat.edits.temporalContext.enabled": true,
-  "github.copilot.chat.languageContext.fix.typescript.enabled": true,
-  "gitlens.advanced.messages": {
-    "suppressLineUncommittedWarning": true
-  },
-  "docker.extension.enableComposeLanguageServer": false,
-  "cursor.composer.shouldChimeAfterChatFinishes": true,
-  "cursor.composer.usageSummaryDisplay": "always",
-  "cursor.composer.shouldAllowCustomModes": true,
-  "cursor.terminal.usePreviewBox": true
+	},
+	"github.copilot.selectedCompletionModel": "",
+	"github.copilot.chat.followUps": "firstOnly",
+	"github.copilot.chat.codesearch.enabled": true,
+	"github.copilot.chat.completionContext.typescript.mode": "sidecar",
+	"github.copilot.chat.editor.temporalContext.enabled": true,
+	"github.copilot.chat.edits.temporalContext.enabled": true,
+	"github.copilot.chat.languageContext.fix.typescript.enabled": true,
+	"gitlens.advanced.messages": {
+		"suppressLineUncommittedWarning": true
+	},
+	"docker.extension.enableComposeLanguageServer": false,
+	"cursor.composer.shouldChimeAfterChatFinishes": true,
+	"cursor.composer.usageSummaryDisplay": "always",
+	"cursor.composer.shouldAllowCustomModes": true,
+	"cursor.terminal.usePreviewBox": true,
+	"diffEditor.ignoreTrimWhitespace": true,
+	"gitlens.ai.gitkraken.model": "gemini:gemini-2.0-flash",
+	"[jsonc]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"json.schemaDownload.enable": true
 }
