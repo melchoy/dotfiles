@@ -31,6 +31,7 @@ do_install() {
 	sh $DOTMANGR_INSTALLER_DIR/go.sh
 	sh $DOTMANGR_INSTALLER_DIR/node.sh
 	sh $DOTMANGR_INSTALLER_DIR/ruby.sh
+	#sh $DOTMANGR_INSTALLER_DIR/deno.sh
 
 	# CODE EDITORS
 	sh $DOTMANGR_INSTALLER_DIR/nvim.sh

@@ -1,0 +1,227 @@
+#!/bin/bash
+
+# Grip Markdown Preview Wrapper Script
+# Usage: grip-preview [file] [options]
+
+set -e
+
+SCRIPT_DIR="$(dirname "$0")"
+DOTFILES_DIR="$(dirname "$SCRIPT_DIR")"
+
+# Default configuration
+DEFAULT_PORT=6419
+DEFAULT_HOST="localhost"
+GRIP_CONFIG_DIR="$HOME/.grip"
+
+# Help function
+show_help() {
+	cat << 'EOF'
+grip-preview - GitHub Markdown Preview Wrapper
+
+USAGE:
+    grip-preview [FILE] [OPTIONS]
+
+ARGUMENTS:
+    FILE                    Markdown file to preview (default: current directory)
+
+OPTIONS:
+    -p, --port PORT        Port to serve on (default: 6419)
+    -h, --host HOST        Host to bind to (default: localhost)
+    -b, --browser          Auto-open in browser
+    -w, --wide             Use wide layout
+    -q, --quiet            Suppress output
+    --no-browser           Don't auto-open browser
+    --help                 Show this help message
+
+EXAMPLES:
+    grip-preview README.md                    # Preview README.md
+    grip-preview --browser                    # Preview current directory, open browser
+    grip-preview file.md -p 8080 -b          # Custom port with browser
+    grip-preview --wide --quiet file.md      # Wide layout, suppress output
+
+NEOVIM INTEGRATION:
+    Add to your Neovim config:
+    vim.keymap.set('n', '<leader>mp', ':!grip-preview % --browser<CR>', { desc = 'Preview markdown' })
+
+TROUBLESHOOTING:
+    - Port conflicts: Use -p to specify different port
+    - Browser issues: Check if BROWSER env var is set
+    - GitHub API limits: Set GRIP_TOKEN env var with GitHub token
+EOF
+}
+
+# Function to find free port
+find_free_port() {
+	local port=$1
+	while lsof -Pi :$port -sTCP:LISTEN -t >/dev/null 2>&1; do
+		port=$((port + 1))
+		if [ $port -gt 65535 ]; then
+			echo "Error: No free ports available" >&2
+			exit 1
+		fi
+	done
+	echo $port
+}
+
+# Function to validate grip installation
+validate_grip() {
+	if ! command -v grip &> /dev/null; then
+		echo "Error: grip is not installed or not in PATH" >&2
+		echo "Run: ~/.dotfiles/install/grip.sh" >&2
+		exit 1
+	fi
+}
+
+# Function to check GitHub API rate limits
+check_github_limits() {
+	if [ -z "$GRIP_TOKEN" ] && [ -z "$GITHUB_TOKEN" ]; then
+		echo "Warning: No GitHub token set. API rate limits may apply." >&2
+		echo "Set GRIP_TOKEN environment variable to avoid limits." >&2
+		echo "Get token at: https://github.com/settings/tokens" >&2
+	fi
+}
+
+# Function to setup grip configuration
+setup_grip_config() {
+	mkdir -p "$GRIP_CONFIG_DIR"
+	
+	# Create .grip/settings.py if it doesn't exist
+	local settings_file="$GRIP_CONFIG_DIR/settings.py"
+	if [ ! -f "$settings_file" ]; then
+		cat > "$settings_file" << 'EOF'
+import os
+
+# GitHub Personal Access Token (optional, to avoid rate limits)
+# Get one at: https://github.com/settings/tokens
+# Only needs 'public_repo' scope for public repos, or 'repo' for private
+TOKEN = os.environ.get('GRIP_TOKEN') or os.environ.get('GITHUB_TOKEN')
+
+# Default settings
+HOST = '0.0.0.0'  # Allow external connections
+PORT = 6419
+DEBUG = False
+AUTOREFRESH = True
+QUIET = False
+WIDE_STYLE = False
+
+# Custom CSS (optional)
+# STYLE_URLS = ['http://example.com/custom.css']
+EOF
+		echo "Created grip configuration at: $settings_file"
+	fi
+}
+
+# Main function
+main() {
+	local file=""
+	local port="$DEFAULT_PORT"
+	local host="$DEFAULT_HOST"
+	local browser_flag=""
+	local extra_args=()
+	
+	# Parse arguments
+	while [[ $# -gt 0 ]]; do
+		case $1 in
+			-h|--host)
+				host="$2"
+				shift 2
+				;;
+			-p|--port)
+				port="$2"
+				shift 2
+				;;
+			-b|--browser)
+				browser_flag="--browser"
+				shift
+				;;
+			--no-browser)
+				browser_flag="--no-browser"
+				shift
+				;;
+			-w|--wide)
+				extra_args+=("--wide")
+				shift
+				;;
+			-q|--quiet)
+				extra_args+=("--quiet")
+				shift
+				;;
+			--help)
+				show_help
+				exit 0
+				;;
+			-*)
+				echo "Unknown option: $1" >&2
+				show_help
+				exit 1
+				;;
+			*)
+				if [ -z "$file" ]; then
+					file="$1"
+				else
+					echo "Too many arguments" >&2
+					show_help
+					exit 1
+				fi
+				shift
+				;;
+		esac
+	done
+	
+	# Validate installation
+	validate_grip
+	
+	# Check GitHub API limits
+	check_github_limits
+	
+	# Setup configuration
+	setup_grip_config
+	
+	# Find free port if default is taken
+	port=$(find_free_port "$port")
+	
+	# Set file to current directory if not specified
+	if [ -z "$file" ]; then
+		file="."
+	fi
+	
+	# Validate file exists
+	if [ ! -e "$file" ]; then
+		echo "Error: File or directory '$file' does not exist" >&2
+		exit 1
+	fi
+	
+	echo "Starting grip preview server..."
+	echo "File/Directory: $file"
+	echo "URL: http://$host:$port"
+	echo "Press Ctrl+C to stop"
+	echo ""
+	
+	# Build grip command
+	local grip_cmd=(grip "$file")
+	
+	# Add host and port
+	grip_cmd+=("$host:$port")
+	
+	# Add browser flag if specified
+	if [ -n "$browser_flag" ]; then
+		grip_cmd+=("$browser_flag")
+	fi
+	
+	# Add extra arguments
+	grip_cmd+=("${extra_args[@]}")
+	
+	# Execute grip with error handling
+	if ! "${grip_cmd[@]}"; then
+		echo "" >&2
+		echo "Grip failed to start. Troubleshooting:" >&2
+		echo "1. Check if port $port is available: lsof -i :$port" >&2
+		echo "2. Try a different port: grip-preview -p 8080 $file" >&2
+		echo "3. Check grip installation: grip --version" >&2
+		echo "4. Check GitHub API limits (set GRIP_TOKEN)" >&2
+		exit 1
+	fi
+}
+
+# Run main function
+main "$@"
