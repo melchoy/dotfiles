@@ -13,7 +13,7 @@ window-padding-y = 5
 # Font Configuration
 # ------------------
 font-size = 18
-font-family = "0xProto Nerd Font Mono"
+font-family = "FiraCode Nerd Font Mono"
 
 # Keybindings
 # -----------
