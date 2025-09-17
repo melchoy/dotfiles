@@ -54,6 +54,8 @@ gui:
   mainPanelSplitMode: 'flexible'
   # Show staged changes in separate view
   splitDiff: 'auto'
+  # Show current branch info in status
+  showBranchCommitHash: true
 git:
   # Push behavior
   autoFetch: true
