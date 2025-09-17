@@ -7,7 +7,7 @@
 	defaultBranch = main
 
 [core]
-	editor = vim
+	editor = nvim
 	excludesFile = ~/.dotfiles/config/git/.gitignore
 	sshCommand = ssh -i ~/.ssh/id_rsa
 	ignorecase = false
