@@ -12,7 +12,7 @@ cask_apps=(
 	"raycast"
 
 	# TODO: Optional or Choose one
-	"iterm2"
+	#"iterm2"
 	#"alacritty" # needs --no-quarantine"
 
 	# TODO: Make Optional/Section Menu
