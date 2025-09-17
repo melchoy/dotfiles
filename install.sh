@@ -22,6 +22,7 @@ do_install() {
 
 	# PROGRAMMING UTILITIES
 	sh $DOTMANGR_INSTALLER_DIR/git.sh
+	sh $DOTMANGR_INSTALLER_DIR/lazygit.sh
 	sh $DOTMANGR_INSTALLER_DIR/dbmate.sh
 	sh $DOTMANGR_INSTALLER_DIR/ngrok.sh
 	sh "$DOTMANGR_INSTALLER_DIR/helix.sh" "$@"

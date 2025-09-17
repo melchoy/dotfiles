@@ -1,0 +1,242 @@
+# Lazygit configuration
+# https://github.com/jesseduffield/lazygit/blob/master/docs/Config.md
+
+gui:
+  # Theme configuration
+  theme:
+    # Use Catppuccin Macchiato color scheme
+    activeBorderColor:
+      - '#8aadf4'
+      - bold
+    inactiveBorderColor:
+      - '#6e738d'
+    searchingActiveBorderColor:
+      - '#eed49f'
+      - bold
+    optionsTextColor:
+      - '#89b4fa'
+    selectedLineBgColor:
+      - '#363a4f'
+    cherryPickedCommitFgColor:
+      - '#8aadf4'
+    cherryPickedCommitBgColor:
+      - '#8839ef'
+    markedBaseCommitFgColor:
+      - '#89b4fa'
+    markedBaseCommitBgColor:
+      - '#eed49f'
+    unstagedChangesColor:
+      - '#ed8796'
+    defaultFgColor:
+      - '#cad3f5'
+  # Mouse support
+  mouseEvents: true
+  # Show icons in file tree
+  showFileTree: true
+  showIcons: true
+  # Border style
+  border: 'rounded'
+  # Time format
+  timeFormat: '02 Jan 06'
+  shortTimeFormat: '3:04PM'
+  # List context size
+  showListFooter: true
+  # Command log
+  showCommandLog: true
+  commandLogSize: 8
+  # Show bottom line
+  showBottomLine: true
+  # Expand focused side panel
+  expandFocusedSidePanel: false
+  # Main panel split type
+  mainPanelSplitMode: 'flexible'
+git:
+  # Push behavior
+  autoFetch: true
+  autoRefresh: true
+  # Commit settings
+  commit:
+    signOff: false
+    autoWrapCommitMessage: true
+    autoWrapWidth: 80
+  # Merge settings
+  merging:
+    manualCommit: false
+  # Skip hook prefix
+  skipHookPrefix: 'WIP'
+  # Branch settings
+  branchLogCmd: 'git log --graph --pretty=format:"%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit'
+  # Paging
+  paging:
+    colorArg: always
+    pager: ''
+  # Parse emoji
+  parseEmoji: true
+os:
+  # Editor preference
+  edit: '{{editor}} {{filename}}'
+  editAtLine: '{{editor}} +{{line}} {{filename}}'
+  editAtLineAndWait: '{{editor}} +{{line}} {{filename}}'
+  editInTerminal: true
+  # Open command
+  open: 'open {{filename}}'
+  # Copy to clipboard command
+  copyToClipboardCmd: 'pbcopy'
+keybinding:
+  universal:
+    quit: 'q'
+    quit-alt1: '<c-c>'
+    return: '<esc>'
+    quitWithoutChangingDirectory: 'Q'
+    togglePanel: '<tab>'
+    prevItem: '<up>'
+    nextItem: '<down>'
+    prevItem-alt: 'k'
+    nextItem-alt: 'j'
+    prevPage: ','
+    nextPage: '.'
+    scrollLeft: 'H'
+    scrollRight: 'L'
+    gotoTop: '<'
+    gotoBottom: '>'
+    toggleRangeSelect: 'v'
+    rangeSelectDown: '<s-down>'
+    rangeSelectUp: '<s-up>'
+    prevBlock: '<left>'
+    nextBlock: '<right>'
+    prevBlock-alt: 'h'
+    nextBlock-alt: 'l'
+    nextBlock-alt2: '<tab>'
+    prevBlock-alt2: '<backtab>'
+    jumpToBlock: ['1', '2', '3', '4', '5']
+    nextMatch: 'n'
+    prevMatch: 'N'
+    startSearch: '/'
+    optionMenu: "<disabled>"
+    optionMenu-alt1: "<disabled>"
+    select: '<space>'
+    goInto: '<enter>'
+    confirm: '<enter>'
+    confirmInEditor: '<a-enter>'
+    remove: 'd'
+    new: 'n'
+    edit: 'e'
+    openFile: 'o'
+    scrollUpMain: '<pgup>'
+    scrollDownMain: '<pgdown>'
+    scrollUpMain-alt1: 'K'
+    scrollDownMain-alt1: 'J'
+    scrollUpMain-alt2: '<c-u>'
+    scrollDownMain-alt2: '<c-d>'
+    executeShellCommand: ':'
+    createRebaseOptionsMenu: 'm'
+    # Filtering menu
+    filteringMenu: '<c-s>'
+    # Cherry picking is handled in commits context; no universal toggle
+    # Copy
+    copyToClipboard: '<c-y>'
+    # Diff view
+    toggleWhitespaceInDiffView: '<c-w>'
+    increaseContextInDiffView: '}'
+    decreaseContextInDiffView: '{'
+    increaseRenameSimilarityThreshold: ')'
+    decreaseRenameSimilarityThreshold: '('
+    openDiffTool: '<c-t>'
+  status:
+    checkForUpdate: 'u'
+    recentRepos: '<enter>'
+    allBranchesLogGraph: 'a'
+  files:
+    commitChanges: 'c'
+    commitChangesWithoutHook: 'w'
+    amendLastCommit: 'A'
+    commitChangesWithEditor: 'C'
+    confirmDiscard: 'x'
+    ignoreFile: 'i'
+    refreshFiles: 'r'
+    stashAllChanges: 's'
+    viewStashOptions: 'S'
+    toggleStagedAll: 'a'
+    viewResetOptions: 'D'
+    fetch: 'f'
+    toggleTreeView: '`'
+    openMergeTool: 'M'
+    openStatusFilter: '<c-b>'
+    copyFileInfoToClipboard: 'y'
+  branches:
+    createPullRequest: 'o'
+    viewPullRequestOptions: 'O'
+    copyPullRequestURL: '<c-y>'
+    checkoutBranchByName: 'c'
+    forceCheckoutBranch: 'F'
+    rebaseBranch: 'r'
+    renameBranch: 'R'
+    mergeIntoCurrentBranch: 'M'
+    viewGitFlowOptions: 'i'
+    fastForward: 'f'
+    createTag: 'T'
+    pushTag: 'P'
+    setUpstream: 'u'
+    fetchRemote: 'f'
+    sortOrder: 's'
+  worktrees:
+    viewWorktreeOptions: 'w'
+  commits:
+    squashDown: 's'
+    renameCommit: 'r'
+    renameCommitWithEditor: 'R'
+    viewResetOptions: 'g'
+    markCommitAsFixup: 'f'
+    createFixupCommit: 'F'
+    squashAboveCommits: 'S'
+    moveDownCommit: '<c-j>'
+    moveUpCommit: '<c-k>'
+    amendToCommit: 'A'
+    resetCommitAuthor: 'a'
+    pickCommit: 'p'
+    revertCommit: 't'
+    cherryPickCopy: 'C'
+    pasteCommits: 'V'
+    markCommitAsBaseForRebase: 'B'
+    tagCommit: 'T'
+    checkoutCommit: '<space>'
+    resetCherryPick: '<c-R>'
+    copyCommitAttributeToClipboard: 'y'
+    openLogMenu: '<c-l>'
+    openInBrowser: 'o'
+    viewBisectOptions: 'b'
+    startInteractiveRebase: 'i'
+  stash:
+    popStash: 'g'
+    renameStash: 'r'
+  commitFiles:
+    checkoutCommitFile: 'c'
+  main:
+    toggleSelectHunk: 'a'
+    pickBothHunks: 'b'
+    editSelectHunk: 'E'
+  submodules:
+    init: 'i'
+    update: 'u'
+    bulkMenu: 'b'
+# Disable auto-refresh while in the background
+refresher:
+  refreshInterval: 10
+  fetchInterval: 60
+# Disable showing of 'git' in the command log
+notARepository: 'skip'
+# Disable intro popups
+disableStartupPopups: true
+# Confirmation on quit
+confirmOnQuit: false
+# Update check
+update:
+  method: prompt
+  days: 14
+# Custom commands
+customCommands:
+  - key: '<c-r>'
+    context: 'files'
+    description: 'Reload'
+    command: 'git status'
+    loadingText: 'Refreshing...'

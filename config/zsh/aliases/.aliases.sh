@@ -10,6 +10,8 @@ alias py="python3"
 alias python="python3"
 alias pip="pip3"
 
+alias reload="source ~/.zshrc"
+
 # GitKraken alias on Mac - opens GitKraken if it exists
 if [[ "$OSTYPE" == "darwin"* ]] && [[ -d "/Applications/GitKraken.app" ]]; then
     alias gitkraken="open -a GitKraken"
@@ -23,3 +25,4 @@ fi
 source $DOTZSH/aliases/dotfiles.sh
 source $DOTZSH/aliases/directory.sh
 source $DOTZSH/aliases/tmux.sh
+source $DOTZSH/aliases/git.sh
