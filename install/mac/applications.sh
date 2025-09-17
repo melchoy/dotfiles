@@ -4,7 +4,7 @@ source ~/.dotfiles/common.sh
 
 # TODO: Make some apps optional
 cask_apps=(
-	"brave-browser"
+	"vivaldi"
 	"1password"
 
 	# TODO: Choose one or the other
@@ -16,7 +16,7 @@ cask_apps=(
 	#"alacritty" # needs --no-quarantine"
 
 	# TODO: Make Optional/Section Menu
-	#"choosy"
+	"choosy"
 	"chatgpt"
 	"slack"
 )
