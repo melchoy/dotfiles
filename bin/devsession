@@ -1,0 +1,350 @@
+#!/bin/bash
+
+# =============================================================================
+# DEVSESSION - Universal Development Sessionizer
+# =============================================================================
+# Creates tmux sessions with smart layouts for development projects
+# Supports worktree projects and flat directories with universal ~/work discovery
+
+set -e
+
+# Configuration
+WORK_DIR="$HOME/work"
+CONFIG_FILE="$HOME/.dotfiles/@local/devsession-config.json"
+DEFAULT_LAYOUT="simple"
+
+# Colors for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
+
+# =============================================================================
+# UTILITY FUNCTIONS
+# =============================================================================
+
+log() {
+    echo -e "${GREEN}[devsession]${NC} $1"
+}
+
+warn() {
+    echo -e "${YELLOW}[devsession]${NC} $1"
+}
+
+error() {
+    echo -e "${RED}[devsession]${NC} $1" >&2
+}
+
+show_usage() {
+    cat << EOF
+Universal Development Sessionizer
+
+Usage:
+  devsession                    # Show all projects in ~/work
+  devsession <project>          # Show worktrees for project (if configured)
+  devsession <project> <target> # Direct to specific worktree/directory
+
+Examples:
+  devsession                    # Universal picker for ~/work
+  devsession flexnet            # Show flexnet worktrees  
+  devsession flexnet main       # Direct to flexnet main worktree
+  devsession dotfiles           # Direct to dotfiles project
+
+EOF
+}
+
+# =============================================================================
+# PROJECT DETECTION
+# =============================================================================
+
+detect_project_type() {
+    local dir="$1"
+    local types=""
+    
+    [ -f "$dir/package.json" ] && {
+        if jq -e '.dependencies.next' "$dir/package.json" >/dev/null 2>&1; then
+            types="Next.js"
+        elif jq -e '.dependencies.react' "$dir/package.json" >/dev/null 2>&1; then
+            types="React"  
+        elif jq -e '.devDependencies.typescript' "$dir/package.json" >/dev/null 2>&1; then
+            types="TypeScript"
+        else
+            types="JavaScript"
+        fi
+    }
+    
+    [ -f "$dir/Gemfile" ] && {
+        if [ -f "$dir/config/application.rb" ]; then
+            types="${types:+$types/}Rails"
+        else
+            types="${types:+$types/}Ruby"
+        fi
+    }
+    
+    [ -f "$dir/go.mod" ] && types="${types:+$types/}Go"
+    [ -f "$dir/Cargo.toml" ] && types="${types:+$types/}Rust"
+    [ -f "$dir/pyproject.toml" ] || [ -f "$dir/requirements.txt" ] && types="${types:+$types/}Python"
+    
+    echo "${types:-Unknown}"
+}
+
+get_git_info() {
+    local dir="$1"
+    if [ -d "$dir/.git" ]; then
+        local branch=$(cd "$dir" && git branch --show-current 2>/dev/null)
+        echo "[${branch:-no-branch}]"
+    else
+        echo ""
+    fi
+}
+
+# =============================================================================
+# UNIVERSAL WORK DIRECTORY DISCOVERY  
+# =============================================================================
+
+show_universal_picker() {
+    log "Scanning ~/work for projects..."
+    
+    if [ ! -d "$WORK_DIR" ]; then
+        error "Work directory $WORK_DIR does not exist"
+        return 1
+    fi
+    
+    local selected=$(find "$WORK_DIR" -mindepth 1 -maxdepth 3 -type d -not -path "*/.*" | \
+        while IFS= read -r dir; do
+            local rel_path=${dir#$WORK_DIR/}
+            local git_info=$(get_git_info "$dir")
+            local project_type=$(detect_project_type "$dir")
+            
+            printf "%-50s %-15s %s\n" "$rel_path" "$git_info" "$project_type"
+        done | \
+        sort | \
+        fzf --prompt="Select project> " \
+            --preview="ls -la $WORK_DIR/{1}" \
+            --preview-window=right:40% \
+            --header="Select a project from ~/work" | \
+        awk '{print $1}')
+    
+    if [ -n "$selected" ]; then
+        create_session_from_path "$WORK_DIR/$selected"
+    else
+        log "No project selected"
+    fi
+}
+
+# =============================================================================
+# SESSION MANAGEMENT
+# =============================================================================
+
+create_session_from_path() {
+    local project_path="$1"
+    local session_name=$(basename "$project_path" | tr '.' '_')
+    
+    # Make session name unique and tmux-safe
+    session_name=$(echo "$session_name" | sed 's/[^a-zA-Z0-9_-]/_/g')
+    
+    log "Creating session '$session_name' for $project_path"
+    
+    # If session exists, just attach
+    if tmux has-session -t "$session_name" 2>/dev/null; then
+        log "Session '$session_name' already exists, attaching..."
+        if [ -n "$TMUX" ]; then
+            tmux switch-client -t "$session_name"
+        else
+            tmux attach-session -t "$session_name"
+        fi
+        return
+    fi
+    
+    # Create new session
+    tmux new-session -d -s "$session_name" -c "$project_path"
+    
+    # Create basic layout based on project type
+    create_basic_layout "$session_name" "$project_path"
+    
+    # Attach to session
+    log "Session '$session_name' created successfully!"
+    if [ -n "$TMUX" ]; then
+        tmux switch-client -t "$session_name"
+    else
+        tmux attach-session -t "$session_name"
+    fi
+}
+
+create_basic_layout() {
+    local session_name="$1"
+    local project_path="$2"
+    local project_type=$(detect_project_type "$project_path")
+    
+    # Window 1: Code (rename default window and start nvim)
+    tmux rename-window -t "$session_name:1" "code"
+    tmux send-keys -t "$session_name:code" "nvim" C-m
+    
+    # Window 2: Git
+    tmux new-window -t "$session_name" -n "git" -c "$project_path"
+    tmux send-keys -t "$session_name:git" "lazygit" C-m
+    
+    # Window 3: Terminal (split)
+    tmux new-window -t "$session_name" -n "term" -c "$project_path"
+    tmux split-window -t "$session_name:term" -v -c "$project_path"
+    
+    # If it's a web project, add server window
+    if [[ "$project_type" =~ (Next.js|React|TypeScript|JavaScript|Rails) ]]; then
+        tmux new-window -t "$session_name" -n "server" -c "$project_path"
+        tmux split-window -t "$session_name:server" -v -c "$project_path"
+        
+        # Try to detect and suggest server command
+        if [ -f "$project_path/package.json" ]; then
+            if jq -e '.scripts.dev' "$project_path/package.json" >/dev/null 2>&1; then
+                tmux send-keys -t "$session_name:server" "# Run: npm run dev" C-m
+            elif jq -e '.scripts.start' "$project_path/package.json" >/dev/null 2>&1; then
+                tmux send-keys -t "$session_name:server" "# Run: npm start" C-m
+            fi
+        elif [ -f "$project_path/Gemfile" ] && [ -f "$project_path/config/application.rb" ]; then
+            tmux send-keys -t "$session_name:server" "# Run: rails server" C-m
+        fi
+    fi
+    
+    # Return to code window
+    tmux select-window -t "$session_name:code"
+}
+
+# =============================================================================
+# CONFIGURED PROJECT HANDLING
+# =============================================================================
+
+load_config() {
+    if [ ! -f "$CONFIG_FILE" ]; then
+        return 1
+    fi
+    
+    if ! jq empty "$CONFIG_FILE" 2>/dev/null; then
+        warn "Invalid JSON in config file: $CONFIG_FILE"
+        return 1
+    fi
+    
+    return 0
+}
+
+handle_configured_project() {
+    local project="$1"
+    local target="${2:-}"
+    
+    if ! load_config; then
+        warn "No valid config found, falling back to universal discovery"
+        show_universal_picker
+        return
+    fi
+    
+    local project_config=$(jq -r ".projects[\"$project\"] // empty" "$CONFIG_FILE")
+    
+    if [ -z "$project_config" ]; then
+        warn "Project '$project' not found in config, checking ~/work..."
+        # Try to find it in work directory
+        local project_path="$WORK_DIR/$project"
+        if [ -d "$project_path" ]; then
+            create_session_from_path "$project_path"
+        else
+            error "Project '$project' not found in config or ~/work"
+            return 1
+        fi
+        return
+    fi
+    
+    local project_type=$(echo "$project_config" | jq -r '.type')
+    local basedir=$(echo "$project_config" | jq -r '.basedir' | sed "s|~|$HOME|")
+    
+    case "$project_type" in
+        "worktrees")
+            if [ -n "$target" ]; then
+                # Direct to specific worktree
+                create_session_from_path "$basedir/$target"
+            else
+                # Show worktree picker
+                show_worktree_picker "$project" "$basedir"
+            fi
+            ;;
+        "flat")
+            create_session_from_path "$basedir"
+            ;;
+        *)
+            error "Unknown project type: $project_type"
+            return 1
+            ;;
+    esac
+}
+
+show_worktree_picker() {
+    local project="$1"
+    local basedir="$2"
+    
+    if [ ! -d "$basedir" ]; then
+        error "Project base directory does not exist: $basedir"
+        return 1
+    fi
+    
+    log "Finding worktrees in $basedir..."
+    
+    local selected=$(find "$basedir" -mindepth 1 -maxdepth 1 -type d | \
+        while IFS= read -r dir; do
+            local name=$(basename "$dir")
+            local git_info=$(get_git_info "$dir")
+            local project_type=$(detect_project_type "$dir")
+            
+            printf "%-30s %-15s %s\n" "$name" "$git_info" "$project_type"
+        done | \
+        sort | \
+        fzf --prompt="Select $project worktree> " \
+            --preview="ls -la $basedir/{1}" \
+            --header="Select worktree for $project" | \
+        awk '{print $1}')
+    
+    if [ -n "$selected" ]; then
+        create_session_from_path "$basedir/$selected"
+    else
+        log "No worktree selected"
+    fi
+}
+
+# =============================================================================
+# MAIN ENTRY POINT
+# =============================================================================
+
+main() {
+    # Check for tmux
+    if ! command -v tmux >/dev/null 2>&1; then
+        error "tmux is not installed"
+        exit 1
+    fi
+    
+    # Check for fzf
+    if ! command -v fzf >/dev/null 2>&1; then
+        error "fzf is not installed"
+        exit 1
+    fi
+    
+    # Check for jq (optional for basic functionality)
+    if ! command -v jq >/dev/null 2>&1; then
+        warn "jq is not installed, some features may not work"
+    fi
+    
+    case "$#" in
+        0) 
+            show_universal_picker 
+            ;;
+        1) 
+            handle_configured_project "$1"
+            ;;
+        2) 
+            handle_configured_project "$1" "$2"
+            ;;
+        *)
+            show_usage
+            exit 1
+            ;;
+    esac
+}
+
+# Run main function
+main "$@"
