@@ -19,6 +19,13 @@ fi
 export EDITOR=nvim
 export TERM=xterm-256color
 
+# Use current Neovim via nvr when available; otherwise launch new nvim
+if command -v nvr >/dev/null 2>&1; then
+  export GIT_EDITOR='bash -lc '\''nvr --remote-wait "$@" || nvim "$@"'\''
+else
+  export GIT_EDITOR='nvim'
+fi
+
 # === Plugin Initialization ===
 if command -v fzf > /dev/null; then
 	source <(fzf --zsh)

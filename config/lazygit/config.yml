@@ -79,10 +79,11 @@ git:
   # Parse emoji
   parseEmoji: true
 os:
-  # Editor preference
-  edit: '{{editor}} {{filename}}'
-  editAtLine: '{{editor}} +{{line}} {{filename}}'
-  editAtLineAndWait: '{{editor}} +{{line}} {{filename}}'
+  # Editor preference with nvr fallback
+  editCommand: "bash"
+  editArgs:
+    - "-lc"
+    - 'nvr --remote-wait "+{{line}}" "{{filename}}" || nvim "+{{line}}" "{{filename}}"'
   editInTerminal: true
   # Open command
   open: 'open {{filename}}'
