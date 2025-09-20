@@ -20,7 +20,7 @@ load-nvmrc() {
           echo "Node.js version $nvmrc_node_version is not installed."
         fi
       else
-        nvm use "$nvmrc_node_version"
+        nvm use "$nvmrc_node_version" &> /dev/null
       fi
     fi
   elif [ "$node_version" != "none" ]; then

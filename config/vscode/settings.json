@@ -306,5 +306,6 @@
 	"[jsonc]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
-	"json.schemaDownload.enable": true
+	"json.schemaDownload.enable": true,
+	"application.shellEnvironmentResolutionTimeout": 30
 }

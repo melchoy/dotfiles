@@ -1,3 +1,7 @@
+## Cursor Agent: avoid replacing shell with recorder in nested terminals
+if [ -n "$TMUX" ] || [ -n "$NVIM" ]; then
+  export CURSOR_RECORD_SESSION=1
+fi
 eval "$(~/.local/bin/cursor-agent shell-integration zsh)"
 # Auto-load colors for zsh
 autoload -Uz colors && colors
@@ -17,11 +21,27 @@ fi
 
 # === ENV VARS ===
 export EDITOR=nvim
-export TERM=xterm-256color
+# Do not force TERM inside tmux/IDE terminals; let parent set capabilities
+if [ -z "$TMUX" ] && [ -z "$NVIM" ]; then
+  export TERM=xterm-256color
+fi
+
+# Interactive shell keybindings (vi mode)
+if [[ -o interactive ]]; then
+  # Insert literal newline (for Shift+Enter mapping)
+  agent-insert-newline() { LBUFFER+=$'\n'; zle redisplay }
+  zle -N agent-insert-newline
+  # Bind CSI-u sequence for Shift+Enter if terminal sends it; provide Ctrl+O fallback
+  bindkey -M viins '\e[13;2u' agent-insert-newline
+  bindkey -M viins '^O' agent-insert-newline
+  # Ensure Ctrl+L clears screen in vi insert and command modes
+  bindkey -M viins '^L' clear-screen
+  bindkey -M vicmd '^L' clear-screen
+fi
 
 # Use current Neovim via nvr when available; otherwise launch new nvim
 if command -v nvr >/dev/null 2>&1; then
-  export GIT_EDITOR='bash -lc '\''nvr --remote-wait "$@" || nvim "$@"'\''
+  export GIT_EDITOR="bash -lc 'nvr --remote-wait \"\$@\" || nvim \"\$@\"'"
 else
   export GIT_EDITOR='nvim'
 fi
