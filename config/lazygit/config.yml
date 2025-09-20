@@ -80,10 +80,7 @@ git:
   parseEmoji: true
 os:
   # Editor preference with nvr fallback
-  editCommand: "bash"
-  editArgs:
-    - "-lc"
-    - 'nvr --remote-wait "+{{line}}" "{{filename}}" || nvim "+{{line}}" "{{filename}}"'
+  edit: "bash -lc 'nvr --remote-wait \"+{{line}}\" \"{{filename}}\" || nvim \"+{{line}}\" \"{{filename}}\"'"
   editInTerminal: true
   # Open command
   open: 'open {{filename}}'
