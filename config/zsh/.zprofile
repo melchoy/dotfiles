@@ -12,11 +12,16 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export VAULTHOME="$HOME/.vault"
 export GOPATH="$HOME/.go"
 
+# Add system and package paths first
 export PATH="/opt/homebrew/bin:$PATH"
-export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.composer/vendor/bin:$PATH"
+
 export PATH="$GOPATH/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+
+# Personal bins take highest precedence (added last = found first)
 export PATH="$HOME/.bin:$DOTHOME/bin:$PATH"
+
 
 # Load Additional Local Variables
 [ -f "$HOME/.env" ] && source "$HOME/.env"

@@ -6,6 +6,7 @@
 .actenv
 .DS_Store
 logs
+local
 tmp
 Brewfile.lock.json
 __pycache__/
