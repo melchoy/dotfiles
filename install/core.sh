@@ -14,6 +14,7 @@ coreutils=(
 	# Shell and Terminal Enhancements
 	"bash-completion"
 	"tmux"
+	"zellij"
 	"fzf"
 	"tree"
 	"lsof"
