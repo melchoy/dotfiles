@@ -10,6 +10,7 @@ find-ruby-version-file() {
 }
 
 load-ruby-version() {
+  # Ensure rbenv is loaded before using it
   if ! command -v rbenv &> /dev/null; then
     echo "rbenv is not installed. Please install rbenv first."
     return
@@ -19,16 +20,10 @@ load-ruby-version() {
   if [ -n "$ruby_version_file" ]; then
     local ruby_version=$(cat "$ruby_version_file")
     if ! rbenv versions --bare | grep -q "^${ruby_version}$"; then
-      echo "Ruby version $ruby_version is not installed."
-      echo -n "Would you like to install it now? (y/N) "
-      read response
-      if [[ "$response" =~ ^[Yy]$ ]]; then
-        rbenv install "$ruby_version"
-        rbenv shell "$ruby_version"
-        echo "Now using ruby version to $ruby_version."
-      else
-        echo "Ruby version $ruby_version is not installed."
-      fi
+      echo "🔧 Auto-installing Ruby $ruby_version..."
+      rbenv install "$ruby_version"
+      rbenv shell "$ruby_version"
+      echo "✅ Now using Ruby $ruby_version"
     else
       rbenv shell "$ruby_version"
       # echo "Now using ruby version to $ruby_version."

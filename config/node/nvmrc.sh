@@ -1,9 +1,15 @@
 autoload -U add-zsh-hook
 
 load-nvmrc() {
+  # Ensure NVM is loaded before using it
   if ! command -v nvm &> /dev/null; then
-    echo "NVM is not installed. Please install NVM first."
-    return
+    # Try to load NVM if it exists but isn't loaded yet (lazy loading case)
+    if [ -s "$NVM_DIR/nvm.sh" ]; then
+      \. "$NVM_DIR/nvm.sh"
+    else
+      echo "NVM is not installed. Please install NVM first."
+      return
+    fi
   fi
 
   local node_version="$(nvm version)"
@@ -11,14 +17,9 @@ load-nvmrc() {
     local nvmrc_node_version=$(cat .nvmrc)
     if [ "$nvmrc_node_version" != "$node_version" ]; then
       if ! nvm ls "$nvmrc_node_version" &> /dev/null; then
-        echo "Node.js version $nvmrc_node_version is not installed."
-        echo -n "Would you like to install it now? (y/N) "
-        read response
-        if [[ "$response" =~ ^[Yy]$ ]]; then
-          nvm install "$nvmrc_node_version"
-        else
-          echo "Node.js version $nvmrc_node_version is not installed."
-        fi
+        echo "🔧 Auto-installing Node.js $nvmrc_node_version..."
+        nvm install "$nvmrc_node_version"
+        echo "✅ Installed Node.js $nvmrc_node_version"
       else
         nvm use "$nvmrc_node_version" &> /dev/null
       fi
