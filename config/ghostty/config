@@ -15,8 +15,23 @@ window-padding-y = 5
 font-size = 18
 font-family = "FiraCode Nerd Font Mono"
 
+# Terminal Compatibility
+# ----------------------
+# Enable proper extended key sequences for tmux applications
+term = xterm-256color
+
+# Extended Key Support
+# -------------------
+# Enable better key handling for applications like tmux
+shell-integration-features = no-cursor,no-sudo,no-title
+
 # Keybindings
 # -----------
 # Temporarily disabled keybindings
 # keybind = ctrl+z=close_surface
 # keybind = ctrl+s=new_split:right
+
+# Key Sequence Configuration
+# -------------------------
+# Send newline character when Shift+Enter is pressed
+keybind = shift+enter=text:\n
