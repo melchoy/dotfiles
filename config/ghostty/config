@@ -20,6 +20,7 @@ font-family = "FiraCode Nerd Font Mono"
 # Enable proper extended key sequences for tmux applications
 term = xterm-256color
 
+
 # Extended Key Support
 # -------------------
 # Enable better key handling for applications like tmux
