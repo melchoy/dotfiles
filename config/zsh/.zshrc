@@ -2,12 +2,17 @@
 if [ -n "$TMUX" ] || [ -n "$NVIM" ]; then
   export CURSOR_RECORD_SESSION=1
 fi
-eval "$(~/.local/bin/cursor-agent shell-integration zsh)"
+
+# Only load cursor-agent in interactive terminals with proper TERM support
+if [[ -o interactive ]] && [[ "$TERM" != "dumb" ]] && [[ -x ~/.local/bin/cursor-agent ]]; then
+  eval "$(~/.local/bin/cursor-agent shell-integration zsh)"
+fi
 # Auto-load colors for zsh
 autoload -Uz colors && colors
 
 # === Starship Prompt ===
-if command -v starship > /dev/null; then
+# Only initialize starship in interactive shells with proper terminal support
+if command -v starship > /dev/null && [[ -o interactive ]] && [[ "$TERM" != "dumb" ]]; then
 	# Choose config based on tmux presence (improved detection)
 	if [ -n "$TMUX" ] && [ "$TERM_PROGRAM" != "vscode" ] && [ -z "$INTELLIJ_ENVIRONMENT_READER" ]; then
 		# Inside tmux - use minimal config
@@ -27,7 +32,8 @@ if [ -z "$TMUX" ] && [ -z "$NVIM" ]; then
 fi
 
 # Interactive shell keybindings (vi mode)
-if [[ -o interactive ]]; then
+# Only set up ZLE keybindings in interactive terminals with proper terminal support
+if [[ -o interactive ]] && [[ "$TERM" != "dumb" ]] && [[ -n "$ZLE_LOADED" || -o zle ]]; then
   # Insert literal newline (for Shift+Enter mapping)
   agent-insert-newline() { LBUFFER+=$'\n'; zle redisplay }
   zle -N agent-insert-newline

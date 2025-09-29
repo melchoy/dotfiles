@@ -11,3 +11,4 @@ tmp
 Brewfile.lock.json
 __pycache__/
 tmp-*
+*.backup
