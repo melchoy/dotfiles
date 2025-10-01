@@ -1,0 +1,77 @@
+# AeroSpace Configuration
+# Reference: https://nikitabobko.github.io/AeroSpace/guide
+
+# Start AeroSpace at login
+start-at-login = true
+
+# Normalizations. See: https://nikitabobko.github.io/AeroSpace/guide#normalization
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = true
+
+# Gaps between windows
+[gaps]
+inner.horizontal = 6
+inner.vertical =   6
+outer.left =       6
+outer.bottom =     6
+outer.top =        6
+outer.right =      6
+
+# Main modifier key (cmd + ctrl)
+# Use cmd-h, cmd-j, cmd-k, cmd-l to focus windows
+[mode.main.binding]
+
+# Focus windows
+cmd-h = 'focus left'
+cmd-j = 'focus down'
+cmd-k = 'focus up'
+cmd-l = 'focus right'
+
+# Move windows
+cmd-shift-h = 'move left'
+cmd-shift-j = 'move down'
+cmd-shift-k = 'move up'
+cmd-shift-l = 'move right'
+
+# Resize mode
+cmd-r = 'mode resize'
+
+# Toggle fullscreen
+cmd-f = 'fullscreen'
+
+# Layout modes
+cmd-shift-s = 'layout v_accordion' # vertical stack
+cmd-shift-e = 'layout tiles horizontal vertical' # tiling
+
+# Workspace switching
+cmd-1 = 'workspace 1'
+cmd-2 = 'workspace 2'
+cmd-3 = 'workspace 3'
+cmd-4 = 'workspace 4'
+cmd-5 = 'workspace 5'
+cmd-6 = 'workspace 6'
+cmd-7 = 'workspace 7'
+cmd-8 = 'workspace 8'
+cmd-9 = 'workspace 9'
+cmd-0 = 'workspace S'  # Slack workspace (using 0 to avoid conflicts)
+
+# Move window to workspace (using cmd-alt to avoid conflicts)
+cmd-alt-1 = 'move-node-to-workspace 1'
+cmd-alt-2 = 'move-node-to-workspace 2'
+cmd-alt-3 = 'move-node-to-workspace 3'
+cmd-alt-4 = 'move-node-to-workspace 4'
+cmd-alt-5 = 'move-node-to-workspace 5'
+cmd-alt-6 = 'move-node-to-workspace 6'
+cmd-alt-7 = 'move-node-to-workspace 7'
+cmd-alt-8 = 'move-node-to-workspace 8'
+cmd-alt-9 = 'move-node-to-workspace 9'
+cmd-alt-0 = 'move-node-to-workspace S'  # Move to Slack workspace
+
+# Resize mode bindings
+[mode.resize.binding]
+h = 'resize width -50'
+j = 'resize height +50'
+k = 'resize height -50'
+l = 'resize width +50'
+enter = 'mode main'
+esc = 'mode main'

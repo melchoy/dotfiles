@@ -1,0 +1,99 @@
+#!/bin/bash
+
+# Basic SketchyBar configuration
+
+# Bar appearance
+sketchybar --bar height=32 \
+                 blur_radius=30 \
+                 position=top \
+                 sticky=off \
+                 padding_left=10 \
+                 padding_right=10 \
+                 color=0xb3000000 \
+                 shadow=on
+
+# Default item settings
+sketchybar --default icon.font="FiraCode Nerd Font Mono:Bold:15.0" \
+                     icon.color=0xffffffff \
+                     label.font="FiraCode Nerd Font Mono:Regular:13.0" \
+                     label.color=0xffffffff \
+                     padding_left=5 \
+                     padding_right=5 \
+                     label.padding_left=4 \
+                     label.padding_right=4 \
+                     icon.padding_left=4 \
+                     icon.padding_right=4
+
+# Left side - workspaces (dynamic - only show workspaces with windows)
+# Create placeholder items for potential workspaces
+for i in {1..9}; do
+  sketchybar --add item space.$i left \
+             --set space.$i icon="$i" \
+                            icon.font="SF Mono:Bold:14.0" \
+                            icon.color=0xffffffff \
+                            label.drawing=off \
+                            padding_left=0 \
+                            padding_right=0 \
+                            icon.padding_left=0 \
+                            icon.padding_right=0 \
+                            background.padding_left=5 \
+                            background.padding_right=5 \
+                            background.color=0xff494d64 \
+                            background.corner_radius=6 \
+                            background.height=26 \
+                            background.border_width=2 \
+                            background.border_color=0xff1e1e2e \
+                            background.drawing=on \
+                            width=30 \
+                            icon.width=30 \
+                            icon.align=center \
+                            drawing=off \
+                            click_script="aerospace workspace $i"
+done
+
+# Add named workspaces (like S for Slack)
+sketchybar --add item space.S left \
+           --set space.S icon="S" \
+                         icon.font="SF Mono:Bold:14.0" \
+                         icon.color=0xffffffff \
+                         label.drawing=off \
+                         padding_left=0 \
+                         padding_right=0 \
+                         icon.padding_left=0 \
+                         icon.padding_right=0 \
+                         background.padding_left=5 \
+                         background.padding_right=5 \
+                         background.color=0xff494d64 \
+                         background.corner_radius=6 \
+                         background.height=26 \
+                         background.border_width=2 \
+                         background.border_color=0xff1e1e2e \
+                         background.drawing=on \
+                         width=30 \
+                         icon.width=30 \
+                         icon.align=center \
+                         drawing=off \
+                         click_script="aerospace workspace S"
+
+# Add update item that manages visibility
+sketchybar --add item aerospace_manager left \
+           --set aerospace_manager update_freq=2 \
+                                   script="$HOME/.config/sketchybar/plugins/aerospace_spaces.sh" \
+                                   drawing=off
+
+# Center - clock
+sketchybar --add item clock center \
+           --set clock update_freq=10 \
+                       icon=  \
+                       script="$HOME/.config/sketchybar/plugins/clock.sh"
+
+# Right side - battery
+sketchybar --add item battery right \
+           --set battery update_freq=120 \
+                         icon.font="SF Pro:Semibold:15.0" \
+                         script="$HOME/.config/sketchybar/plugins/battery.sh"
+
+# Finalize
+sketchybar --update
+
+echo "sketchybar configuration loaded"
