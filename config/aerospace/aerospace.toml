@@ -66,6 +66,7 @@ alt-shift-v = 'join-with down' # Join with window below (vertical)
 
 # Workspace switching (alt + number)
 alt-0 = 'workspace X' # LAST WORKSPACE
+alt-x = 'workspace X' # LAST WORKSPACE (alternative)
 alt-1 = 'workspace 1'
 alt-2 = 'workspace 2'
 alt-3 = 'workspace 3'
@@ -78,6 +79,7 @@ alt-9 = 'workspace 9'
 
 # Move window to workspace (alt + shift + number)
 alt-shift-0 = 'move-node-to-workspace X'
+alt-shift-x = 'move-node-to-workspace X' # Alternative
 alt-shift-1 = 'move-node-to-workspace 1'
 alt-shift-2 = 'move-node-to-workspace 2'
 alt-shift-3 = 'move-node-to-workspace 3'

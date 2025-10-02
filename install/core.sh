@@ -18,6 +18,7 @@ coreutils=(
 	"fzf"
 	"tree"
 	"lsof"
+	"zoxide"
 
 	# System Utilities
 	"htop"

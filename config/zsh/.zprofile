@@ -47,12 +47,13 @@ IS_IDE_SHELL=0
 [ -f "$HOME/.env" ] && source "$HOME/.env"
 [ -f "$HOME/.env.local" ] && source "$HOME/.env.local"
 
-# Load shell scripts and tool managers only for interactive shells
+# Load shell scripts only for interactive shells (these can have slow commands)
 if [[ $IS_INTERACTIVE -eq 1 ]]; then
   [ -f "$HOME/.env.sh" ] && source "$HOME/.env.sh"
   [ -f "$HOME/.env.local.sh" ] && source "$HOME/.env.local.sh"
-
-  # === Dev Version & Package Managers ===
-  source "$DOTCONFIG/node/nvm.sh"
-  source "$DOTCONFIG/ruby/rbenv.sh"
 fi
+
+# === Dev Version & Package Managers ===
+# Load these in ALL shells (including IDE/non-interactive) so tools are available
+source "$DOTCONFIG/node/nvm.sh"
+source "$DOTCONFIG/ruby/rbenv.sh"

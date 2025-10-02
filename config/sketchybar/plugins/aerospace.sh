@@ -6,7 +6,7 @@ FOCUSED=$(aerospace list-workspaces --focused)
 # Check numbered workspaces (1-9)
 for i in {1..9}; do
   HAS_WINDOWS=$(aerospace list-windows --workspace "$i" 2>/dev/null)
-  
+
   if [ "$i" = "$FOCUSED" ]; then
     # Focused workspace - always show in purple (Catppuccin Macchiato mauve)
     sketchybar --set space.$i drawing=on \
@@ -23,10 +23,10 @@ for i in {1..9}; do
   fi
 done
 
-# Check named workspaces (like S for Slack)
-for workspace in S; do
+# Check named workspaces (like X for Xtra/Last)
+for workspace in X; do
   HAS_WINDOWS=$(aerospace list-windows --workspace "$workspace" 2>/dev/null)
-  
+
   if [ "$workspace" = "$FOCUSED" ]; then
     sketchybar --set space.$workspace drawing=on \
                                       background.color=0xffc6a0f6 \

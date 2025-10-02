@@ -1,16 +1,16 @@
 
 if [ -d "$HOME/.nvm" ]; then
   export NVM_DIR="$HOME/.nvm"
-
-  # Lazy load NVM - only load when nvm command is used (speeds up shell startup)
-  nvm() {
-    unset -f nvm
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+  
+  # Load NVM immediately so node binaries are available in PATH
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+  
+  # Load bash completion only in interactive shells (optional, for performance)
+  if [[ -o interactive ]]; then
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-    nvm "$@"
-  }
+  fi
 
-  # Load nvmrc and pnpm configs (these are fast)
+  # Load nvmrc and pnpm configs
   source "$DOTCONFIG/node/nvmrc.sh"
   source "$DOTCONFIG/node/pnpm.sh"
 fi
