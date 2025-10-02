@@ -3,9 +3,6 @@ if [ -n "$TMUX" ] || [ -n "$NVIM" ]; then
   export CURSOR_RECORD_SESSION=1
 fi
 
-# Auto-load colors for zsh
-autoload -Uz colors && colors
-
 # Detect interactive and IDE shells early
 IS_INTERACTIVE=0
 case $- in *i*) IS_INTERACTIVE=1 ;; esac
@@ -13,14 +10,33 @@ case $- in *i*) IS_INTERACTIVE=1 ;; esac
 IS_IDE_SHELL=0
 [[ "$TERM_PROGRAM" == "vscode" || -n "$VSCODE_PID" || -n "$VSCODE_IPC_HOOK" ]] && IS_IDE_SHELL=1
 
-# Only load cursor-agent in interactive, non-IDE shells
-if [[ $IS_INTERACTIVE -eq 1 && $IS_IDE_SHELL -eq 0 ]] && [[ "$TERM" != "dumb" ]] && [[ -x ~/.local/bin/cursor-agent ]]; then
+# Auto-load colors only for interactive shells (saves resolver time)
+if [[ $IS_INTERACTIVE -eq 1 ]]; then
+  autoload -Uz colors && colors
+fi
+# Optional one-shot profiler: run `ZSH_PROFILE=1 zsh -i -c exit` and view /tmp/zsh_profile.$$.txt
+if [[ -n "$ZSH_PROFILE" ]]; then
+  zmodload zsh/zprof
+  TRAPEXIT() {
+    zprof > /tmp/zsh_profile.$$.txt
+  }
+fi
+
+# Provide add-zsh-hook once here to avoid repeated autoloads in scripts
+autoload -U add-zsh-hook
+
+#Globally bypass Starship (set to 0 or unset to re-enable)
+export STARSHIP_BYPASS=0
+
+# Only load cursor-agent in interactive shells
+if [[ $IS_INTERACTIVE -eq 1 ]] && [[ "$TERM" != "dumb" ]] && [[ -x ~/.local/bin/cursor-agent ]]; then
   eval "$(~/.local/bin/cursor-agent shell-integration zsh)"
 fi
 
 # === Starship Prompt ===
-# Only initialize starship in interactive, non-IDE shells with proper terminal support
-if command -v starship > /dev/null && [[ $IS_INTERACTIVE -eq 1 && $IS_IDE_SHELL -eq 0 ]] && [[ "$TERM" != "dumb" ]]; then
+# Only initialize starship in interactive shells with proper terminal support
+# Allow bypass via STARSHIP_BYPASS=1 for performance testing (0 or unset enables)
+if command -v starship > /dev/null && [[ "$STARSHIP_BYPASS" != "1" ]] && [[ $IS_INTERACTIVE -eq 1 ]] && [[ "$TERM" != "dumb" ]]; then
 	# Choose config based on tmux presence (improved detection)
 	if [ -n "$TMUX" ] && [ "$TERM_PROGRAM" != "vscode" ] && [ -z "$INTELLIJ_ENVIRONMENT_READER" ]; then
 		# Inside tmux - use minimal config
@@ -63,12 +79,14 @@ else
 fi
 
 # === Plugin Initialization (interactive only) ===
-if command -v fzf > /dev/null && [[ $IS_INTERACTIVE -eq 1 && $IS_IDE_SHELL -eq 0 ]]; then
-	source <(fzf --zsh)
+if command -v fzf > /dev/null && [[ $IS_INTERACTIVE -eq 1 ]]; then
+  # Prefer static sourcing (faster than process substitution)
+  [[ -r /opt/homebrew/opt/fzf/shell/key-bindings.zsh ]] && source /opt/homebrew/opt/fzf/shell/key-bindings.zsh
+  [[ -r /opt/homebrew/opt/fzf/shell/completion.zsh   ]] && source /opt/homebrew/opt/fzf/shell/completion.zsh
 fi
 
 # === Colorize Directory Listings (interactive only) ===
-if [[ $IS_INTERACTIVE -eq 1 && $IS_IDE_SHELL -eq 0 ]]; then
+if [[ $IS_INTERACTIVE -eq 1 ]]; then
   if [[ "$OSTYPE" == "darwin"* ]] && command -v gdircolors > /dev/null 2>&1; then
     alias dircolors='gdircolors'
   fi
@@ -100,8 +118,8 @@ source "$DOTZSH/aliases/gcp.sh"
 [ -f "${HOME}/.alias" ] && source "${HOME}/.alias"
 [ -f "${HOME}/.alias-local" ] && source "${HOME}/.alias-local"
 
-# Local env shell scripts only in interactive, non-IDE shells
-if [[ $IS_INTERACTIVE -eq 1 && $IS_IDE_SHELL -eq 0 ]]; then
+# Local env shell scripts only in interactive shells
+if [[ $IS_INTERACTIVE -eq 1 ]]; then
   [ -f "$HOME/.env.sh" ] && source "$HOME/.env.sh"
   [ -f "$HOME/.env.local.sh" ] && source "$HOME/.env.local.sh"
 fi

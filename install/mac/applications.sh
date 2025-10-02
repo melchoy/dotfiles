@@ -24,3 +24,7 @@ cask_apps=(
 for app in "${cask_apps[@]}"; do
 	brew_install_or_update_cask "$app"
 done
+
+echo "Raycast setup:"
+echo "  Open Raycast → Settings → Extensions → Script Commands → Add Directory: $HOME/.dotfiles/config/raycast/commands"
+echo "  (Raycast cannot be configured programmatically; add once via UI)"

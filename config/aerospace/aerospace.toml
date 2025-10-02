@@ -65,7 +65,7 @@ alt-shift-b = 'join-with right' # Join with window to right (horizontal)
 alt-shift-v = 'join-with down' # Join with window below (vertical)
 
 # Workspace switching (alt + number)
-alt-0 = 'workspace S' # Slack workspace
+alt-0 = 'workspace X' # LAST WORKSPACE
 alt-1 = 'workspace 1'
 alt-2 = 'workspace 2'
 alt-3 = 'workspace 3'
