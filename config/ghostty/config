@@ -1,7 +1,11 @@
 # Theme Configuration
 # -------------------
-background = 282c34
-foreground = ffffff
+# Catppuccin Macchiato (matches tmux/starship)
+background = 24273a
+foreground = cad3f5
+cursor-color = f4dbd6
+selection-background = f4dbd6
+selection-foreground = 24273a
 
 # Window Settings
 # ---------------
@@ -36,3 +40,21 @@ shell-integration-features = no-cursor,no-sudo,no-title
 # -------------------------
 # Send newline character when Shift+Enter is pressed
 keybind = shift+enter=text:\n
+
+# ANSI Palette (Catppuccin Macchiato)
+palette = 0=494d64
+palette = 1=ed8796
+palette = 2=a6da95
+palette = 3=eed49f
+palette = 4=8aadf4
+palette = 5=f5bde6
+palette = 6=8bd5ca
+palette = 7=b8c0e0
+palette = 8=5b6078
+palette = 9=ed8796
+palette = 10=a6da95
+palette = 11=eed49f
+palette = 12=8aadf4
+palette = 13=f5bde6
+palette = 14=8bd5ca
+palette = 15=a5adcb

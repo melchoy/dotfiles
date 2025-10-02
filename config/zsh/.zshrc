@@ -3,16 +3,24 @@ if [ -n "$TMUX" ] || [ -n "$NVIM" ]; then
   export CURSOR_RECORD_SESSION=1
 fi
 
-# Only load cursor-agent in interactive terminals with proper TERM support
-if [[ -o interactive ]] && [[ "$TERM" != "dumb" ]] && [[ -x ~/.local/bin/cursor-agent ]]; then
-  eval "$(~/.local/bin/cursor-agent shell-integration zsh)"
-fi
 # Auto-load colors for zsh
 autoload -Uz colors && colors
 
+# Detect interactive and IDE shells early
+IS_INTERACTIVE=0
+case $- in *i*) IS_INTERACTIVE=1 ;; esac
+
+IS_IDE_SHELL=0
+[[ "$TERM_PROGRAM" == "vscode" || -n "$VSCODE_PID" || -n "$VSCODE_IPC_HOOK" ]] && IS_IDE_SHELL=1
+
+# Only load cursor-agent in interactive, non-IDE shells
+if [[ $IS_INTERACTIVE -eq 1 && $IS_IDE_SHELL -eq 0 ]] && [[ "$TERM" != "dumb" ]] && [[ -x ~/.local/bin/cursor-agent ]]; then
+  eval "$(~/.local/bin/cursor-agent shell-integration zsh)"
+fi
+
 # === Starship Prompt ===
-# Only initialize starship in interactive shells with proper terminal support
-if command -v starship > /dev/null && [[ -o interactive ]] && [[ "$TERM" != "dumb" ]]; then
+# Only initialize starship in interactive, non-IDE shells with proper terminal support
+if command -v starship > /dev/null && [[ $IS_INTERACTIVE -eq 1 && $IS_IDE_SHELL -eq 0 ]] && [[ "$TERM" != "dumb" ]]; then
 	# Choose config based on tmux presence (improved detection)
 	if [ -n "$TMUX" ] && [ "$TERM_PROGRAM" != "vscode" ] && [ -z "$INTELLIJ_ENVIRONMENT_READER" ]; then
 		# Inside tmux - use minimal config
@@ -21,6 +29,8 @@ if command -v starship > /dev/null && [[ -o interactive ]] && [[ "$TERM" != "dum
 		# Outside tmux or in IDE - use full config
 		export STARSHIP_CONFIG="$HOME/.config/starship.toml"
 	fi
+	export STARSHIP_LOG=error
+	export STARSHIP_TIMEOUT=600
 	eval "$(starship init zsh)"
 fi
 
@@ -47,26 +57,28 @@ fi
 
 # Use current Neovim via nvr when available; otherwise launch new nvim
 if command -v nvr >/dev/null 2>&1; then
-  export GIT_EDITOR="bash -lc 'nvr --remote-wait \"\$@\" || nvim \"\$@\"'"
+  export GIT_EDITOR="bash -lc 'nvr --remote-wait \"$@\" || nvim \"$@\"'"
 else
   export GIT_EDITOR='nvim'
 fi
 
-# === Plugin Initialization ===
-if command -v fzf > /dev/null; then
+# === Plugin Initialization (interactive only) ===
+if command -v fzf > /dev/null && [[ $IS_INTERACTIVE -eq 1 && $IS_IDE_SHELL -eq 0 ]]; then
 	source <(fzf --zsh)
 fi
 
-# === Colorize Directory Listings ===
-if [[ "$OSTYPE" == "darwin"* ]] && command -v gdircolors > /dev/null 2>&1; then
-  alias dircolors='gdircolors'
-fi
+# === Colorize Directory Listings (interactive only) ===
+if [[ $IS_INTERACTIVE -eq 1 && $IS_IDE_SHELL -eq 0 ]]; then
+  if [[ "$OSTYPE" == "darwin"* ]] && command -v gdircolors > /dev/null 2>&1; then
+    alias dircolors='gdircolors'
+  fi
 
-if command -v dircolors > /dev/null 2>&1; then
-  if [ -f ~/.dircolors ]; then
-    eval "$(dircolors -b ~/.dircolors)"
-  else
-    eval "$(dircolors -b)"
+  if command -v dircolors > /dev/null 2>&1; then
+    if [ -f ~/.dircolors ]; then
+      eval "$(dircolors -b ~/.dircolors)"
+    else
+      eval "$(dircolors -b)"
+    fi
   fi
 fi
 
@@ -88,8 +100,11 @@ source "$DOTZSH/aliases/gcp.sh"
 [ -f "${HOME}/.alias" ] && source "${HOME}/.alias"
 [ -f "${HOME}/.alias-local" ] && source "${HOME}/.alias-local"
 
-[ -f "$HOME/.env.sh" ] && source "$HOME/.env.sh"
-[ -f "$HOME/.env.local.sh" ] && source "$HOME/.env.local.sh"
+# Local env shell scripts only in interactive, non-IDE shells
+if [[ $IS_INTERACTIVE -eq 1 && $IS_IDE_SHELL -eq 0 ]]; then
+  [ -f "$HOME/.env.sh" ] && source "$HOME/.env.sh"
+  [ -f "$HOME/.env.local.sh" ] && source "$HOME/.env.local.sh"
+fi
 
 # pnpm
 export PNPM_HOME="/Users/mel/Library/pnpm"
@@ -117,3 +132,4 @@ case ":$PATH:" in
 #     exec tmux new-session -A -s work
 #   fi
 # fi
+

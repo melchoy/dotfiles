@@ -307,7 +307,8 @@
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
 	"json.schemaDownload.enable": true,
-	"application.shellEnvironmentResolutionTimeout": 30,
+     "application.shellEnvironmentResolutionTimeout": 90,
+     "terminal.integrated.inheritEnv": true,
 	"[dockercompose]": {
 		"editor.insertSpaces": true,
 		"editor.tabSize": 2,
