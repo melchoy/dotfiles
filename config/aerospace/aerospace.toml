@@ -29,55 +29,59 @@ outer.bottom =     6
 outer.top =        6  # Small gap - sketchybar height handled by macOS
 outer.right =      6
 
-# Main modifier key (cmd + ctrl)
-# Use cmd-h, cmd-j, cmd-k, cmd-l to focus windows
+# Main modifier key: alt (option key)
+# Using alt to avoid conflicts with cmd shortcuts in apps
 [mode.main.binding]
 
-# Focus windows
-cmd-h = 'focus left'
-cmd-j = 'focus down'
-cmd-k = 'focus up'
-cmd-l = 'focus right'
+# Focus windows (alt + vim keys)
+alt-h = 'focus left'
+alt-j = 'focus down'
+alt-k = 'focus up'
+alt-l = 'focus right'
 
-# Move windows
-cmd-shift-h = 'move left'
-cmd-shift-j = 'move down'
-cmd-shift-k = 'move up'
-cmd-shift-l = 'move right'
+# Move windows (alt + shift + vim keys)
+alt-shift-h = 'move left'
+alt-shift-j = 'move down'
+alt-shift-k = 'move up'
+alt-shift-l = 'move right'
 
-# Resize mode
-cmd-r = 'mode resize'
+# Window operations
+alt-f = 'fullscreen'           # Fullscreen current window
+alt-r = 'mode resize'          # Enter resize mode
 
-# Toggle fullscreen
-cmd-f = 'fullscreen'
+# Layout modes (alt + shift + letter)
+alt-shift-s = 'layout v_accordion'               # Stack vertically
+alt-shift-a = 'layout h_accordion'               # Stack horizontally (accordion)
+alt-shift-t = 'layout tiling'                    # Return to tiling
+alt-shift-f = 'layout tiles horizontal vertical' # Flexible tiles
 
-# Layout modes
-cmd-shift-s = 'layout v_accordion' # vertical stack
-cmd-shift-e = 'layout tiles horizontal vertical' # tiling
+# Container operations (alt + shift + letter)
+alt-shift-v = 'join-with down'   # Join with window below (vertical)
+alt-shift-b = 'join-with right'  # Join with window to right (horizontal)
 
-# Workspace switching
-cmd-1 = 'workspace 1'
-cmd-2 = 'workspace 2'
-cmd-3 = 'workspace 3'
-cmd-4 = 'workspace 4'
-cmd-5 = 'workspace 5'
-cmd-6 = 'workspace 6'
-cmd-7 = 'workspace 7'
-cmd-8 = 'workspace 8'
-cmd-9 = 'workspace 9'
-cmd-0 = 'workspace S'  # Slack workspace (using 0 to avoid conflicts)
+# Workspace switching (alt + number)
+alt-1 = 'workspace 1'
+alt-2 = 'workspace 2'
+alt-3 = 'workspace 3'
+alt-4 = 'workspace 4'
+alt-5 = 'workspace 5'
+alt-6 = 'workspace 6'
+alt-7 = 'workspace 7'
+alt-8 = 'workspace 8'
+alt-9 = 'workspace 9'
+alt-0 = 'workspace S'  # Slack workspace
 
-# Move window to workspace (using cmd-alt to avoid conflicts)
-cmd-alt-1 = 'move-node-to-workspace 1'
-cmd-alt-2 = 'move-node-to-workspace 2'
-cmd-alt-3 = 'move-node-to-workspace 3'
-cmd-alt-4 = 'move-node-to-workspace 4'
-cmd-alt-5 = 'move-node-to-workspace 5'
-cmd-alt-6 = 'move-node-to-workspace 6'
-cmd-alt-7 = 'move-node-to-workspace 7'
-cmd-alt-8 = 'move-node-to-workspace 8'
-cmd-alt-9 = 'move-node-to-workspace 9'
-cmd-alt-0 = 'move-node-to-workspace S'  # Move to Slack workspace
+# Move window to workspace (alt + shift + number)
+alt-shift-1 = 'move-node-to-workspace 1'
+alt-shift-2 = 'move-node-to-workspace 2'
+alt-shift-3 = 'move-node-to-workspace 3'
+alt-shift-4 = 'move-node-to-workspace 4'
+alt-shift-5 = 'move-node-to-workspace 5'
+alt-shift-6 = 'move-node-to-workspace 6'
+alt-shift-7 = 'move-node-to-workspace 7'
+alt-shift-8 = 'move-node-to-workspace 8'
+alt-shift-9 = 'move-node-to-workspace 9'
+alt-shift-0 = 'move-node-to-workspace S'
 
 # Resize mode bindings
 [mode.resize.binding]
