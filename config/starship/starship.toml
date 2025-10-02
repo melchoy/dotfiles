@@ -9,8 +9,7 @@ palette = "catppuccin_macchiato"
 add_newline = true
 
 # Format the prompt to include custom modules in the desired order
-format = """$custom
-$all"""
+format = """$all"""
 
 # Starship modules
 [character]
