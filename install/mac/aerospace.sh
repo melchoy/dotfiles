@@ -42,6 +42,17 @@ do_install() {
 
 	echo "✅ Aerospace configuration installed"
 
+	# Configure macOS security settings (what we can automate)
+	echo ""
+	echo "Configuring macOS security settings..."
+	
+	# Disable Gatekeeper warnings for these apps
+	if command -v spctl &> /dev/null; then
+		sudo spctl --add /Applications/AeroSpace.app 2>/dev/null || true
+		sudo xattr -rd com.apple.quarantine /Applications/AeroSpace.app 2>/dev/null || true
+		echo "✅ Removed quarantine flags from AeroSpace"
+	fi
+	
 	# Start Aerospace
 	echo ""
 	echo "Starting Aerospace..."
@@ -78,16 +89,31 @@ do_install() {
 
 	# Provide setup instructions
 	echo ""
-	echo "📋 Setup Instructions:"
-	echo "1. Grant Aerospace accessibility permissions:"
+	echo "📋 Manual Setup Required:"
+	echo "Grant Accessibility permissions (cannot be automated):"
 	if [[ $(sw_vers -productVersion | cut -d. -f1) -ge 13 ]]; then
-		echo "   - Open System Settings → Privacy & Security → Accessibility"
+		echo "   1. Open System Settings → Privacy & Security → Accessibility"
 	else
-		echo "   - Open System Preferences → Security & Privacy → Privacy → Accessibility"
+		echo "   1. Open System Preferences → Security & Privacy → Privacy → Accessibility"
 	fi
-	echo "   - Click the + button and add AeroSpace and borders"
-	echo "2. AeroSpace and borders will start automatically"
+	echo "   2. Click the lock icon and authenticate"
+	echo "   3. Click the + button and add:"
+	echo "      • AeroSpace (/Applications/AeroSpace.app)"
+	echo "      • borders ($(which borders))"
 	echo ""
+	echo "Would you like to open System Settings now? (y/n)"
+	read -r response
+	if [[ "$response" =~ ^[Yy]$ ]]; then
+		if [[ $(sw_vers -productVersion | cut -d. -f1) -ge 13 ]]; then
+			open "x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility"
+		else
+			open "x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility"
+		fi
+		echo "⏸️  Waiting for you to grant permissions... Press Enter when done."
+		read -r
+	fi
+	echo ""
+	echo "✅ Setup complete! AeroSpace and borders will start automatically"
 	echo "For configuration examples, visit: https://nikitabobko.github.io/AeroSpace/guide"
 }
 

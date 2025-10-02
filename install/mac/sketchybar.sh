@@ -31,6 +31,16 @@ do_install() {
 
 	echo "✅ SketchyBar configuration installed"
 
+	# Configure macOS security settings (what we can automate)
+	echo ""
+	echo "Configuring macOS security settings..."
+	
+	# Remove quarantine flags
+	if command -v xattr &> /dev/null; then
+		sudo xattr -rd com.apple.quarantine "$(brew --prefix)/bin/sketchybar" 2>/dev/null || true
+		echo "✅ Removed quarantine flags from SketchyBar"
+	fi
+	
 	# Start SketchyBar
 	echo ""
 	echo "Starting SketchyBar..."
@@ -47,11 +57,23 @@ do_install() {
 
 	# Provide setup instructions
 	echo ""
-	echo "📋 Setup Instructions:"
-	echo "1. SketchyBar should now be running"
-	echo "2. You may want to hide the default macOS menu bar:"
-	echo "   - Open System Settings → Control Center → Automatically hide and show the menu bar: Always"
+	echo "📋 Optional Setup:"
+	echo "For a cleaner look, hide the default macOS menu bar:"
+	if [[ $(sw_vers -productVersion | cut -d. -f1) -ge 13 ]]; then
+		echo "   • Open System Settings → Control Center → Automatically hide and show the menu bar: Always"
+	else
+		echo "   • Open System Preferences → Dock & Menu Bar → Automatically hide and show the menu bar"
+	fi
 	echo ""
+	echo "Would you like to auto-hide the default menu bar now? (y/n)"
+	read -r response
+	if [[ "$response" =~ ^[Yy]$ ]]; then
+		defaults write NSGlobalDomain _HIHideMenuBar -bool true
+		killall Finder 2>/dev/null || true
+		echo "✅ Default menu bar will now auto-hide"
+	fi
+	echo ""
+	echo "✅ SketchyBar setup complete!"
 	echo "For configuration examples, visit: https://github.com/FelixKratz/SketchyBar"
 }
 
