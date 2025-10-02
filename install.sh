@@ -58,6 +58,8 @@ do_install() {
 	# PLATFORM SPECIFIC DESKTOP APPLICATIONS
 	if [[ "$PLATFORM_NAME" == "mac" ]]; then
 		sh $DOTMANGR_PLATFORM_DIR/applications.sh
+		sh $DOTMANGR_PLATFORM_DIR/aerospace.sh
+		sh $DOTMANGR_PLATFORM_DIR/sketchybar.sh
 	fi
 }
 
