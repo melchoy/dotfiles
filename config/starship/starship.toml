@@ -5,6 +5,9 @@
 # Palettes must be defined _after_ this line
 palette = "catppuccin_macchiato"
 
+# Make prompt commands bail out quickly if slow (milliseconds)
+command_timeout = 600
+
 # Inserts a blank line between shell prompts
 add_newline = true
 
@@ -25,6 +28,24 @@ symbol = " "
 style = "bold teal"
 truncate_to_repo = false
 truncation_length = 4
+
+[nodejs]
+disabled = true
+
+[docker_context]
+disabled = true
+
+[git_status]
+disabled = true
+
+[git_metrics]
+disabled = true
+
+[git_state]
+disabled = true
+
+[git_commit]
+disabled = true
 
 [ruby]
 disabled = true
