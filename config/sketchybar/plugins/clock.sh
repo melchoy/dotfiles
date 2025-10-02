@@ -1,3 +1,6 @@
 #!/bin/bash
 
-sketchybar --set "$NAME" label="$(date '+%a %b %d %I:%M %p')"
+DAY=$(date '+%a')
+TIME=$(date '+%H:%M')
+
+sketchybar --set "$NAME" icon="$DAY" label="$TIME"

@@ -9,6 +9,9 @@ osascript -e 'tell application "System Preferences" to quit'
 defaults write com.apple.menuextra.clock DateFormat HH:mm:ss # Set clock format.
 defaults write NSGlobalDomain AppleLanguage -array "en-AU"   # Set system language.
 
+# Make mac autohide everywhere by default
+defaults write NSGlobalDomain _HIHideMenuBar -bool true
+
 # Set Time Zone
 # sudo systemsetup -settimezone "Australia/Sydney"
 

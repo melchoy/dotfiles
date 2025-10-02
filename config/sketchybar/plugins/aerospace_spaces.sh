@@ -8,15 +8,15 @@ for i in {1..9}; do
   HAS_WINDOWS=$(aerospace list-windows --workspace "$i" 2>/dev/null)
   
   if [ "$i" = "$FOCUSED" ]; then
-    # Focused workspace - always show in bright blue
+    # Focused workspace - always show in purple (Catppuccin Macchiato mauve)
     sketchybar --set space.$i drawing=on \
-                              background.color=0xff89b4fa \
-                              icon.color=0xff1e1e2e
+                              background.color=0xffc6a0f6 \
+                              icon.color=0xff24273a
   elif [ -n "$HAS_WINDOWS" ]; then
-    # Has windows - show in gray
+    # Has windows - show in surface1 gray
     sketchybar --set space.$i drawing=on \
-                              background.color=0xff6c7086 \
-                              icon.color=0xffffffff
+                              background.color=0xff5b6078 \
+                              icon.color=0xffcad3f5
   else
     # Empty and not focused - hide
     sketchybar --set space.$i drawing=off
@@ -29,12 +29,12 @@ for workspace in S; do
   
   if [ "$workspace" = "$FOCUSED" ]; then
     sketchybar --set space.$workspace drawing=on \
-                                      background.color=0xff89b4fa \
-                                      icon.color=0xff1e1e2e
+                                      background.color=0xffc6a0f6 \
+                                      icon.color=0xff24273a
   elif [ -n "$HAS_WINDOWS" ]; then
     sketchybar --set space.$workspace drawing=on \
-                                      background.color=0xff6c7086 \
-                                      icon.color=0xffffffff
+                                      background.color=0xff5b6078 \
+                                      icon.color=0xffcad3f5
   else
     sketchybar --set space.$workspace drawing=off
   fi
