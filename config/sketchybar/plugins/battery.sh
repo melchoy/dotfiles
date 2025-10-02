@@ -22,4 +22,4 @@ else
   COLOR=0xffa6e3a1  # Green when good
 fi
 
-sketchybar --set "$NAME" icon="$ICON" icon.color="$COLOR" label="${PERCENTAGE}%"
+sketchybar --set "$NAME" icon="$ICON" icon.color="$COLOR" label="${PERCENTAGE}%" label.color=0xffffffff
