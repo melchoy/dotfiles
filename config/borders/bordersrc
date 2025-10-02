@@ -5,6 +5,16 @@
 
 BORDERS_ACTIVE_COLOR="0xffc6a0f6"    # Purple - focused window (solid, 100% opacity)
 BORDERS_INACTIVE_COLOR="0x00000000"  # Transparent - no border on unfocused windows
-BORDERS_WIDTH="5.0"                   # Border thickness in pixels
-BORDERS_STYLE="round"                 # Border style: round, square, or uniform
+BORDERS_WIDTH="3.0"                   # Border thickness in pixels
+BORDERS_RADIUS="4"                    # Border radius: 0=square, 3=subtle, >8=bubbly
+BORDERS_STYLE="uniform"              # Border style: round, square, or uniform
+BORDERS_OPACITY="1.0"                 # Border opacity (0.0-1.0)
+BORDERS_BLUR="0"                      # Background blur amount (0-100)
+BORDERS_SHADOW="0"                    # Shadow opacity (0-1.0)
+BORDERS_ANIMATION="0"                  # Animation duration in ms (0=disabled)
+BORDERS_DISPLAY="all"                 # Display mode: all, focused, or none
+BORDERS_SPACES="all"                  # Spaces to show borders: all, current, or specific numbers
+BORDERS_IGNORE="Dock,Menu Bar"        # Comma-separated list of apps to ignore
 BORDERS_HIDPI="on"                    # HiDPI for crisp rendering on retina displays
+BORDERS_BLACKLIST=""                  # Apps to exclude from borders (comma-separated)
+BORDERS_WHITELIST=""                  # Apps to include in borders (overrides blacklist)

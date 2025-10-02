@@ -10,7 +10,7 @@ sketchybar --bar height=32 \
                  sticky=off \
                  padding_left=10 \
                  padding_right=10 \
-                 color=0x8024273a \
+                 color=0xcc24273a \
                  shadow=on
 
 # Default item settings
