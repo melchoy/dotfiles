@@ -1,9 +1,9 @@
 #!/bin/zsh
 # @raycast.schemaVersion 1
-# @raycast.title VS Code (DX)
+# @raycast.title Visual Studio Code (DX)
 # @raycast.mode silent
 # @raycast.packageName Dev
-# @raycast.icon ./icons/vscode.png
+# @raycast.icon ./icons/vscode-dx.png
 
 # Prefer VS Code CLI (skips shell env resolver), then PATH, then app
 CLI="/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code"

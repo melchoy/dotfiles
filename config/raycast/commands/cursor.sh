@@ -3,7 +3,7 @@
 # @raycast.title Cursor (DX)
 # @raycast.mode silent
 # @raycast.packageName Dev
-# @raycast.icon ./icons/cursor.png
+# @raycast.icon ./icons/cursor-dx.png
 
 # Launch via login shell; prefer Cursor CLI (bypasses resolver), then PATH, then app
 /bin/zsh -l -c '
