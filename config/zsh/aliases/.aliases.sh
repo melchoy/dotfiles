@@ -26,3 +26,8 @@ source $DOTZSH/aliases/dotfiles.sh
 source $DOTZSH/aliases/directory.sh
 source $DOTZSH/aliases/tmux.sh
 source $DOTZSH/aliases/git.sh
+
+# macOS-specific aliases
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  source $DOTZSH/aliases/macos.sh
+fi

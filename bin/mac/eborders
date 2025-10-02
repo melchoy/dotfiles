@@ -1,0 +1,20 @@
+#!/bin/bash
+# Edit borders configuration and reload
+
+BORDERS_CONFIG="$HOME/.config/borders/bordersrc"
+
+if [ ! -f "$BORDERS_CONFIG" ]; then
+  echo "❌ Borders config not found at $BORDERS_CONFIG"
+  exit 1
+fi
+
+# Open in editor
+${EDITOR:-vim} "$BORDERS_CONFIG"
+
+# Ask if they want to reload
+echo ""
+read -p "Reload borders with new config? [Y/n] " -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ ]] || [[ -z $REPLY ]]; then
+  reload-borders
+fi

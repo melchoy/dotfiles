@@ -77,10 +77,13 @@ sketchybar --add item space.S left \
                          click_script="aerospace workspace S"
 
 # Add update item that manages visibility
-sketchybar --add item aerospace_manager left \
+# Uses event-based updates via aerospace exec-on-workspace-change for instant response
+sketchybar --add event aerospace_workspace_change \
+           --add item aerospace_manager left \
            --set aerospace_manager update_freq=2 \
                                    script="$HOME/.config/sketchybar/plugins/aerospace_spaces.sh" \
-                                   drawing=off
+                                   drawing=off \
+           --subscribe aerospace_manager aerospace_workspace_change
 
 # Right side - clock (far right) - colors match tmux (day=cyan, time=green/bold)
 sketchybar --add item clock right \

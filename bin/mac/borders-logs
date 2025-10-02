@@ -1,0 +1,14 @@
+#!/bin/bash
+# View borders error logs
+
+echo "📋 Tailing borders logs (Ctrl+C to exit)..."
+echo "   Error log: /tmp/borders.err.log"
+echo "   Output log: /tmp/borders.out.log"
+echo ""
+
+if [ -f /tmp/borders.err.log ]; then
+  tail -f /tmp/borders.err.log
+else
+  echo "❌ No error log found at /tmp/borders.err.log"
+  echo "   Borders may not be running"
+fi

@@ -22,6 +22,11 @@ export PATH="$HOME/.local/bin:$PATH"
 # Personal bins take highest precedence (added last = found first)
 export PATH="$HOME/.bin:$DOTHOME/bin:$PATH"
 
+# macOS-specific bins (only on macOS)
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  export PATH="$DOTHOME/bin/mac:$PATH"
+fi
+
 
 # Load Additional Local Variables
 [ -f "$HOME/.env" ] && source "$HOME/.env"

@@ -8,13 +8,25 @@ start-at-login = true
 enable-normalization-flatten-containers = true
 enable-normalization-opposite-orientation-for-nested-containers = true
 
+# Callbacks to update sketchybar immediately on workspace changes
+after-login-command = []
+after-startup-command = [
+    'exec-and-forget sketchybar --trigger aerospace_workspace_change'
+]
+
+# Trigger sketchybar update on workspace changes
+exec-on-workspace-change = [
+    '/usr/bin/env', 'bash', '-c',
+    'sketchybar --trigger aerospace_workspace_change'
+]
+
 # Gaps between windows
 [gaps]
 inner.horizontal = 6
 inner.vertical =   6
 outer.left =       6
 outer.bottom =     6
-outer.top =        6
+outer.top =        6  # Small gap - sketchybar height handled by macOS
 outer.right =      6
 
 # Main modifier key (cmd + ctrl)

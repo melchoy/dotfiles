@@ -1,0 +1,10 @@
+#!/bin/bash
+# Borders configuration - Catppuccin Macchiato theme
+# Edit these values to customize your window borders
+# Color format: 0xAARRGGBB (AA=opacity, ff=fully solid)
+
+BORDERS_ACTIVE_COLOR="0xffc6a0f6"    # Purple - focused window (solid, 100% opacity)
+BORDERS_INACTIVE_COLOR="0xff494d64"  # Gray - unfocused windows (solid, 100% opacity)
+BORDERS_WIDTH="5.0"                   # Border thickness in pixels
+BORDERS_STYLE="round"                 # Border style: round, square, or uniform
+BORDERS_HIDPI="on"                    # HiDPI for crisp rendering on retina displays
