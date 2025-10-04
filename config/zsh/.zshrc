@@ -28,11 +28,6 @@ autoload -U add-zsh-hook
 #Globally bypass Starship (set to 0 or unset to re-enable)
 export STARSHIP_BYPASS=0
 
-# Only load cursor-agent in interactive shells
-if [[ $IS_INTERACTIVE -eq 1 ]] && [[ "$TERM" != "dumb" ]] && [[ -x ~/.local/bin/cursor-agent ]]; then
-  eval "$(~/.local/bin/cursor-agent shell-integration zsh)"
-fi
-
 # === Starship Prompt ===
 # Only initialize starship in interactive shells with proper terminal support
 # Allow bypass via STARSHIP_BYPASS=1 for performance testing (0 or unset enables)
