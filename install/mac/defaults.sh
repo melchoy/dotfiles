@@ -48,7 +48,8 @@ defaults write com.apple.LaunchServices LSQuarantine -bool false # Disable the "
 defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false # Disable "natural" scrolling.
 
 # Window Management
-defaults write NSGlobalDomain AppleWindowTabbingMode always # Always open new documents in tabs.
+defaults write NSGlobalDomain AppleWindowTabbingMode always # Always open new diiocuments in tabs.
+defaults write com.apple.dock expose-group-apps -bool true # Mission control display in groups, needed for aerospace
 
 # Text Correction
 defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false     # Disable automatic capitalization.
