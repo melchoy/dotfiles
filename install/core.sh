@@ -22,6 +22,8 @@ coreutils=(
 
 	# System Utilities
 	"htop"
+	"btop"
+	"fastfetch"
 	"watch"
 	"rsync"
 	"gnupg"

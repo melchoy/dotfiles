@@ -112,5 +112,9 @@ defaults -currentHost write com.apple.ImageCapture disableHotPlug -bool true # P
 osascript -e 'tell application "System Events" to tell appearance preferences to set dark mode to true'
 killall SystemUIServer
 
+# Disable app restoration on startup
+defaults write com.apple.loginwindow TALAppsToRelaunchAtLogin -array
+defaults write com.apple.loginwindow LoginwindowLaunchesRelaunchApps -bool false
+
 # Reload CoreFoundation preferences
 killall cfprefsd

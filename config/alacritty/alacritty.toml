@@ -1,6 +1,6 @@
 [window]
 padding = { x = 5, y = 5 }
-decorations = "full"
+decorations = "none"
 dimensions = { columns = 100, lines = 25 }
 opacity = 0.98
 
@@ -94,3 +94,7 @@ color = "#f5a97f"
 [[colors.indexed_colors]]
 index = 17
 color = "#f4dbd6"
+
+[terminal.shell]
+program = "/bin/zsh"
+args = ["-l"]
