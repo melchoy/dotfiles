@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# Kill existing hub session if it exists
+tmux kill-session -t hub 2>/dev/null || true
+
+# Create new session (uses default tmux config, then sources hub-specific settings)
+tmux new-session -d -s hub
+tmux set-option -t hub status off
+tmux set-option -t hub pane-border-style 'fg=#5b6078'
+tmux set-option -t hub pane-active-border-style 'fg=#5b6078'
+tmux set-option -t hub pane-border-status off
+
+# Split into panes
+tmux split-window -h -t hub
+tmux split-window -v -t hub
+
+# Resize panes: make bottom shell smaller and left pane narrower for padding effect
+tmux resize-pane -t 3 -y 15%
+tmux resize-pane -t 1 -x 50%
+
+# Send commands directly to panes by index (panes start at 1 in config)
+# After splits: pane 1=left (fastfetch), pane 2=right-top (btop, 2/3), pane 3=right-bottom (clock, 1/3)
+tmux send-keys -t 1 'clear && fastfetch && exec zsh' C-m
+tmux send-keys -t 2 'btop' C-m
+tmux send-keys -t 3 'tty-clock -c -C 6' C-m
+
+# Focus on pane 1 (fastfetch/shell)
+tmux select-pane -t 1
+
+# Attach to session
+if [ -n "$TMUX" ]; then
+    tmux switch-client -t hub
+else
+    tmux attach-session -t hub
+fi

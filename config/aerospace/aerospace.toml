@@ -11,20 +11,20 @@ enable-normalization-opposite-orientation-for-nested-containers = true
 # Callbacks to update sketchybar immediately on workspace changes
 after-login-command = []
 after-startup-command = [
-  'exec-and-forget sketchybar --trigger aerospace_workspace_change',
+	'exec-and-forget sketchybar --trigger aerospace_workspace_change',
 ]
 
 # Trigger sketchybar update on workspace changes
 exec-on-workspace-change = [
-  '/usr/bin/env',
-  'bash',
-  '-c',
-  'sketchybar --trigger aerospace_workspace_change',
+	'/usr/bin/env',
+	'bash',
+	'-c',
+	'sketchybar --trigger aerospace_workspace_change',
 ]
 
 # Trigger sketchybar update on window focus changes
 on-focus-changed = [
-  'exec-and-forget sketchybar --trigger aerospace_workspace_change',
+	'exec-and-forget sketchybar --trigger aerospace_workspace_change',
 ]
 
 # Gaps between windows
@@ -95,7 +95,7 @@ alt-shift-6 = 'move-node-to-workspace 6'
 alt-shift-7 = 'move-node-to-workspace 7'
 alt-shift-8 = 'move-node-to-workspace 8'
 alt-shift-9 = 'move-node-to-workspace 9'
-# alt-shift-d = 'move-node-to-workspace D'  # Commented to prevent accidental moves to dashboard
+alt-shift-d = 'move-node-to-workspace D'
 
 # Resize mode bindings
 [mode.resize.binding]

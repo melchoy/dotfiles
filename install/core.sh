@@ -10,6 +10,7 @@ coreutils=(
 	"git"
 	"gh"
 	"cmake"
+	"gcc"
 
 	# Shell and Terminal Enhancements
 	"bash-completion"
@@ -23,7 +24,6 @@ coreutils=(
 	# System Utilities
 	"htop"
 	"btop"
-	"fastfetch"
 	"watch"
 	"rsync"
 	"gnupg"
@@ -31,6 +31,7 @@ coreutils=(
 	"coreutils"
 	"curl"
 	"unzip"
+	"tty-clock"
 
 	# Data Processing
 	"jq"
