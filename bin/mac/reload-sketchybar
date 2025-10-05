@@ -1,0 +1,11 @@
+#!/bin/bash
+# Reload SketchyBar
+
+echo "🔄 Reloading SketchyBar..."
+if brew services restart sketchybar 2>/dev/null; then
+  echo "✅ SketchyBar reloaded successfully"
+else
+  echo "❌ Failed to reload SketchyBar. Is it running?"
+  echo "   Try: brew services list | grep sketchybar"
+  exit 1
+fi
