@@ -3,9 +3,10 @@
 # Edit these values to customize your window borders
 # Color format: 0xAARRGGBB (AA=opacity, ff=fully solid)
 
-BORDERS_ACTIVE_COLOR="0xffc6a0f6"    # Catppuccin Mauve
+# BORDERS_ACTIVE_COLOR="0xffc6a0f6"    # Catppuccin Mauve (disabled)
+BORDERS_ACTIVE_COLOR="0xfff0f0f0"    # Off-white (subtle, not bright white)
 BORDERS_INACTIVE_COLOR="0x00000000"  # Transparent - no border on unfocused windows
-BORDERS_WIDTH="7.0"                   # Border thickness in pixels
+BORDERS_WIDTH="5.0"                   # Border thickness in pixels
 BORDERS_RADIUS="3"                    # Border radius: 0=square, 3=subtle, >8=bubbly
 BORDERS_STYLE="round"                 # Border style: round, square, or uniform
 BORDERS_OPACITY="1.0"                 # Border opacity (0.0-1.0)
