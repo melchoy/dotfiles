@@ -5,13 +5,15 @@
 
 # Bar appearance
 sketchybar --bar height=32 \
-                 blur_radius=30 \
                  position=top \
                  sticky=off \
+								 padding_top=5 \
                  padding_left=10 \
                  padding_right=10 \
-                 color=0xcc24273a \
-                 shadow=on
+                 color=0x00000000
+                 # blur_radius=30 \
+                 # shadow=on \
+                 # color=0xcc24273a
 
 # Default item settings (shared defaults for all plugins)
 sketchybar --default icon.font="FiraCode Nerd Font Mono:Bold:15.0" \
