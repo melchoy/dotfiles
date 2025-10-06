@@ -21,35 +21,37 @@ source "$HOME/.config/borders/bordersrc"
 : "${BORDERS_BLACKLIST:=}"
 : "${BORDERS_WHITELIST:=}"
 
-# Build arguments array
+# Build arguments array using key=value syntax (works for both start and live updates)
 args=(
-  --active-color "$BORDERS_ACTIVE_COLOR"
-  --inactive-color "$BORDERS_INACTIVE_COLOR"
-  --width "$BORDERS_WIDTH"
-  --radius "$BORDERS_RADIUS"
-  --style "$BORDERS_STYLE"
-  --opacity "$BORDERS_OPACITY"
-  --blur "$BORDERS_BLUR"
-  --shadow "$BORDERS_SHADOW"
-  --animation "$BORDERS_ANIMATION"
-  --display "$BORDERS_DISPLAY"
-  --spaces "$BORDERS_SPACES"
-  --ignore "$BORDERS_IGNORE"
+  active_color="$BORDERS_ACTIVE_COLOR"
+  inactive_color="$BORDERS_INACTIVE_COLOR"
+  width="$BORDERS_WIDTH"
+  radius="$BORDERS_RADIUS"
+  style="$BORDERS_STYLE"
+  opacity="$BORDERS_OPACITY"
+  blur="$BORDERS_BLUR"
+  shadow="$BORDERS_SHADOW"
+  animation="$BORDERS_ANIMATION"
+  display="$BORDERS_DISPLAY"
+  spaces="$BORDERS_SPACES"
+  ignore="$BORDERS_IGNORE"
 )
 
 # Add blacklist if specified
 if [ -n "$BORDERS_BLACKLIST" ]; then
-  args+=(--blacklist "$BORDERS_BLACKLIST")
+  args+=(blacklist="$BORDERS_BLACKLIST")
 fi
 
 # Add whitelist if specified
 if [ -n "$BORDERS_WHITELIST" ]; then
-  args+=(--whitelist "$BORDERS_WHITELIST")
+  args+=(whitelist="$BORDERS_WHITELIST")
 fi
 
-# Add hidpi flag only if enabled
+# Add hidpi option
 if [ "$BORDERS_HIDPI" = "on" ]; then
-  args+=(--hidpi)
+  args+=(hidpi)
+else
+  args+=(hidpi=off)
 fi
 
 # Execute borders with all arguments

@@ -144,7 +144,7 @@ sketchybar --add event aerospace_workspace_change \
 
 # Right side - clock (far right) - colors match tmux (day=cyan, time=green/bold) with rounded background
 sketchybar --add item clock right \
-           --set clock update_freq=2 \
+           --set clock update_freq=1 \
                        icon.font="FiraCode Nerd Font Mono:Regular:15.0" \
                        icon.color=0xff91d7e3 \
                        label.font="FiraCode Nerd Font Mono:Bold:13.0" \
