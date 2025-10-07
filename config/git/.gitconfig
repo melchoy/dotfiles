@@ -12,6 +12,9 @@
 	sshCommand = ssh -i ~/.ssh/id_rsa
 	ignorecase = false
 
+[sequence]
+	editor = nvim
+
 [color]
 	ui = auto
 

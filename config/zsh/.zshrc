@@ -66,12 +66,8 @@ if [[ -o interactive ]] && [[ "$TERM" != "dumb" ]] && [[ -n "$ZLE_LOADED" || -o 
   bindkey -M vicmd '^L' clear-screen
 fi
 
-# Use current Neovim via nvr when available; otherwise launch new nvim
-if command -v nvr >/dev/null 2>&1; then
-  export GIT_EDITOR="bash -lc 'nvr --remote-wait \"$@\" || nvim \"$@\"'"
-else
-  export GIT_EDITOR='nvim'
-fi
+# Use nvr-fallback wrapper for Git editor
+export GIT_EDITOR='nvr-fallback'
 
 # === Plugin Initialization (interactive only) ===
 if command -v fzf > /dev/null && [[ $IS_INTERACTIVE -eq 1 ]]; then

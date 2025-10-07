@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+if command -v nvr >/dev/null 2>&1; then
+  if [ -n "$NVIM_LISTEN_ADDRESS" ] && [ -S "$NVIM_LISTEN_ADDRESS" ]; then
+    exec nvr --remote-wait "$@"
+  elif nvr --serverlist 2>/dev/null | grep -q .; then
+    exec nvr --remote-wait "$@"
+  fi
+fi
+exec nvim "$@"
