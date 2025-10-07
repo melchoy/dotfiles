@@ -66,8 +66,8 @@ if [[ -o interactive ]] && [[ "$TERM" != "dumb" ]] && [[ -n "$ZLE_LOADED" || -o 
   bindkey -M vicmd '^L' clear-screen
 fi
 
-# Use nvr-fallback wrapper for Git editor
-export GIT_EDITOR='nvr-fallback'
+# Use nvim for Git editor (avoid nvr socket issues)
+export GIT_EDITOR='nvim'
 
 # === Plugin Initialization (interactive only) ===
 if command -v fzf > /dev/null && [[ $IS_INTERACTIVE -eq 1 ]]; then
