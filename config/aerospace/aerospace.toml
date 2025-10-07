@@ -11,20 +11,20 @@ enable-normalization-opposite-orientation-for-nested-containers = true
 # Callbacks to update sketchybar immediately on workspace changes
 after-login-command = []
 after-startup-command = [
-	'exec-and-forget sketchybar --trigger aerospace_workspace_change',
+  'exec-and-forget sketchybar --trigger aerospace_workspace_change',
 ]
 
 # Trigger sketchybar update on workspace changes
 exec-on-workspace-change = [
-	'/usr/bin/env',
-	'bash',
-	'-c',
-	'sketchybar --trigger aerospace_workspace_change',
+  '/usr/bin/env',
+  'bash',
+  '-c',
+  'sketchybar --trigger aerospace_workspace_change',
 ]
 
 # Trigger sketchybar update on window focus changes
 on-focus-changed = [
-	'exec-and-forget sketchybar --trigger aerospace_workspace_change',
+  'exec-and-forget sketchybar --trigger aerospace_workspace_change',
 ]
 
 # Gaps between windows
@@ -34,7 +34,7 @@ inner.vertical = 6
 outer.bottom = 6
 outer.left = 6
 outer.right = 6
-outer.top = 6        # Small gap - sketchybar height handled by macOS
+outer.top = 6 # Small gap - sketchybar height handled by macOS
 
 # Main modifier key: alt (option key)
 # Using alt to avoid conflicts with cmd shortcuts in apps
@@ -53,25 +53,24 @@ alt-shift-k = 'move up'
 alt-shift-l = 'move right'
 
 # Window operations
-alt-f = 'fullscreen'  # Fullscreen current window
+alt-f = 'fullscreen' # Fullscreen current window
 alt-r = 'mode resize' # Enter resize mode
 
 # Floating window
 alt-shift-space = 'layout floating' # Make focused window float
 
 # Layout modes (alt + shift + letter)
-alt-shift-a = 'layout h_accordion'               # Stack horizontally (accordion)
+alt-shift-a = 'layout h_accordion' # Stack horizontally (accordion)
 alt-shift-f = 'layout tiles horizontal vertical' # Flexible tiles
-alt-shift-s = 'layout v_accordion'               # Stack vertically
-alt-shift-t = 'layout tiling'                    # Return to tiling
+alt-shift-s = 'layout v_accordion' # Stack vertically
+alt-shift-t = 'layout tiling' # Return to tiling
 
 # Container operations (alt + shift + letter)
 alt-shift-b = 'join-with right' # Join with window to right (horizontal)
-alt-shift-v = 'join-with down'  # Join with window below (vertical)
+alt-shift-v = 'join-with down' # Join with window below (vertical)
 
 # Workspace switching (alt + number)
-alt-0 = 'workspace X' # LAST WORKSPACE
-alt-x = 'workspace X' # LAST WORKSPACE (alternative)
+alt-0 = 'workspace 0' # LAST WORKSPACE
 alt-1 = 'workspace 1'
 alt-2 = 'workspace 2'
 alt-3 = 'workspace 3'
@@ -81,11 +80,9 @@ alt-6 = 'workspace 6'
 alt-7 = 'workspace 7'
 alt-8 = 'workspace 8'
 alt-9 = 'workspace 9'
-alt-d = 'workspace D'
 
 # Move window to workspace (alt + shift + number)
-alt-shift-0 = 'move-node-to-workspace X'
-alt-shift-x = 'move-node-to-workspace X' # Alternative
+alt-shift-0 = 'move-node-to-workspace 0'
 alt-shift-1 = 'move-node-to-workspace 1'
 alt-shift-2 = 'move-node-to-workspace 2'
 alt-shift-3 = 'move-node-to-workspace 3'
@@ -95,7 +92,6 @@ alt-shift-6 = 'move-node-to-workspace 6'
 alt-shift-7 = 'move-node-to-workspace 7'
 alt-shift-8 = 'move-node-to-workspace 8'
 alt-shift-9 = 'move-node-to-workspace 9'
-alt-shift-d = 'move-node-to-workspace D'
 
 # Resize mode bindings
 [mode.resize.binding]

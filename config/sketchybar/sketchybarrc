@@ -109,9 +109,9 @@ sketchybar --add item space.S left \
                          drawing=off \
                          click_script="aerospace workspace S"
 
-# Add X workspace (Xtra/Last workspace - alt-0)
-sketchybar --add item space.X left \
-           --set space.X icon="X" \
+# Add 0 workspace (Last workspace - alt-0)
+sketchybar --add item space.0 left \
+           --set space.0 icon="0" \
                          icon.font="SF Mono:Bold:14.0" \
                          icon.color=0xffcad3f5 \
                          label.drawing=off \
@@ -131,7 +131,7 @@ sketchybar --add item space.X left \
                          icon.width=30 \
                          icon.align=center \
                          drawing=off \
-                         click_script="aerospace workspace X"
+                         click_script="aerospace workspace 0"
 
 # Add update item that manages visibility
 # Uses event-based updates via aerospace exec-on-workspace-change for instant response
