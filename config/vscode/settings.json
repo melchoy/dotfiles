@@ -323,5 +323,6 @@
 		"editor.defaultFormatter": "redhat.vscode-yaml"
 	},
 	"diffEditor.hideUnchangedRegions.enabled": true,
-	"cursor.agent_layout_browser_beta_setting": true
+	"cursor.agent_layout_browser_beta_setting": true,
+	"editor.inlineSuggest.enabled": false
 }
