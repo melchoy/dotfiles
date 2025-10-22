@@ -38,8 +38,8 @@ shell-integration-features = no-cursor,no-sudo,no-title
 
 # Key Sequence Configuration
 # -------------------------
-# Send newline character when Shift+Enter is pressed
-keybind = shift+enter=text:\n
+# Don't map Shift+Enter - let terminal send it naturally
+# (Ghostty should emit extended key sequence automatically)
 
 # ANSI Palette (Catppuccin Macchiato)
 palette = 0=494d64

@@ -57,3 +57,6 @@ fi
 # Load these in ALL shells (including IDE/non-interactive) so tools are available
 source "$DOTCONFIG/node/nvm.sh"
 source "$DOTCONFIG/ruby/rbenv.sh"
+
+# SDKMAN! (Java version manager)
+[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ] && source "$HOME/.sdkman/bin/sdkman-init.sh"
