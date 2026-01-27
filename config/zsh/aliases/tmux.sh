@@ -6,7 +6,7 @@ alias ta='tmux attach-session -t'
 alias tn='tmux new-session -s'
 alias tk='tmux kill-session -t'
 alias tka='tmux kill-session -a'  # Kill all sessions except current
-alias tr='tmux source-file ~/.dotfiles/config/tmux/tmux.conf \; display "Config reloaded 🚀"'  # Reload tmux config
+alias tmuxreload='tmux source-file ~/.dotfiles/config/tmux/tmux.conf \; display "Config reloaded 🚀"'  # Reload tmux config
 
 # Quick session switcher
 t() {
