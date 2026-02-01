@@ -41,14 +41,26 @@ do_install() {
 		echo "✅ Removed quarantine flags from SketchyBar"
 	fi
 	
-	# Start SketchyBar
+	# Stop brew's sketchybar service; we use our own LaunchAgent
 	echo ""
-	echo "Starting SketchyBar..."
-	brew services start sketchybar
+	echo "Setting up SketchyBar launch agent..."
+	brew services stop sketchybar 2>/dev/null || true
 
-	# Wait a moment for it to start
+	launchctl unload ~/Library/LaunchAgents/com.felixkratz.sketchybar.plist 2>/dev/null || true
+
+	mkdir -p ~/Library/LaunchAgents
+	sed "s|__HOME__|$HOME|g" "$DOTMANGR_CONFIGS_DIR/mac/launchagents/com.felixkratz.sketchybar.plist" \
+		> ~/Library/LaunchAgents/com.felixkratz.sketchybar.plist
+	launchctl load ~/Library/LaunchAgents/com.felixkratz.sketchybar.plist
+
+	chmod +x "$DOTMANGR_CONFIGS_DIR/mac/launchagents/sketchybar-wrapper.sh"
+
+	# Start sketchybar now if not disabled
+	[[ -f "$HOME/.env.local" ]] && source "$HOME/.env.local"
+	if [[ "$DISABLE_SKETCHYBAR" != "1" ]]; then
+		launchctl kickstart -k "gui/$(id -u)/com.felixkratz.sketchybar" 2>/dev/null || true
+	fi
 	sleep 1
-
 	if pgrep -x "sketchybar" > /dev/null; then
 		echo "✅ SketchyBar is running"
 	else
@@ -80,14 +92,14 @@ do_install() {
 do_uninstall() {
 	echo "Uninstalling SketchyBar..."
 
-	# Stop the service
-	brew services stop sketchybar 2>/dev/null || true
+	# First unload and remove our Sketchybar LaunchAgent
+	launchctl unload ~/Library/LaunchAgents/com.felixkratz.sketchybar.plist 2>/dev/null || true
+	rm -f ~/Library/LaunchAgents/com.felixkratz.sketchybar.plist 2>/dev/null || true
 
-	# Remove the package
+	brew services stop sketchybar 2>/dev/null || true
 	brew uninstall sketchybar 2>/dev/null || true
 	brew untap FelixKratz/formulae 2>/dev/null || true
 
-	# Remove symlinks
 	rm -f ~/.config/sketchybar 2>/dev/null || true
 
 	echo "✅ SketchyBar uninstalled"

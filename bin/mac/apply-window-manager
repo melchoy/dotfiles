@@ -1,0 +1,20 @@
+#!/bin/bash
+# Apply window manager config from ~/.env.local: start/stop AeroSpace and Sketchybar per DISABLE_* flags.
+
+BINDIR="$(cd "$(dirname "$0")" && pwd)"
+
+[[ -f "$HOME/.env.local" ]] && source "$HOME/.env.local"
+
+if [[ "$DISABLE_AEROSPACE" == "1" ]]; then
+	"$BINDIR/aerospace" stop
+else
+	"$BINDIR/aerospace" restart
+fi
+
+if [[ "$DISABLE_SKETCHYBAR" == "1" ]]; then
+	"$BINDIR/sketchybar" stop
+else
+	"$BINDIR/sketchybar" reload
+fi
+
+echo "✅ Window manager config applied"

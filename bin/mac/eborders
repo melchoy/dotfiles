@@ -16,5 +16,5 @@ echo ""
 read -p "Reload borders with new config? [Y/n] " -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]] || [[ -z $REPLY ]]; then
-  reload-borders
+  aerospace reload
 fi

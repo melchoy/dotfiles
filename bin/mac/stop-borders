@@ -1,9 +1,0 @@
-#!/bin/bash
-# Stop borders launch agent
-
-echo "🛑 Stopping borders..."
-if launchctl unload ~/Library/LaunchAgents/com.felixkratz.borders.plist 2>/dev/null; then
-  echo "✅ Borders stopped"
-else
-  echo "⚠️  Borders was not running"
-fi

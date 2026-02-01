@@ -1,9 +1,0 @@
-#!/bin/bash
-# Start borders launch agent
-
-echo "🚀 Starting borders..."
-if launchctl load ~/Library/LaunchAgents/com.felixkratz.borders.plist 2>/dev/null; then
-  echo "✅ Borders started"
-else
-  echo "⚠️  Borders may already be running"
-fi

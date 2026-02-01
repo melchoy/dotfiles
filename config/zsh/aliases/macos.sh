@@ -1,9 +1,8 @@
 # macOS system management aliases
 # Main commands are scripts in ~/.dotfiles/bin/mac/:
-#   - reload-borders: Reload borders with visual feedback
-#   - start-borders: Start borders
-#   - stop-borders: Stop borders  
-#   - restart-aerospace: Restart AeroSpace
+#   - aerospace: reload | restart | stop (AeroSpace + borders)
+#   - sketchybar: reload | stop
+#   - apply-window-manager: Apply ~/.env.local (DISABLE_AEROSPACE, DISABLE_SKETCHYBAR)
 #   - eborders: Edit borders config
 #   - borders-logs: View borders error logs
 

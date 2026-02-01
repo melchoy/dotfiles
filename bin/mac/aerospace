@@ -1,0 +1,44 @@
+#!/bin/bash
+# Control AeroSpace and borders: reload, restart, stop. Respects DISABLE_AEROSPACE in ~/.env.local.
+
+AEROSPACE_CLI="/Applications/AeroSpace.app/Contents/MacOS/AeroSpace"
+BORDERS_PLIST="$HOME/Library/LaunchAgents/com.felixkratz.borders.plist"
+
+[[ -f "$HOME/.env.local" ]] && source "$HOME/.env.local"
+
+usage() {
+	echo "Usage: aerospace <reload|restart|stop>"
+	echo "  reload  - Reload AeroSpace config and kickstart borders"
+	echo "  restart - Quit AeroSpace and borders, then start both"
+	echo "  stop    - Quit AeroSpace and unload borders"
+	exit 1
+}
+
+if [[ "$DISABLE_AEROSPACE" == "1" ]]; then
+	osascript -e 'quit app "AeroSpace"' 2>/dev/null || true
+	launchctl unload "$BORDERS_PLIST" 2>/dev/null || true
+	exit 0
+fi
+
+case "${1:-}" in
+	reload)
+		"$AEROSPACE_CLI" reload-config 2>/dev/null || { echo "❌ Failed to reload AeroSpace. Is it running?"; exit 1; }
+		launchctl kickstart -k "gui/$(id -u)/com.felixkratz.borders" 2>/dev/null || true
+		echo "✅ AeroSpace and borders reloaded"
+		;;
+	restart)
+		osascript -e 'quit app "AeroSpace"' 2>/dev/null || true
+		sleep 1
+		open -a AeroSpace
+		launchctl load "$BORDERS_PLIST" 2>/dev/null || true
+		echo "✅ AeroSpace and borders restarted"
+		;;
+	stop)
+		osascript -e 'quit app "AeroSpace"' 2>/dev/null || true
+		launchctl unload "$BORDERS_PLIST" 2>/dev/null || true
+		echo "✅ AeroSpace and borders stopped"
+		;;
+	*)
+		usage
+		;;
+esac

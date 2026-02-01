@@ -27,7 +27,7 @@ do_install() {
 	echo "Setting up borders configuration..."
 	mkdir -p ~/.config/borders
 	symlink_dotfile "$DOTMANGR_CONFIGS_DIR/borders" "$HOME/.config/borders"
-	chmod +x "$DOTMANGR_CONFIGS_DIR/borders/borders-wrapper.sh"
+	chmod +x "$DOTMANGR_CONFIGS_DIR/borders/borders-launch.sh"
 	echo "✅ Borders configuration installed"
 
 	# Setup aerospace configuration
@@ -53,39 +53,44 @@ do_install() {
 		echo "✅ Removed quarantine flags from AeroSpace"
 	fi
 	
-	# Start Aerospace
+	# Remove AeroSpace from System Events login items so only our LaunchAgent starts it
+	osascript -e 'tell application "System Events" to delete login item "AeroSpace"' 2>/dev/null || true
+
+	# Setup LaunchAgents: borders and AeroSpace (write plists with __HOME__ substituted)
 	echo ""
-	echo "Starting Aerospace..."
-	open -a AeroSpace
+	echo "Setting up borders and AeroSpace launch agents..."
 
-	# Wait a moment for it to start
-	sleep 1
-
-	if pgrep -x "AeroSpace" > /dev/null; then
-		echo "✅ Aerospace is running"
-	else
-		echo "⚠️  Aerospace may need accessibility permissions to start properly"
-	fi
-
-	# Setup borders launch agent for auto-start
-	echo ""
-	echo "Setting up borders launch agent..."
-
-	# Create LaunchAgents directory if it doesn't exist
 	mkdir -p ~/Library/LaunchAgents
 
-	# Unload existing launch agent if present
 	launchctl unload ~/Library/LaunchAgents/com.felixkratz.borders.plist 2>/dev/null || true
+	launchctl unload ~/Library/LaunchAgents/com.felixkratz.aerospace.plist 2>/dev/null || true
 
-	# Symlink the launch agent
-	ln -sf "$DOTMANGR_CONFIGS_DIR/mac/launchagents/com.felixkratz.borders.plist" \
-	       ~/Library/LaunchAgents/com.felixkratz.borders.plist
+	sed "s|__HOME__|$HOME|g" "$DOTMANGR_CONFIGS_DIR/mac/launchagents/com.felixkratz.borders.plist" \
+		> ~/Library/LaunchAgents/com.felixkratz.borders.plist
+	sed "s|__HOME__|$HOME|g" "$DOTMANGR_CONFIGS_DIR/mac/launchagents/com.felixkratz.aerospace.plist" \
+		> ~/Library/LaunchAgents/com.felixkratz.aerospace.plist
 
-	# Load the launch agent
 	launchctl load ~/Library/LaunchAgents/com.felixkratz.borders.plist
+	launchctl load ~/Library/LaunchAgents/com.felixkratz.aerospace.plist
 
-	echo "✅ Borders launch agent installed and loaded"
+	chmod +x "$DOTMANGR_CONFIGS_DIR/mac/launchagents/aerospace-wrapper.sh"
+
+	echo "✅ Borders and AeroSpace launch agents installed and loaded"
 	echo "   Edit ~/.config/borders/bordersrc to customize colors/width"
+
+	# Start AeroSpace now only if not disabled
+	[[ -f "$HOME/.env.local" ]] && source "$HOME/.env.local"
+	if [[ "$DISABLE_AEROSPACE" != "1" ]]; then
+		echo ""
+		echo "Starting Aerospace..."
+		open -a AeroSpace
+		sleep 1
+		if pgrep -x "AeroSpace" > /dev/null; then
+			echo "✅ Aerospace is running"
+		else
+			echo "⚠️  Aerospace may need accessibility permissions to start properly"
+		fi
+	fi
 
 	# Provide setup instructions
 	echo ""
@@ -120,23 +125,22 @@ do_install() {
 do_uninstall() {
 	echo "Uninstalling Aerospace..."
 
+	# First unload and remove AeroSpace login LaunchAgent
+	launchctl unload ~/Library/LaunchAgents/com.felixkratz.aerospace.plist 2>/dev/null || true
+	rm -f ~/Library/LaunchAgents/com.felixkratz.aerospace.plist 2>/dev/null || true
+
 	# Stop Aerospace and borders
 	pkill -9 AeroSpace 2>/dev/null || true
-	
-	# Unload and remove borders launch agent
 	launchctl unload ~/Library/LaunchAgents/com.felixkratz.borders.plist 2>/dev/null || true
 	rm -f ~/Library/LaunchAgents/com.felixkratz.borders.plist 2>/dev/null || true
 	pkill -9 borders 2>/dev/null || true
 
-	# Remove from login items
 	osascript -e 'tell application "System Events" to delete login item "AeroSpace"' 2>/dev/null || true
 
-	# Uninstall the cask and borders
 	brew uninstall --cask aerospace 2>/dev/null || true
 	brew untap nikitabobko/tap 2>/dev/null || true
 	brew uninstall borders 2>/dev/null || true
 
-	# Remove symlinks
 	rm -rf ~/.config/aerospace 2>/dev/null || true
 	rm -rf ~/.config/borders 2>/dev/null || true
 

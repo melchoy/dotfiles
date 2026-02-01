@@ -1,0 +1,34 @@
+#!/bin/bash
+# Control Sketchybar (our LaunchAgent): reload, stop. Respects DISABLE_SKETCHYBAR in ~/.env.local.
+
+SKETCHYBAR_PLIST="$HOME/Library/LaunchAgents/com.felixkratz.sketchybar.plist"
+
+[[ -f "$HOME/.env.local" ]] && source "$HOME/.env.local"
+
+usage() {
+	echo "Usage: sketchybar <reload|stop>"
+	echo "  reload - Ensure agent is loaded and kickstart sketchybar"
+	echo "  stop   - Unload sketchybar LaunchAgent"
+	exit 1
+}
+
+if [[ "$DISABLE_SKETCHYBAR" == "1" ]]; then
+	launchctl unload "$SKETCHYBAR_PLIST" 2>/dev/null || true
+	brew services stop sketchybar 2>/dev/null || true
+	exit 0
+fi
+
+case "${1:-}" in
+	reload)
+		launchctl load "$SKETCHYBAR_PLIST" 2>/dev/null || true
+		launchctl kickstart -k "gui/$(id -u)/com.felixkratz.sketchybar" 2>/dev/null || true
+		echo "✅ Sketchybar reloaded"
+		;;
+	stop)
+		launchctl unload "$SKETCHYBAR_PLIST" 2>/dev/null || true
+		echo "✅ Sketchybar stopped"
+		;;
+	*)
+		usage
+		;;
+esac

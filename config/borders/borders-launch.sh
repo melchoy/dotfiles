@@ -1,5 +1,8 @@
 #!/bin/bash
-# Borders wrapper script - loads configuration and starts borders
+# Borders launch script - loads configuration and starts borders (or sleeps if disabled)
+
+[[ -f "$HOME/.env.local" ]] && source "$HOME/.env.local"
+[[ "$DISABLE_AEROSPACE" == "1" ]] && exec sleep infinity
 
 # Source the borders configuration
 source "$HOME/.config/borders/bordersrc"
