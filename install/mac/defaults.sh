@@ -2,8 +2,9 @@
 
 echo "Setting Default Mac Preferences"
 
-# Close open System Preferences panes, to prevent them from overriding settings.
-osascript -e 'tell application "System Preferences" to quit'
+# Close open System Settings/Preferences panes, to prevent them from overriding settings.
+osascript -e 'tell application "System Settings" to quit' 2>/dev/null || \
+osascript -e 'tell application "System Preferences" to quit' 2>/dev/null
 
 # System Preferences
 defaults write com.apple.menuextra.clock DateFormat HH:mm:ss # Set clock format.
