@@ -1,8 +1,8 @@
 #!/bin/bash
-# Run Sketchybar at login unless DISABLE_SKETCHYBAR=1 in ~/.env.local (plist sets HOME).
+# Run Sketchybar at login only when ENABLE_SKETCHYBAR=1 in ~/.env.local (plist sets HOME).
 
 [[ -f "$HOME/.env.local" ]] && source "$HOME/.env.local"
-if [[ "$DISABLE_SKETCHYBAR" == "1" ]]; then
+if [[ "$ENABLE_SKETCHYBAR" != "1" ]]; then
 	exec sleep infinity
 fi
 if [[ -x /opt/homebrew/opt/sketchybar/bin/sketchybar ]]; then

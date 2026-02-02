@@ -80,7 +80,7 @@ do_install() {
 
 	# Start AeroSpace now only if not disabled
 	[[ -f "$HOME/.env.local" ]] && source "$HOME/.env.local"
-	if [[ "$DISABLE_AEROSPACE" != "1" ]]; then
+	if [[ "$ENABLE_AEROSPACE" == "1" ]]; then
 		echo ""
 		echo "Starting Aerospace..."
 		open -a AeroSpace
