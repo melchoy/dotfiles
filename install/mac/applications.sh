@@ -4,19 +4,23 @@ source ~/.dotfiles/common.sh
 
 # TODO: Make some apps optional
 cask_apps=(
+	# Browsers & Core Apps
 	"vivaldi"
 	"1password"
 
+	# System Utilities
+	"linearmouse"  # Mouse customization
+	"raycast"      # Launcher
+	"choosy"       # Browser picker
+
 	# TODO: Choose one or the other
 	#"alfred"
-	"raycast"
 
 	# TODO: Optional or Choose one
 	#"iterm2"
 	#"alacritty" # needs --no-quarantine"
 
-	# TODO: Make Optional/Section Menu
-	"choosy"
+	# Communication
 	"chatgpt"
 	"slack"
 )
