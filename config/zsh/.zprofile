@@ -34,6 +34,8 @@ export PATH="$HOME/.bin:$DOTHOME/bin:$PATH"
 # macOS-specific bins (only on macOS)
 if [[ "$OSTYPE" == "darwin"* ]]; then
   export PATH="$DOTHOME/bin/mac:$PATH"
+  # TeX (MacTeX) - required for pdflatex, xelatex, latexmk
+  [[ -d /Library/TeX/texbin ]] && export PATH="/Library/TeX/texbin:$PATH"
 fi
 
 

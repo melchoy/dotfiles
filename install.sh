@@ -49,6 +49,9 @@ do_install() {
 	# Pulumi
 	sh $DOTMANGR_INSTALLER_DIR/pulumi.sh
 
+	# DOCUMENT TOOLCHAIN (LaTeX, Typst, Pandoc - cross-platform)
+	sh $DOTMANGR_INSTALLER_DIR/document-tools.sh
+
 	# LINKING GENERIC DOTS
 	sh $DOTMANGR_INSTALLER_DIR/dots.sh
 
