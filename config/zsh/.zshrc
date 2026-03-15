@@ -146,3 +146,6 @@ case ":$PATH:" in
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/Users/mel/.sdkman"
 [[ -s "/Users/mel/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/mel/.sdkman/bin/sdkman-init.sh"
+
+# opencode
+export PATH=/Users/mel/.opencode/bin:$PATH

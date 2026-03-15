@@ -9,19 +9,19 @@
 
 	"[javascript]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode",
-		"editor.tabSize": 2
+		"editor.tabSize": 2,
 	},
 	"[typescript]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode",
-		"editor.tabSize": 2
+		"editor.tabSize": 2,
 	},
 	"[typescriptreact]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode",
-		"editor.tabSize": 2
+		"editor.tabSize": 2,
 	},
 	"[ruby]": {
 		"editor.tabSize": 2,
-		"editor.rulers": [120]
+		"editor.rulers": [120],
 	},
 
 	"files.exclude": {
@@ -41,12 +41,12 @@
 		"**/public/packs": true,
 		"**/storage": true,
 		"**/temp": true,
-		"**/tmp": true
+		"**/tmp": true,
 	},
 	"files.associations": {
 		".aliases": "shellscript",
 		".zshrc-local": "shellscript",
-		".zprofile-local": "shellscript"
+		".zprofile-local": "shellscript",
 	},
 	"explorer.fileNesting.patterns": {
 		"*.ts": "${capture}.js",
@@ -60,7 +60,7 @@
 		"*.sqlite3": "${capture}.${extname}-*",
 		"*.db3": "${capture}.${extname}-*",
 		"*.sdb": "${capture}.${extname}-*",
-		"*.s3db": "${capture}.${extname}-*"
+		"*.s3db": "${capture}.${extname}-*",
 	},
 
 	"terminal.integrated.fontFamily": "FiraCode Nerd Font Mono",
@@ -94,7 +94,7 @@
 		"javascript",
 		"javascriptreact",
 		"typescript",
-		"typescriptreact"
+		"typescriptreact",
 	],
 	"stylelint.config": {
 		"extends": ["stylelint-config-standard", "stylelint-config-tailwindcss"],
@@ -107,15 +107,15 @@
 						"apply",
 						"variants",
 						"responsive",
-						"screen"
-					]
-				}
-			]
-		}
+						"screen",
+					],
+				},
+			],
+		},
 	},
 
 	"yaml.schemas": {
-		"https://json.schemastore.org/github-workflow.json": "file:///Users/mel/Work/flexnet-worktrees/main/.github/workflows/*.yml"
+		"https://json.schemastore.org/github-workflow.json": "file:///Users/mel/Work/flexnet-worktrees/main/.github/workflows/*.yml",
 	},
 
 	"todo-tree.filtering.excludeGlobs": [
@@ -132,7 +132,7 @@
 		"**/storage/**",
 		"**/log/**",
 		"**/.sass-cache/**",
-		"**/.pnpm-store/**"
+		"**/.pnpm-store/**",
 	],
 	"todo-tree.general.tags": [
 		"TODO",
@@ -141,7 +141,7 @@
 		"NOTE",
 		"@todo",
 		"@bug",
-		"@fixme"
+		"@fixme",
 	],
 	"todo-tree.highlights.customHighlight": {
 		"TODO": {
@@ -149,55 +149,55 @@
 			"foreground": "#ffffff",
 			"background": "#4abb89",
 			"iconColour": "#2ecc71",
-			"type": "tag"
+			"type": "tag",
 		},
 		"BUG": {
 			"icon": "bug",
 			"foreground": "#ffffff",
 			"background": "#e74c3c",
 			"iconColour": "#ee0000",
-			"type": "tag"
+			"type": "tag",
 		},
 		"FIXME": {
 			"icon": "tools",
 			"foreground": "#ffffff",
 			"background": "#e67e22",
 			"iconColour": "#f39c12",
-			"type": "tag"
+			"type": "tag",
 		},
 		"NOTE": {
 			"icon": "note",
 			"foreground": "#ffffff",
 			"background": "#3498db",
 			"iconColour": "#3498db",
-			"type": "tag"
+			"type": "tag",
 		},
 		"@todo": {
 			"icon": "check-circle",
 			"foreground": "#ffffff",
 			"background": "#4abb89",
 			"iconColour": "#2ecc71",
-			"type": "tag"
+			"type": "tag",
 		},
 		"@bug": {
 			"icon": "bug",
 			"foreground": "#ffffff",
 			"background": "#e74c3c",
 			"iconColour": "#ee0000",
-			"type": "tag"
+			"type": "tag",
 		},
 		"@fixme": {
 			"icon": "tools",
 			"foreground": "#ffffff",
 			"background": "#e67e22",
 			"iconColour": "#f39c12",
-			"type": "tag"
-		}
+			"type": "tag",
+		},
 	},
 
 	"redhat.telemetry.enabled": false,
 	"supermaven.enable": {
-		"*": true
+		"*": true,
 	},
 	"javascript.updateImportsOnFileMove.enabled": "always",
 	"github.copilot.nextEditSuggestions.enabled": false,
@@ -219,11 +219,11 @@
 	"highlight.regexes": {
 		"pulumi\\.interpolate`([\\s\\S]*?)`": {
 			"language": "shellscript",
-			"filterLanguageRegex": "typescript|javascript"
+			"filterLanguageRegex": "typescript|javascript",
 		},
 		"(sh|bash)`([\\s\\S]*?)`": {
 			"language": "shellscript",
-			"filterLanguageRegex": "typescript|javascript"
+			"filterLanguageRegex": "typescript|javascript",
 		},
 		"((?:<!-- *)?(?:#|// @|//|./\\*+|<!--|--|\\* @|{!|{{!--|{{!) *TODO(?:\\s*\\([^)]+\\))?:?)((?!\\w)(?: *-->| *\\*/| *!}| *--}}| *}}|(?= *(?:[^:]//|/\\*+|<!--|@|--|{!|{{!--|{{!))|(?: +[^\\n@]*?)(?= *(?:[^:]//|/\\*+|<!--|@|--(?!>)|{!|{{!--|{{!))|(?: +[^@\\n]+)?))": {
 			"filterFileRegex": ".*(?<!CHANGELOG.md)$",
@@ -232,13 +232,13 @@
 					"overviewRulerColor": "#ffcc00",
 					"backgroundColor": "#ffcc00",
 					"color": "#1f1f1f",
-					"fontWeight": "bold"
+					"fontWeight": "bold",
 				},
 				{
 					"backgroundColor": "#ffcc00",
-					"color": "#1f1f1f"
-				}
-			]
+					"color": "#1f1f1f",
+				},
+			],
 		},
 		"((?:<!-- *)?(?:#|// @|//|./\\*+|<!--|--|\\* @|{!|{{!--|{{!) *(?:FIXME|FIX|BUG|UGLY|DEBUG|HACK)(?:\\s*\\([^)]+\\))?:?)((?!\\w)(?: *-->| *\\*/| *!}| *--}}| *}}|(?= *(?:[^:]//|/\\*+|<!--|@|--|{!|{{!--|{{!))|(?: +[^\\n@]*?)(?= *(?:[^:]//|/\\*+|<!--|@|--(?!>)|{!|{{!--|{{!))|(?: +[^@\\n]+)?))": {
 			"filterFileRegex": ".*(?<!CHANGELOG.md)$",
@@ -247,13 +247,13 @@
 					"overviewRulerColor": "#cc0000",
 					"backgroundColor": "#cc0000",
 					"color": "#1f1f1f",
-					"fontWeight": "bold"
+					"fontWeight": "bold",
 				},
 				{
 					"backgroundColor": "#cc0000",
-					"color": "#1f1f1f"
-				}
-			]
+					"color": "#1f1f1f",
+				},
+			],
 		},
 		"((?:<!-- *)?(?:#|// @|//|./\\*+|<!--|--|\\* @|{!|{{!--|{{!) *(?:REVIEW|OPTIMIZE|TSC)(?:\\s*\\([^)]+\\))?:?)((?!\\w)(?: *-->| *\\*/| *!}| *--}}| *}}|(?= *(?:[^:]//|/\\*+|<!--|@|--|{!|{{!--|{{!))|(?: +[^\\n@]*?)(?= *(?:[^:]//|/\\*+|<!--|@|--(?!>)|{!|{{!--|{{!))|(?: +[^@\\n]+)?))": {
 			"filterFileRegex": ".*(?<!CHANGELOG.md)$",
@@ -262,13 +262,13 @@
 					"overviewRulerColor": "#00ccff",
 					"backgroundColor": "#00ccff",
 					"color": "#1f1f1f",
-					"fontWeight": "bold"
+					"fontWeight": "bold",
 				},
 				{
 					"backgroundColor": "#00ccff",
-					"color": "#1f1f1f"
-				}
-			]
+					"color": "#1f1f1f",
+				},
+			],
 		},
 		"((?:<!-- *)?(?:#|// @|//|./\\*+|<!--|--|\\* @|{!|{{!--|{{!) *(?:IDEA)(?:\\s*\\([^)]+\\))?:?)((?!\\w)(?: *-->| *\\*/| *!}| *--}}| *}}|(?= *(?:[^:]//|/\\*+|<!--|@|--|{!|{{!--|{{!))|(?: +[^\\n@]*?)(?= *(?:[^:]//|/\\*+|<!--|@|--(?!>)|{!|{{!--|{{!))|(?: +[^@\\n]+)?))": {
 			"filterFileRegex": ".*(?<!CHANGELOG.md)$",
@@ -277,14 +277,14 @@
 					"overviewRulerColor": "#cc00cc",
 					"backgroundColor": "#cc00cc",
 					"color": "#1f1f1f",
-					"fontWeight": "bold"
+					"fontWeight": "bold",
 				},
 				{
 					"backgroundColor": "#cc00cc",
-					"color": "#1f1f1f"
-				}
-			]
-		}
+					"color": "#1f1f1f",
+				},
+			],
+		},
 	},
 	"github.copilot.selectedCompletionModel": "",
 	"github.copilot.chat.followUps": "firstOnly",
@@ -294,7 +294,7 @@
 	"github.copilot.chat.edits.temporalContext.enabled": true,
 	"github.copilot.chat.languageContext.fix.typescript.enabled": true,
 	"gitlens.advanced.messages": {
-		"suppressLineUncommittedWarning": true
+		"suppressLineUncommittedWarning": true,
 	},
 	"docker.extension.enableComposeLanguageServer": false,
 	"cursor.composer.shouldChimeAfterChatFinishes": true,
@@ -303,7 +303,7 @@
 	"diffEditor.ignoreTrimWhitespace": true,
 	"gitlens.ai.gitkraken.model": "gemini:gemini-2.0-flash",
 	"[jsonc]": {
-		"editor.defaultFormatter": "esbenp.prettier-vscode"
+		"editor.defaultFormatter": "esbenp.prettier-vscode",
 	},
 	"json.schemaDownload.enable": true,
 	"application.shellEnvironmentResolutionTimeout": 90,
@@ -315,14 +315,15 @@
 		"editor.quickSuggestions": {
 			"other": true,
 			"comments": false,
-			"strings": true
+			"strings": true,
 		},
-		"editor.defaultFormatter": "redhat.vscode-yaml"
+		"editor.defaultFormatter": "redhat.vscode-yaml",
 	},
 	"[github-actions-workflow]": {
-		"editor.defaultFormatter": "redhat.vscode-yaml"
+		"editor.defaultFormatter": "redhat.vscode-yaml",
 	},
 	"diffEditor.hideUnchangedRegions.enabled": true,
 	"cursor.agent_layout_browser_beta_setting": true,
-	"editor.inlineSuggest.enabled": false
+	"editor.inlineSuggest.enabled": false,
+	"chat.viewSessions.orientation": "stacked",
 }
