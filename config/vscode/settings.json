@@ -324,5 +324,7 @@
 	},
 	"diffEditor.hideUnchangedRegions.enabled": true,
 	"cursor.agent_layout_browser_beta_setting": true,
-	"editor.inlineSuggest.enabled": false
+	"editor.inlineSuggest.enabled": false,
+	"cursor.general.reduceTransparency": true,
+	"cursor.general.emailPrivacyEnabled": true
 }
