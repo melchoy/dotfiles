@@ -185,25 +185,12 @@ create_basic_layout() {
     tmux new-window -t "$session_name" -n "git" -c "$project_path"
     tmux send-keys -t "$session_name:git" "lazygit" C-m
 
-    # Window 3: Terminal (split)
+    # Window 3: Terminal
     tmux new-window -t "$session_name" -n "term" -c "$project_path"
-    tmux split-window -t "$session_name:term" -v -c "$project_path"
 
     # If it's a web project, add server window
     if [[ "$project_type" =~ (Next.js|React|TypeScript|JavaScript|Rails) ]]; then
         tmux new-window -t "$session_name" -n "server" -c "$project_path"
-        tmux split-window -t "$session_name:server" -v -c "$project_path"
-
-        # Try to detect and suggest server command
-        if [ -f "$project_path/package.json" ]; then
-            if jq -e '.scripts.dev' "$project_path/package.json" >/dev/null 2>&1; then
-                tmux send-keys -t "$session_name:server" "# Run: npm run dev" C-m
-            elif jq -e '.scripts.start' "$project_path/package.json" >/dev/null 2>&1; then
-                tmux send-keys -t "$session_name:server" "# Run: npm start" C-m
-            fi
-        elif [ -f "$project_path/Gemfile" ] && [ -f "$project_path/config/application.rb" ]; then
-            tmux send-keys -t "$session_name:server" "# Run: rails server" C-m
-        fi
     fi
 
     # Return to code window
