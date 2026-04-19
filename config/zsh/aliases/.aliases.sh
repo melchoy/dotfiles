@@ -2,7 +2,7 @@ alias edit="vim"
 alias evim="vim ~/.config/nvim"
 alias cf="clear && fastfetch && exec zsh"
 alias copilot="gh copilot"
-alias suggest="gh copilot suggest"
+alias suggest="gh copilot --prompt"
 
 alias dev="./bin/dev"
 

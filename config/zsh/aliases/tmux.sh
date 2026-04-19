@@ -3,10 +3,54 @@
 # Tmux aliases for easy session management
 alias tl='tmux list-sessions'
 alias ta='tmux attach-session -t'
-alias tn='tmux new-session -s'
+unalias tn 2>/dev/null
 alias tk='tmux kill-session -t'
 alias tka='tmux kill-session -a'  # Kill all sessions except current
 alias tmuxreload='tmux source-file ~/.dotfiles/config/tmux/tmux.conf \; display "Config reloaded 🚀"'  # Reload tmux config
+
+tn() {
+    local session_name=""
+    local start_path=""
+
+    while [ $# -gt 0 ]; do
+        case "$1" in
+            -s)
+                shift
+                session_name="$1"
+                ;;
+            -c)
+                shift
+                start_path="$1"
+                ;;
+            *)
+                if [ -z "$start_path" ]; then
+                    start_path="$1"
+                fi
+                ;;
+        esac
+        shift
+    done
+
+    if [ -z "$session_name" ]; then
+        echo "usage: tn -s <session-name> [path]"
+        return 1
+    fi
+
+    if [ -n "$start_path" ]; then
+        start_path="${~start_path}"
+    fi
+
+    if tmux has-session -t "$session_name" 2>/dev/null; then
+        echo "Session '$session_name' already exists"
+        return
+    fi
+
+    if [ -n "$start_path" ]; then
+        tmux new-session -d -s "$session_name" -c "$start_path"
+    else
+        tmux new-session -d -s "$session_name"
+    fi
+}
 
 # Quick session switcher
 t() {
@@ -22,8 +66,27 @@ t() {
         fi
         tmux attach-session -t work
     else
-        # With argument: attach to named session or create it
-        tmux new-session -A -s "$1"
+        # With argument: attach to named session or create it, optionally at a path
+        local session_name="$1"
+        local start_path="$2"
+
+        if [ -n "$start_path" ]; then
+            start_path="${~start_path}"
+        fi
+
+        if ! tmux has-session -t "$session_name" 2>/dev/null; then
+            if [ -n "$start_path" ]; then
+                tn -s "$session_name" "$start_path"
+            else
+                tn -s "$session_name"
+            fi
+        fi
+
+        if [ -n "$TMUX" ]; then
+            tmux switch-client -t "$session_name"
+        else
+            tmux attach-session -t "$session_name"
+        fi
     fi
 }
 
