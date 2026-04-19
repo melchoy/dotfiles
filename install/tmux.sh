@@ -16,6 +16,11 @@ symlink_dotfile "$DOTMANGR_CONFIGS_DIR/tmux/tmux.conf" "$HOME/.config/tmux/tmux.
 # Create symlink for backward compatibility (many systems expect ~/.tmux.conf)
 symlink_dotfile "$DOTMANGR_CONFIGS_DIR/tmux/tmux.conf" "$HOME/.tmux.conf"
 
+# Install TPM (Tmux Plugin Manager) if missing
+if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
+	git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
+fi
+
 # Make scripts executable
 chmod +x ~/.dotfiles/config/tmux/scripts/*.sh 2>/dev/null || true
 
