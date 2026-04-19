@@ -1,5 +1,5 @@
 #!/bin/bash
-# Control AeroSpace and borders: reload, restart, stop. Respects DISABLE_AEROSPACE in ~/.env.local.
+# Control AeroSpace and borders: reload, restart, stop. Respects ENABLE_AEROSPACE in ~/.env.local.
 
 AEROSPACE_CLI="/Applications/AeroSpace.app/Contents/MacOS/AeroSpace"
 BORDERS_PLIST="$HOME/Library/LaunchAgents/com.felixkratz.borders.plist"
@@ -14,7 +14,7 @@ usage() {
 	exit 1
 }
 
-if [[ "$DISABLE_AEROSPACE" == "1" ]]; then
+if [[ "$ENABLE_AEROSPACE" != "1" ]]; then
 	osascript -e 'quit app "AeroSpace"' 2>/dev/null || true
 	launchctl unload "$BORDERS_PLIST" 2>/dev/null || true
 	exit 0

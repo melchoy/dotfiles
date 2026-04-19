@@ -1,0 +1,12 @@
+# Pandoc defaults for Markdown to PDF (uses LaTeX engine)
+# Usage: pandoc doc.md -o doc.pdf --defaults=defaults.yaml
+# Or with path: pandoc doc.md -o doc.pdf --defaults=~/.dotfiles/config/pandoc/defaults.yaml
+
+from: markdown
+to: pdf
+pdf-engine: pdflatex
+
+variables:
+  geometry: "margin=2cm"
+  fontsize: 11pt
+  documentclass: article

@@ -57,7 +57,7 @@ do_install() {
 
 	# Start sketchybar now if not disabled
 	[[ -f "$HOME/.env.local" ]] && source "$HOME/.env.local"
-	if [[ "$DISABLE_SKETCHYBAR" != "1" ]]; then
+	if [[ "$ENABLE_SKETCHYBAR" == "1" ]]; then
 		launchctl kickstart -k "gui/$(id -u)/com.felixkratz.sketchybar" 2>/dev/null || true
 	fi
 	sleep 1

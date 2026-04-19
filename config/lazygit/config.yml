@@ -73,9 +73,9 @@ git:
   # Branch settings
   branchLogCmd: 'git log --graph --pretty=format:"%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit'
   # Paging
-  paging:
-    colorArg: always
-    pager: ''
+  pagers:
+    - colorArg: always
+      pager: ''
   # Parse emoji
   parseEmoji: true
 os:
@@ -164,7 +164,7 @@ keybinding:
     viewResetOptions: 'D'
     fetch: 'f'
     toggleTreeView: '`'
-    openMergeTool: 'M'
+    openMergeOptions: 'M'
     openStatusFilter: '<c-b>'
     copyFileInfoToClipboard: 'y'
   branches:
