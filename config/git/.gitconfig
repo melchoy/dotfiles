@@ -11,6 +11,7 @@
 	excludesFile = ~/.dotfiles/config/git/.gitignore
 	sshCommand = ssh -i ~/.ssh/id_rsa
 	ignorecase = false
+	hooksPath = /Users/mel/.git-hooks
 
 [sequence]
 	editor = nvim
@@ -55,4 +56,5 @@
 	skippedCherryPicks = false
 [push]
 	default = current
+	autoSetupRemote = true
 

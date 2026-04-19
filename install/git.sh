@@ -43,3 +43,10 @@ fi
 
 symlink_dotfile "$DOTMANGR_CONFIGS_DIR/git/.gitconfig"
 touch $HOME/.gitlocal
+
+mkdir -p "$HOME/.git-hooks"
+
+for hook in "$DOTMANGR_CONFIGS_DIR"/git/hooks/*; do
+	[[ -f "$hook" ]] || continue
+	symlink_dotfile "$hook" "$HOME/.git-hooks/$(basename "$hook")"
+done
