@@ -1,5 +1,6 @@
-alias edit="vim"
-alias evim="vim ~/.config/nvim"
+alias e="nvim"
+alias edit="nvim"
+alias evim="nvim ~/.config/nvim"
 alias cf="clear && fastfetch && exec zsh"
 alias copilot="gh copilot"
 alias suggest="gh copilot --prompt"
