@@ -29,6 +29,9 @@ for app in "${cask_apps[@]}"; do
 	brew_install_or_update_cask "$app"
 done
 
+# CLI: set default app for file types / URL schemes
+install_or_update_package "duti"
+
 echo "Raycast setup:"
 echo "  Open Raycast → Settings → Extensions → Script Commands → Add Directory: $HOME/.dotfiles/config/raycast/commands"
 echo "  (Raycast cannot be configured programmatically; add once via UI)"

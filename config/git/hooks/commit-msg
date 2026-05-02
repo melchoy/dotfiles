@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+# Delete lines in a file (sed `d`, not substitution). First arg: path; rest: sed script args.
+remove_lines() {
+	local path=$1
+	shift
+	if [[ "$(uname -s)" == "Darwin" ]]; then
+		sed -i '' "$@" "$path"
+	else
+		sed -i "$@" "$path"
+	fi
+}
+
+remove_lines "$1" '/^Made-with: Cursor$/d'

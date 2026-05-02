@@ -306,14 +306,14 @@
 		"editor.defaultFormatter": "esbenp.prettier-vscode",
 	},
 	"latex-workshop.latex.env": {
-		"PATH": "/Library/TeX/texbin:${env:PATH}"
+		"PATH": "/Library/TeX/texbin:${env:PATH}",
 	},
 	"latex-workshop.formatting.latex": "none",
 	"latex-workshop.view.pdf.viewer": "tab",
 	"latex-workshop.latex.autoBuild.run": "onSave",
-	"latex-workshop.latex.outDir": "%DIR%/build",
+	"latex-workshop.latex.outDir": "%DIR%/out",
 	"[latex]": {
-		"editor.formatOnSave": false
+		"editor.formatOnSave": false,
 	},
 	"json.schemaDownload.enable": true,
 	"application.shellEnvironmentResolutionTimeout": 90,
@@ -338,4 +338,8 @@
 	"cursor.general.reduceTransparency": true,
 	"cursor.general.emailPrivacyEnabled": true
 	"chat.viewSessions.orientation": "stacked",
+	"workbench.editorAssociations": {
+		"*.copilotmd": "vscode.markdown.preview.editor",
+		"*.pdf": "default",
+	},
 }
