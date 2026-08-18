@@ -1,0 +1,14 @@
+#!/bin/sh
+# Called by sibling hooks. Not a Git hook.
+# Usage: run-repo-hook <hook-path> [args...]
+
+name=$(basename "$1")
+shift
+repo_hook="$(git rev-parse --git-common-dir)/hooks/$name"
+
+if [ ! -x "$repo_hook" ]; then
+	exit 0
+fi
+
+"$repo_hook" "$@"
+exit $?

@@ -1,0 +1,5 @@
+#!/bin/sh
+GIT_DIR=$(git rev-parse --git-dir)
+[ -f "$GIT_DIR/tmp/.gitignore.bak" ] && mv "$GIT_DIR/tmp/.gitignore.bak" .gitignore
+
+exec "$(dirname "$0")/run-repo-hook" "$0" "$@"

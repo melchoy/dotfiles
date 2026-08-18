@@ -1,0 +1,16 @@
+#!/bin/sh
+GIT_DIR=$(git rev-parse --git-dir)
+mkdir -p "$GIT_DIR/tmp"
+
+if grep -q '^# *scratch/' .gitignore 2>/dev/null; then
+  cp .gitignore "$GIT_DIR/tmp/.gitignore.bak"
+  sed -i '' 's/^# *scratch\/.*/scratch\//' .gitignore
+  git add .gitignore
+fi
+
+scratch_files=$(git diff --cached --name-only | grep '^scratch/')
+if [ -n "$scratch_files" ]; then
+  echo "$scratch_files" | xargs git reset HEAD --
+fi
+
+exec "$(dirname "$0")/run-repo-hook" "$0" "$@"
