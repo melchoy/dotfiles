@@ -69,7 +69,6 @@
 	"terminal.external.osxExec": "Ghostty.app",
 
 	"window.zoomLevel": 1,
-	"window.commandCenter": true,
 	"workbench.colorTheme": "Catppuccin Frappé",
 
 	"git.openRepositoryInParentFolders": "never",
@@ -336,10 +335,21 @@
 	"cursor.agent_layout_browser_beta_setting": true,
 	"editor.inlineSuggest.enabled": false,
 	"cursor.general.reduceTransparency": true,
-	"cursor.general.emailPrivacyEnabled": true
+	"cursor.general.emailPrivacyEnabled": true,
 	"chat.viewSessions.orientation": "stacked",
 	"workbench.editorAssociations": {
 		"*.copilotmd": "vscode.markdown.preview.editor",
 		"*.pdf": "default",
 	},
+	"chat.titleBar.openInAgentsWindow.enabled": false,
+	"workbench.browser.showInTitleBar": true,
+	"workbench.startupEditor": "none",
+	"yaml.disableSchemaDetection": [
+		"**/.github/workflows/*.yml",
+		"**/.github/workflows/*.yaml",
+		"**/.gitea/workflows/*.yml",
+		"**/.gitea/workflows/*.yaml",
+		"**/.forgejo/workflows/*.yml",
+		"**/.forgejo/workflows/*.yaml",
+	],
 }

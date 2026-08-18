@@ -51,6 +51,7 @@ defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false # Disab
 defaults write NSGlobalDomain AppleWindowTabbingMode always # Always open new diiocuments in tabs.
 defaults write com.apple.dock expose-group-apps -bool true # Mission control display in groups, needed for aerospace
 defaults write com.apple.dock mru-spaces -bool false # Keep Mission Control Spaces order fixed.
+defaults write com.apple.dock workspaces-auto-swoosh -bool false # Do not jump to a Space when switching apps.
 killall Dock
 
 # Text Correction
