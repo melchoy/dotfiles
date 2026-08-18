@@ -90,6 +90,31 @@ t() {
     fi
 }
 
+tn() {
+  local name="$1"
+  local dir="${2:-$PWD}"
+
+  if [ -z "$name" ]; then
+    echo "usage: tn <session-name> [dir]"
+    return 1
+  fi
+
+  if tmux has-session -t "$name" 2>/dev/null; then
+    if [ -n "$TMUX" ]; then
+      tmux switch-client -t "$name"
+    else
+      tmux attach-session -t "$name"
+    fi
+  else
+    if [ -n "$TMUX" ]; then
+      tmux new-session -d -s "$name" -c "$dir"
+      tmux switch-client -t "$name"
+    else
+      tmux new-session -s "$name" -c "$dir"
+    fi
+  fi
+}
+
 # Interactive session switcher (requires fzf)
 ts() {
     if [ -z "$TMUX" ]; then

@@ -71,7 +71,6 @@
 	"terminal.external.osxExec": "Ghostty.app",
 
 	"window.zoomLevel": 1,
-	"window.commandCenter": true,
 	"workbench.colorTheme": "Catppuccin Frappé",
 
 	"git.openRepositoryInParentFolders": "never",
@@ -308,14 +307,14 @@
 		"editor.defaultFormatter": "esbenp.prettier-vscode",
 	},
 	"latex-workshop.latex.env": {
-		"PATH": "/Library/TeX/texbin:${env:PATH}"
+		"PATH": "/Library/TeX/texbin:${env:PATH}",
 	},
 	"latex-workshop.formatting.latex": "none",
 	"latex-workshop.view.pdf.viewer": "tab",
 	"latex-workshop.latex.autoBuild.run": "onSave",
-	"latex-workshop.latex.outDir": "%DIR%/build",
+	"latex-workshop.latex.outDir": "%DIR%/out",
 	"[latex]": {
-		"editor.formatOnSave": false
+		"editor.formatOnSave": false,
 	},
 	"json.schemaDownload.enable": true,
 	"application.shellEnvironmentResolutionTimeout": 90,
@@ -340,6 +339,14 @@
 	"cursor.general.reduceTransparency": true,
 	"cursor.general.emailPrivacyEnabled": true,
 	"chat.viewSessions.orientation": "stacked",
+	"chat.defaultModel": "codex",
 	"window.autoDetectColorScheme": true,
 	"cursor.composer.conversationDensity": "compact-ungrouped",
+	"chat.titleBar.openInAgentsWindow.enabled": false,
+	"chat.commandCenter.enabled": false,
+	"chat.agentsControl.enabled": false,
+	"workbench.secondarySideBar.defaultVisibility": "hidden",
+	"workbench.editorAssociations": {
+		"*.copilotmd": "vscode.markdown.preview.editor",
+	},
 }

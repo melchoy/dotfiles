@@ -1,32 +1,68 @@
 #!/bin/bash
-# Control AeroSpace and borders: reload, restart, stop. Respects ENABLE_AEROSPACE in ~/.env.local.
+# Control AeroSpace and borders. Respects ENABLE_AEROSPACE in ~/.env.local.
 
 AEROSPACE_CLI="/Applications/AeroSpace.app/Contents/MacOS/AeroSpace"
 BORDERS_PLIST="$HOME/Library/LaunchAgents/com.felixkratz.borders.plist"
+ENV_FILE="$HOME/.env.local"
 
-[[ -f "$HOME/.env.local" ]] && source "$HOME/.env.local"
+[[ -f "$ENV_FILE" ]] && source "$ENV_FILE"
 
 usage() {
-	echo "Usage: aerospace <reload|restart|stop>"
+	echo "Usage: aerospace <enable|disable|reload|restart|stop>"
+	echo "  enable  - Enable AeroSpace in ~/.env.local and start it"
+	echo "  disable - Disable AeroSpace in ~/.env.local and stop it"
 	echo "  reload  - Reload AeroSpace config and kickstart borders"
 	echo "  restart - Quit AeroSpace and borders, then start both"
 	echo "  stop    - Quit AeroSpace and unload borders"
 	exit 1
 }
 
-if [[ "$ENABLE_AEROSPACE" != "1" ]]; then
+stop_aerospace() {
 	osascript -e 'quit app "AeroSpace"' 2>/dev/null || true
 	launchctl unload "$BORDERS_PLIST" 2>/dev/null || true
-	exit 0
-fi
+}
+
+set_aerospace_enabled() {
+	local enabled="$1"
+	local tmp_file
+
+	touch "$ENV_FILE"
+	tmp_file="$(mktemp)"
+
+	grep -v -E '^(export[[:space:]]+)?(ENABLE_AEROSPACE|DISABLE_AEROSPACE)=' "$ENV_FILE" > "$tmp_file" || true
+	{
+		cat "$tmp_file"
+		echo "export ENABLE_AEROSPACE=$enabled"
+	} > "$ENV_FILE"
+
+	rm -f "$tmp_file"
+}
 
 case "${1:-}" in
+	enable)
+		set_aerospace_enabled 1
+		ENABLE_AEROSPACE=1
+		"$0" restart
+		;;
+	disable)
+		set_aerospace_enabled 0
+		stop_aerospace
+		echo "✅ AeroSpace and borders disabled"
+		;;
 	reload)
+		if [[ "$ENABLE_AEROSPACE" != "1" ]]; then
+			stop_aerospace
+			exit 0
+		fi
 		"$AEROSPACE_CLI" reload-config 2>/dev/null || { echo "❌ Failed to reload AeroSpace. Is it running?"; exit 1; }
 		launchctl kickstart -k "gui/$(id -u)/com.felixkratz.borders" 2>/dev/null || true
 		echo "✅ AeroSpace and borders reloaded"
 		;;
 	restart)
+		if [[ "$ENABLE_AEROSPACE" != "1" ]]; then
+			stop_aerospace
+			exit 0
+		fi
 		osascript -e 'quit app "AeroSpace"' 2>/dev/null || true
 		sleep 1
 		open -a AeroSpace
@@ -34,8 +70,7 @@ case "${1:-}" in
 		echo "✅ AeroSpace and borders restarted"
 		;;
 	stop)
-		osascript -e 'quit app "AeroSpace"' 2>/dev/null || true
-		launchctl unload "$BORDERS_PLIST" 2>/dev/null || true
+		stop_aerospace
 		echo "✅ AeroSpace and borders stopped"
 		;;
 	*)

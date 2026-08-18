@@ -24,7 +24,6 @@ defaults write com.apple.dock largesize -int 54        # Set dock magnified icon
 defaults write NSGlobalDomain AppleInterfaceStyle Dark # Use dark menu bar and dock.
 defaults write com.apple.dock persistent-apps -array   # Delete all apps from dock.
 defaults write com.apple.dock show-recents -bool false # Turn off "suggested and recent" applications in the Dock.
-killall Dock
 
 # Print and Save Panels
 defaults write NSGlobalDomain NSNavPanelExpandedStateForPrintMode -bool true
@@ -51,6 +50,9 @@ defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false # Disab
 # Window Management
 defaults write NSGlobalDomain AppleWindowTabbingMode always # Always open new diiocuments in tabs.
 defaults write com.apple.dock expose-group-apps -bool true # Mission control display in groups, needed for aerospace
+defaults write com.apple.dock mru-spaces -bool false # Keep Mission Control Spaces order fixed.
+defaults write com.apple.dock workspaces-auto-swoosh -bool false # Do not jump to a Space when switching apps.
+killall Dock
 
 # Text Correction
 defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false     # Disable automatic capitalization.

@@ -9,9 +9,9 @@
 [core]
 	editor = nvim
 	excludesFile = ~/.dotfiles/config/git/.gitignore
+	hooksPath = ~/.dotfiles/config/git/hooks
 	sshCommand = ssh -i ~/.ssh/id_rsa
 	ignorecase = false
-	hooksPath = ~/.dotfiles/config/git/hooks
 
 [sequence]
 	editor = nvim

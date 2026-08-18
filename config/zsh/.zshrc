@@ -7,6 +7,11 @@ fi
 IS_INTERACTIVE=0
 case $- in *i*) IS_INTERACTIVE=1 ;; esac
 
+# Dotfiles paths may not be set when zsh starts as a non-login shell.
+export DOTHOME="${DOTHOME:-$HOME/.dotfiles}"
+export DOTCONFIG="${DOTCONFIG:-$DOTHOME/config}"
+export DOTZSH="${DOTZSH:-$DOTCONFIG/zsh}"
+
 IS_IDE_SHELL=0
 [[ "$TERM_PROGRAM" == "vscode" || -n "$VSCODE_PID" || -n "$VSCODE_IPC_HOOK" ]] && IS_IDE_SHELL=1
 
@@ -149,3 +154,9 @@ export SDKMAN_DIR="/Users/mel/.sdkman"
 
 # opencode
 export PATH=/Users/mel/.opencode/bin:$PATH
+
+# >>> grok installer >>>
+export PATH="$HOME/.grok/bin:$PATH"
+fpath=(~/.grok/completions/zsh $fpath)
+autoload -Uz compinit && compinit -C
+# <<< grok installer <<<
