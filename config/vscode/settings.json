@@ -1,4 +1,6 @@
 {
+ "cursor.mcp.browserAutomation": "browser_tab",
+ "cursor.chat.playwrightProtection": false,
 	"editor.tabSize": 2,
 	"editor.insertSpaces": false,
 	"editor.fontSize": 16,
@@ -336,6 +338,8 @@
 	"cursor.agent_layout_browser_beta_setting": true,
 	"editor.inlineSuggest.enabled": false,
 	"cursor.general.reduceTransparency": true,
-	"cursor.general.emailPrivacyEnabled": true
+	"cursor.general.emailPrivacyEnabled": true,
 	"chat.viewSessions.orientation": "stacked",
+	"window.autoDetectColorScheme": true,
+	"cursor.composer.conversationDensity": "compact-ungrouped",
 }
