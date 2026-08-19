@@ -1,6 +1,6 @@
 {
- "cursor.mcp.browserAutomation": "browser_tab",
- "cursor.chat.playwrightProtection": false,
+	"cursor.mcp.browserAutomation": "browser_tab",
+	"cursor.chat.playwrightProtection": false,
 	"editor.tabSize": 2,
 	"editor.insertSpaces": false,
 	"editor.fontSize": 16,
@@ -71,7 +71,7 @@
 	"terminal.external.osxExec": "Ghostty.app",
 
 	"window.zoomLevel": 1,
-	"workbench.colorTheme": "Catppuccin Frappé",
+	"workbench.colorTheme": "Catppuccin Macchiato",
 
 	"git.openRepositoryInParentFolders": "never",
 	"git.autofetch": true,
@@ -349,4 +349,5 @@
 	"workbench.editorAssociations": {
 		"*.copilotmd": "vscode.markdown.preview.editor",
 	},
+	"workbench.preferredDarkColorTheme": "Dracula Theme",
 }
