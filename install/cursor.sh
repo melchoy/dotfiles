@@ -89,8 +89,8 @@ if [[ "$PLATFORM_NAME" == "mac" ]]; then
   fi
 
   # Symlink configuration files
-  #symlink_dotfile ~/.dotfiles/config/vscode/macos/keybindings.json ~/Library/Application\ Support/Cursor/User/keybindings.json
-  symlink_dotfile ~/.dotfiles/config/vscode/settings.json ~/Library/Application\ Support/Cursor/User/settings.json
+  symlink_dotfile ~/.dotfiles/config/cursor/keybindings.json ~/Library/Application\ Support/Cursor/User/keybindings.json
+  symlink_dotfile ~/.dotfiles/config/cursor/settings.json ~/Library/Application\ Support/Cursor/User/settings.json
   symlink_dotfile ~/.dotfiles/config/vscode/snippets ~/Library/Application\ Support/Cursor/User/snippets
 
 elif [[ "$PLATFORM_NAME" == "ubuntu" ]]; then
@@ -133,8 +133,8 @@ EOF
     mv "$cursor_settings" "${cursor_settings}.backup.$(date +%Y%m%d-%H%M%S)"
   fi
 
-  # symlink_dotfile ~/.dotfiles/config/vscode/linux/keybindings.json ~/.config/Cursor/User/keybindings.json
-  symlink_dotfile ~/.dotfiles/config/vscode/settings.json ~/.config/Cursor/User/settings.json
+  symlink_dotfile ~/.dotfiles/config/cursor/keybindings.json ~/.config/Cursor/User/keybindings.json
+  symlink_dotfile ~/.dotfiles/config/cursor/settings.json ~/.config/Cursor/User/settings.json
   symlink_dotfile ~/.dotfiles/config/vscode/snippets ~/.config/Cursor/User/snippets
 fi
 
