@@ -2,9 +2,11 @@
 GIT_DIR=$(git rev-parse --git-dir)
 mkdir -p "$GIT_DIR/tmp"
 
-if grep -q '^# *scratch/' .gitignore 2>/dev/null; then
+# Restore a commented scratch ignore so a temporary un-ignore cannot be committed.
+# Matches #/scratch (flexnet) and # scratch / #scratch/ (unanchored variants).
+if grep -qE '^#[[:space:]]*/?scratch/?[[:space:]]*$' .gitignore 2>/dev/null; then
   cp .gitignore "$GIT_DIR/tmp/.gitignore.bak"
-  sed -i '' 's/^# *scratch\/.*/scratch\//' .gitignore
+  sed -i '' -E 's|^#[[:space:]]*(/?scratch/?)[[:space:]]*$|\1|' .gitignore
   git add .gitignore
 fi
 
