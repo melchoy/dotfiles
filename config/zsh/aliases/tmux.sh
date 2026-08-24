@@ -52,10 +52,11 @@ tn() {
   fi
 
   if tmux has-session -t "$name" 2>/dev/null; then
-    if [ -n "$dir" ]; then
-      tmux attach-session -t "$name" -c "$dir"
-    elif [ -n "$TMUX" ]; then
+    if [ -n "$TMUX" ]; then
+      # Never attach from inside tmux: that attempts to create a nested client.
       tmux switch-client -t "$name"
+    elif [ -n "$dir" ]; then
+      tmux attach-session -t "$name" -c "$dir"
     else
       tmux attach-session -t "$name"
     fi

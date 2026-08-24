@@ -220,7 +220,8 @@ create_session_from_path() {
     if tmux has-session -t "$session_name" 2>/dev/null; then
         log "Session '$session_name' already exists, attaching..."
         if [ -n "$TMUX" ]; then
-            tmux attach-session -t "$session_name" -c "$project_path"
+            # attach-session inside tmux attempts to nest and fails; switch the client.
+            tmux switch-client -t "$session_name"
         else
             exec tmux attach-session -t "$session_name" -c "$project_path"
         fi
@@ -236,7 +237,8 @@ create_session_from_path() {
     # Attach to session
     log "Session '$session_name' created successfully!"
     if [ -n "$TMUX" ]; then
-        tmux attach-session -t "$session_name" -c "$project_path"
+        # attach-session inside tmux attempts to nest and fails; switch the client.
+        tmux switch-client -t "$session_name"
     else
         exec tmux attach-session -t "$session_name" -c "$project_path"
     fi
