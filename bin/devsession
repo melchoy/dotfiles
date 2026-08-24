@@ -91,12 +91,88 @@ detect_project_type() {
 
 get_git_info() {
     local dir="$1"
-    if [ -d "$dir/.git" ]; then
+    if [ -e "$dir/.git" ]; then
         local branch=$(cd "$dir" && git branch --show-current 2>/dev/null)
         echo "[${branch:-no-branch}]"
     else
         echo ""
     fi
+}
+
+is_git_root() {
+    [ -e "$1/.git" ]
+}
+
+is_pruned_directory() {
+    case "$(basename "$1")" in
+        .git|node_modules|dist|coverage|.data|.cache|.turbo|.next|.vite|.pnpm-store|build|out|var|vendor|media|downloads|storage|tmp|logs)
+            return 0
+            ;;
+        *)
+            return 1
+            ;;
+    esac
+}
+
+is_runnable_project() {
+    local dir="$1"
+    [ -f "$dir/package.json" ] || return 1
+    jq -e '.scripts.start // .scripts.dev // .scripts.serve // .scripts["start:server"]' \
+        "$dir/package.json" >/dev/null 2>&1
+}
+
+is_composite_project() {
+    local dir="$1"
+    [ ! -f "$dir/package.json" ] && return 0
+    [ -f "$dir/pnpm-workspace.yaml" ] && return 0
+    [ -d "$dir/packages" ] || [ -d "$dir/systems" ] || [ -d "$dir/apps" ] || [ -d "$dir/scratch" ] && return 0
+    jq -e '.workspaces' "$dir/package.json" >/dev/null 2>&1
+}
+
+emit_project() {
+    local dir="$1"
+    local rel_path="${dir#$WORK_DIR/}"
+    local project_type=$(detect_project_type "$dir")
+    local git_info=$(get_git_info "$dir")
+
+    printf "%s\t%s\t%s\n" "$rel_path" "$git_info" "$project_type"
+}
+
+scan_project_tree() {
+    local dir="$1"
+    local depth="$2"
+    local is_root=0
+
+    if is_git_root "$dir"; then
+        is_root=1
+        emit_project "$dir"
+        is_composite_project "$dir" || return 0
+        depth=0
+    elif is_runnable_project "$dir"; then
+        emit_project "$dir"
+    fi
+
+    # The normal scan is shallow, but inspect one boundary level so a nested
+    # repository at the edge (such as cortex/scratch/lab) can be found.
+    if [ "$is_root" -eq 0 ] && [ "$depth" -ge 3 ]; then
+        if [ "$depth" -ne 3 ]; then return 0; fi
+        local boundary_child
+        while IFS= read -r boundary_child; do
+            is_pruned_directory "$boundary_child" && continue
+            if is_git_root "$boundary_child"; then
+                scan_project_tree "$boundary_child" 4
+            fi
+        done < <(find "$dir" -mindepth 1 -maxdepth 1 -type d -not -path '*/.*' -print | sort)
+        return 0
+    fi
+
+    local child
+    while IFS= read -r child; do
+        is_pruned_directory "$child" && continue
+        scan_project_tree "$child" $((depth + 1))
+    done < <(find "$dir" -mindepth 1 -maxdepth 1 -type d -not -path '*/.*' -print | sort)
+
+    return 0
 }
 
 # =============================================================================
@@ -111,14 +187,8 @@ show_universal_picker() {
         return 1
     fi
 
-    local selected=$(find "$WORK_DIR" -mindepth 1 -maxdepth 3 -type d -not -path "*/.*" | \
-        while IFS= read -r dir; do
-            local rel_path=${dir#$WORK_DIR/}
-            local git_info=$(get_git_info "$dir")
-            local project_type=$(detect_project_type "$dir")
-
-            printf "%-50s %-15s %s\n" "$rel_path" "$git_info" "$project_type"
-        done | \
+    local selected=$(scan_project_tree "$WORK_DIR" 0 | \
+        awk -F '\t' '{ printf "%-60s %-15s %s\n", $1, $2, $3 }' | \
         sort | \
         fzf --prompt="Select project> " \
             --preview="ls -la $WORK_DIR/{1}" \
