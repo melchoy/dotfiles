@@ -8,50 +8,6 @@ alias tk='tmux kill-session -t'
 alias tka='tmux kill-session -a'  # Kill all sessions except current
 alias tmuxreload='tmux source-file ~/.dotfiles/config/tmux/tmux.conf \; display "Config reloaded 🚀"'  # Reload tmux config
 
-tn() {
-    local session_name=""
-    local start_path=""
-
-    while [ $# -gt 0 ]; do
-        case "$1" in
-            -s)
-                shift
-                session_name="$1"
-                ;;
-            -c)
-                shift
-                start_path="$1"
-                ;;
-            *)
-                if [ -z "$start_path" ]; then
-                    start_path="$1"
-                fi
-                ;;
-        esac
-        shift
-    done
-
-    if [ -z "$session_name" ]; then
-        echo "usage: tn -s <session-name> [path]"
-        return 1
-    fi
-
-    if [ -n "$start_path" ]; then
-        start_path="${~start_path}"
-    fi
-
-    if tmux has-session -t "$session_name" 2>/dev/null; then
-        echo "Session '$session_name' already exists"
-        return
-    fi
-
-    if [ -n "$start_path" ]; then
-        tmux new-session -d -s "$session_name" -c "$start_path"
-    else
-        tmux new-session -d -s "$session_name"
-    fi
-}
-
 # Quick session switcher
 t() {
     if [ -z "$1" ]; then
@@ -74,38 +30,37 @@ t() {
             start_path="${~start_path}"
         fi
 
-        if ! tmux has-session -t "$session_name" 2>/dev/null; then
-            if [ -n "$start_path" ]; then
-                tn -s "$session_name" "$start_path"
-            else
-                tn -s "$session_name"
-            fi
-        fi
-
-        if [ -n "$TMUX" ]; then
-            tmux switch-client -t "$session_name"
+        if [ -n "$start_path" ]; then
+            tn "$session_name" "$start_path"
         else
-            tmux attach-session -t "$session_name"
+            tn "$session_name"
         fi
     fi
 }
 
 tn() {
   local name="$1"
-  local dir="${2:-$PWD}"
+  local dir="$2"
 
   if [ -z "$name" ]; then
     echo "usage: tn <session-name> [dir]"
     return 1
   fi
 
+  if [ -n "$dir" ]; then
+    dir="${~dir}"
+  fi
+
   if tmux has-session -t "$name" 2>/dev/null; then
-    if [ -n "$TMUX" ]; then
+    if [ -n "$dir" ]; then
+      tmux attach-session -t "$name" -c "$dir"
+    elif [ -n "$TMUX" ]; then
       tmux switch-client -t "$name"
     else
       tmux attach-session -t "$name"
     fi
   else
+    [ -z "$dir" ] && dir="$PWD"
     if [ -n "$TMUX" ]; then
       tmux new-session -d -s "$name" -c "$dir"
       tmux switch-client -t "$name"
