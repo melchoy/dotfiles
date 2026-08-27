@@ -350,4 +350,5 @@
 		"*.copilotmd": "vscode.markdown.preview.editor",
 	},
 	"workbench.preferredDarkColorTheme": "Dracula Theme",
+	"editor.accessibilitySupport": "on",
 }
