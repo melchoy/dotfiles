@@ -352,4 +352,5 @@
 	"workbench.preferredDarkColorTheme": "Dracula Theme",
 	"cursor.glassWorkspaceLspMaxLocalWorkspaces": 3,
 	"cursor.composer.queueMessageDefaultBehavior": "steer",
+	"editor.accessibilitySupport": "on",
 }
