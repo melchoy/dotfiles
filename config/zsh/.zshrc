@@ -160,3 +160,6 @@ export PATH="$HOME/.grok/bin:$PATH"
 fpath=(~/.grok/completions/zsh $fpath)
 autoload -Uz compinit && compinit -C
 # <<< grok installer <<<
+
+# Added by Antigravity IDE
+export PATH="/Users/mel/.antigravity-ide/antigravity-ide/bin:$PATH"

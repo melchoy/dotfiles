@@ -354,4 +354,6 @@
 		"searchAndCompare": false,
 		"launchpad": true,
 	},
+	"claudeCode.preferredLocation": "panel",
+	"workbench.startupEditor": "none",
 }
