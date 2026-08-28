@@ -14,6 +14,7 @@ do_install() {
 
 	# CORE ENVIRONMENT PACKAGES
 	sh $DOTMANGR_INSTALLER_DIR/vault.sh
+	sh $DOTMANGR_INSTALLER_DIR/agents.sh
 	sh $DOTMANGR_INSTALLER_DIR/zsh.sh
 	sh $DOTMANGR_INSTALLER_DIR/nerdfonts.sh
 	sh $DOTMANGR_INSTALLER_DIR/starship.sh
